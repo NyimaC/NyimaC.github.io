@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.5k 字
+      11.3k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      130
+      142
        分钟
     </span>
   
@@ -600,7 +600,7 @@ ByteBuffer byteBuffer = ByteBuffer.allocateDirect(_1M);</code></pre>
 <li>使用了Unsafe类来完成直接内存的分配回收，回收需要主动调用freeMemory方法</li>
 <li>ByteBuffer的实现内部使用了Cleaner（虚引用）来检测ByteBuffer。一旦ByteBuffer被垃圾回收，那么会由ReferenceHandler来调用Cleaner的clean方法调用freeMemory来释放内存</li>
 </ul>
-<h1 id="三、垃圾回收"><a href="#三、垃圾回收" class="headerlink" title="三、垃圾回收"></a>三、垃圾回收</h1><h3 id="1、如何判断对象可以回收"><a href="#1、如何判断对象可以回收" class="headerlink" title="1、如何判断对象可以回收"></a>1、如何判断对象可以回收</h3><h4 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h4><p>弊端：循环引用时，两个对象的计数都为1，导致两个对象都无法被释放</p>
+<h2 id="三、垃圾回收"><a href="#三、垃圾回收" class="headerlink" title="三、垃圾回收"></a>三、垃圾回收</h2><h3 id="1、如何判断对象可以回收"><a href="#1、如何判断对象可以回收" class="headerlink" title="1、如何判断对象可以回收"></a>1、如何判断对象可以回收</h3><h4 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h4><p>弊端：循环引用时，两个对象的计数都为1，导致两个对象都无法被释放</p>
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608150750.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h4><ul>
 <li>JVM中的垃圾回收器通过<strong>可达性分析</strong>来探索所有存活的对象</li>
@@ -923,7 +923,7 @@ ByteBuffer byteBuffer = ByteBuffer.allocateDirect(_1M);</code></pre>
 <li>幸存区需要能够保存 <strong>当前活跃对象</strong>+<strong>需要晋升的对象</strong></li>
 <li>晋升阈值配置得当，让长时间存活的对象尽快晋升</li>
 </ul>
-<h4 id="老年代调优"><a href="#老年代调优" class="headerlink" title="老年代调优"></a>老年代调优</h4><h2 id="类加载与字节码技术"><a href="#类加载与字节码技术" class="headerlink" title="类加载与字节码技术"></a>类加载与字节码技术</h2><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608151300.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="老年代调优"><a href="#老年代调优" class="headerlink" title="老年代调优"></a>老年代调优</h4><h2 id="四、类加载与字节码技术"><a href="#四、类加载与字节码技术" class="headerlink" title="四、类加载与字节码技术"></a>四、类加载与字节码技术</h2><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608151300.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="1、类文件结构"><a href="#1、类文件结构" class="headerlink" title="1、类文件结构"></a>1、类文件结构</h3><p>首先获得.class字节码文件</p>
 <p>方法：</p>
 <ul>
@@ -1158,7 +1158,7 @@ Constant pool:
 		<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;
 		<span class="hljs-keyword">int</span> x=<span class="hljs-number">0</span>;
 		<span class="hljs-keyword">while</span>(i&lt;<span class="hljs-number">10</span>) &#123;
-			x = ++x;
+			x = x++;
 			i++;
 		&#125;
 		System.out.println(x); <span class="hljs-comment">//接过为0</span>
@@ -1189,7 +1189,156 @@ Constant pool:
 
 
 
-<h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h1>
+<h3 id="3、构造方法"><a href="#3、构造方法" class="headerlink" title="3、构造方法"></a>3、构造方法</h3><h4 id="cinit-V"><a href="#cinit-V" class="headerlink" title="cinit()V"></a>cinit()V</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo3</span> </span>&#123;
+	<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;
+
+	<span class="hljs-keyword">static</span> &#123;
+		i = <span class="hljs-number">20</span>;
+	&#125;
+
+	<span class="hljs-keyword">static</span> &#123;
+		i = <span class="hljs-number">30</span>;
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		System.out.println(i); <span class="hljs-comment">//结果为30</span>
+	&#125;
+&#125;</code></pre>
+
+
+
+<p>编译器会按<strong>从上至下</strong>的顺序，收集所有 static 静态代码块和静态成员赋值的代码，<strong>合并</strong>为一个特殊的方 法 <cinit>()V ：</p>
+<pre><code class="hljs angelscript">stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">0</span>, args_size=<span class="hljs-number">0</span>
+         <span class="hljs-number">0</span>: bipush        <span class="hljs-number">10</span>
+         <span class="hljs-number">2</span>: putstatic     #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Field i:I</span>
+         <span class="hljs-number">5</span>: bipush        <span class="hljs-number">20</span>
+         <span class="hljs-number">7</span>: putstatic     #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Field i:I</span>
+        <span class="hljs-number">10</span>: bipush        <span class="hljs-number">30</span>
+        <span class="hljs-number">12</span>: putstatic     #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Field i:I</span>
+        <span class="hljs-number">15</span>: <span class="hljs-keyword">return</span></code></pre>
+
+
+
+<h4 id="init-V"><a href="#init-V" class="headerlink" title="init()V"></a>init()V</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo4</span> </span>&#123;
+	<span class="hljs-keyword">private</span> String a = <span class="hljs-string">"s1"</span>;
+
+	&#123;
+		b = <span class="hljs-number">20</span>;
+	&#125;
+
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> b = <span class="hljs-number">10</span>;
+
+	&#123;
+		a = <span class="hljs-string">"s2"</span>;
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Demo4</span><span class="hljs-params">(String a, <span class="hljs-keyword">int</span> b)</span> </span>&#123;
+		<span class="hljs-keyword">this</span>.a = a;
+		<span class="hljs-keyword">this</span>.b = b;
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		Demo4 d = <span class="hljs-keyword">new</span> Demo4(<span class="hljs-string">"s3"</span>, <span class="hljs-number">30</span>);
+		System.out.println(d.a);
+		System.out.println(d.b);
+	&#125;
+&#125;</code></pre>
+
+<p>编译器会按<strong>从上至下</strong>的顺序，收集所有 {} 代码块和成员变量赋值的代码，<strong>形成新的构造方法</strong>，但<strong>原始构造方法</strong>内的代码<strong>总是在后</strong></p>
+<pre><code class="hljs angelscript">Code:
+     stack=<span class="hljs-number">2</span>, locals=<span class="hljs-number">3</span>, args_size=<span class="hljs-number">3</span>
+        <span class="hljs-number">0</span>: aload_0
+        <span class="hljs-number">1</span>: invokespecial #<span class="hljs-number">1</span>                  <span class="hljs-comment">// Method java/lang/Object."&lt;init&gt;":()V</span>
+        <span class="hljs-number">4</span>: aload_0
+        <span class="hljs-number">5</span>: ldc           #<span class="hljs-number">2</span>                  <span class="hljs-comment">// String s1</span>
+        <span class="hljs-number">7</span>: putfield      #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Field a:Ljava/lang/String;</span>
+       <span class="hljs-number">10</span>: aload_0
+       <span class="hljs-number">11</span>: bipush        <span class="hljs-number">20</span>
+       <span class="hljs-number">13</span>: putfield      #<span class="hljs-number">4</span>                  <span class="hljs-comment">// Field b:I</span>
+       <span class="hljs-number">16</span>: aload_0
+       <span class="hljs-number">17</span>: bipush        <span class="hljs-number">10</span>
+       <span class="hljs-number">19</span>: putfield      #<span class="hljs-number">4</span>                  <span class="hljs-comment">// Field b:I</span>
+       <span class="hljs-number">22</span>: aload_0
+       <span class="hljs-number">23</span>: ldc           #<span class="hljs-number">5</span>                  <span class="hljs-comment">// String s2</span>
+       <span class="hljs-number">25</span>: putfield      #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Field a:Ljava/lang/String;</span>
+       <span class="hljs-comment">//原始构造方法在最后执行</span>
+       <span class="hljs-number">28</span>: aload_0
+       <span class="hljs-number">29</span>: aload_1
+       <span class="hljs-number">30</span>: putfield      #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Field a:Ljava/lang/String;</span>
+       <span class="hljs-number">33</span>: aload_0
+       <span class="hljs-number">34</span>: iload_2
+       <span class="hljs-number">35</span>: putfield      #<span class="hljs-number">4</span>                  <span class="hljs-comment">// Field b:I</span>
+       <span class="hljs-number">38</span>: <span class="hljs-keyword">return</span></code></pre>
+
+
+
+<h3 id="4、方法调用"><a href="#4、方法调用" class="headerlink" title="4、方法调用"></a>4、方法调用</h3><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo5</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Demo5</span><span class="hljs-params">()</span> </span>&#123;
+
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test1</span><span class="hljs-params">()</span> </span>&#123;
+
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test2</span><span class="hljs-params">()</span> </span>&#123;
+
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test3</span><span class="hljs-params">()</span> </span>&#123;
+
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">test4</span><span class="hljs-params">()</span> </span>&#123;
+
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		Demo5 demo5 = <span class="hljs-keyword">new</span> Demo5();
+		demo5.test1();
+		demo5.test2();
+		demo5.test3();
+		Demo5.test4();
+	&#125;
+&#125;</code></pre>
+
+<p>不同方法在调用时，对应的虚拟机指令有所区别</p>
+<ul>
+<li>私有、构造、被final修饰的方法，在调用时都使用<strong>invokespecial</strong>指令</li>
+<li>普通成员方法在调用时，使用invokespecial指令。因为编译期间无法确定该方法的内容，只有在运行期间才能确定</li>
+<li>静态方法在调用时使用invokestatic指令</li>
+</ul>
+<pre><code class="hljs angelscript">Code:
+      stack=<span class="hljs-number">2</span>, locals=<span class="hljs-number">2</span>, args_size=<span class="hljs-number">1</span>
+         <span class="hljs-number">0</span>: new           #<span class="hljs-number">2</span>                  <span class="hljs-comment">// class com/nyima/JVM/day5/Demo5 </span>
+         <span class="hljs-number">3</span>: dup	<span class="hljs-comment">//将</span>
+         <span class="hljs-number">4</span>: invokespecial #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Method "&lt;init&gt;":()V</span>
+         <span class="hljs-number">7</span>: astore_1
+         <span class="hljs-number">8</span>: aload_1
+         <span class="hljs-number">9</span>: invokespecial #<span class="hljs-number">4</span>                  <span class="hljs-comment">// Method test1:()V</span>
+        <span class="hljs-number">12</span>: aload_1
+        <span class="hljs-number">13</span>: invokespecial #<span class="hljs-number">5</span>                  <span class="hljs-comment">// Method test2:()V</span>
+        <span class="hljs-number">16</span>: aload_1
+        <span class="hljs-number">17</span>: invokevirtual #<span class="hljs-number">6</span>                  <span class="hljs-comment">// Method test3:()V</span>
+        <span class="hljs-number">20</span>: invokestatic  #<span class="hljs-number">7</span>                  <span class="hljs-comment">// Method test4:()V</span>
+        <span class="hljs-number">23</span>: <span class="hljs-keyword">return</span></code></pre>
+
+<ul>
+<li>new 是创建【对象】，给对象分配堆内存，执行成功会将【对象引用】压入操作数栈 </li>
+<li>dup 是赋值操作数栈栈顶的内容，本例即为【对象引用】，为什么需要两份引用呢，一个是要配 合 invokespecial 调用该对象的构造方法 “<init>“:()V （会消耗掉栈顶一个引用），另一个要 配合 astore_1 赋值给局部变量 </li>
+<li>终方法（ﬁnal），私有方法（private），构造方法都是由 invokespecial 指令来调用，属于静态绑定 </li>
+<li>普通成员方法是由 invokevirtual 调用，属于动态绑定，即支持多态 成员方法与静态方法调用的另一个区别是，执行方法前是否需要【对象引用】 </li>
+</ul>
+<h3 id="5、多态原理"><a href="#5、多态原理" class="headerlink" title="5、多态原理"></a>5、多态原理</h3><p>因为普通成员方法需要在运行时才能确定具体的内容，所以虚拟机需要调用<strong>invokevirtual</strong>指令</p>
+<p>在执行invokevirtual指令时，经历了以下几个步骤</p>
+<ul>
+<li>先通过栈帧中对象的引用找到对象</li>
+<li>分析对象头，找到对象实际的Class</li>
+<li>Class结构中有<strong>vtable</strong></li>
+<li>查询vtable找到方法的具体地址</li>
+<li>执行方法的字节码</li>
+</ul>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2>
             </article>
             <hr>
             <div>
