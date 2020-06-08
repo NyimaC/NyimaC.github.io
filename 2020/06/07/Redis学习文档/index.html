@@ -204,7 +204,9 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="Redis学习——黑马"><a href="#Redis学习——黑马" class="headerlink" title="Redis学习——黑马"></a>Redis学习——黑马</h1><h2 id="一、Redis常用指令"><a href="#一、Redis常用指令" class="headerlink" title="一、Redis常用指令"></a>一、Redis常用指令</h2><pre><code class="hljs awk"><span class="hljs-regexp">//</span>启动容器
+              <h1 id="Redis学习"><a href="#Redis学习" class="headerlink" title="Redis学习"></a>Redis学习</h1><p>本博客根据<strong>黑马Redis教程</strong>学习而做的笔记，链接如下</p>
+<p><a href="https://www.bilibili.com/video/BV1CJ411m7Gc?p=2" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1CJ411m7Gc?p=2</a></p>
+<h2 id="一、Redis常用指令"><a href="#一、Redis常用指令" class="headerlink" title="一、Redis常用指令"></a>一、Redis常用指令</h2><pre><code class="hljs awk"><span class="hljs-regexp">//</span>启动容器
 docker run -d -p <span class="hljs-number">6379</span>:<span class="hljs-number">6379</span> -it   --name=<span class="hljs-string">"myredis"</span>  redis
 输入密码：
 auth 密码
@@ -272,8 +274,8 @@ psetex <span class="hljs-built_in">key</span> milliseconds <span class="hljs-bui
 <ul>
 <li>redis 控制数据的生命周期，通过数据是否失效控制业务行为，适用于所有具有时效性限定控制的操作 </li>
 </ul>
-<h4 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200331204253496.png" srcset="/img/loading.gif" alt="image-20200331204253496"></p>
-<h3 id="2、Hash"><a href="#2、Hash" class="headerlink" title="2、Hash"></a>2、Hash</h3><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200331210455314.png" srcset="/img/loading.gif" alt="image-20200331210455314"></p>
+<h4 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142355.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="2、Hash"><a href="#2、Hash" class="headerlink" title="2、Hash"></a>2、Hash</h3><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142425.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="基本操作-1"><a href="#基本操作-1" class="headerlink" title="基本操作"></a>基本操作</h4><pre><code class="hljs q"><span class="hljs-comment">//插入（如果已存在同名的field，会被覆盖）</span>
 hset <span class="hljs-built_in">key</span> field <span class="hljs-built_in">value</span>
 hmset <span class="hljs-built_in">key</span> field1 value1 field2 value2...
@@ -399,7 +401,7 @@ smove source destination key</code></pre>
 <li><p>sorted_set类型：在set的存储结构基础上添加可排序字段 </p>
 </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200402203746312.png" srcset="/img/loading.gif" alt="image-20200402203746312"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142442.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="基本操作-4"><a href="#基本操作-4" class="headerlink" title="基本操作"></a>基本操作</h4><pre><code class="hljs sql">//插入元素, 需要指定score(用于排序)
 zadd key score1 member1 score2 member2
 
@@ -482,7 +484,7 @@ persist <span class="hljs-built_in">key</span></code></pre>
 <span class="hljs-built_in">keys</span> pattern</code></pre>
 
 <p><strong>查询规则</strong></p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200404111905487.png" srcset="/img/loading.gif" alt="image-20200404111905487"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142500.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="拓展操作（其他操作）"><a href="#拓展操作（其他操作）" class="headerlink" title="拓展操作（其他操作）"></a>拓展操作（其他操作）</h4><pre><code class="hljs haxe"><span class="hljs-comment">//重命名key，为了避免覆盖已有数据，尽量少去修改已有key的名字，如果要使用最好使用renamenx</span>
 rename key <span class="hljs-keyword">new</span><span class="hljs-type">Key</span>
 <span class="hljs-type">renamenx</span> key <span class="hljs-keyword">new</span><span class="hljs-type">Key</span>
@@ -620,7 +622,7 @@ docker run -d --privileged=<span class="hljs-literal">true</span> -p <span class
 <li>将当前<strong>数据状态</strong>进行保存，<strong>快照</strong>形式，存储数据结果，存储格式简单，关注点在<strong>数据</strong> </li>
 <li>将数据的<strong>操作过程</strong>进行保存，<strong>日志</strong>形式，存储操作过程，存储格式复杂，关注点在数据的操作<strong>过程</strong> </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200409153935451.png" srcset="/img/loading.gif" alt="image-20200409153935451"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142523.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="2、RDB"><a href="#2、RDB" class="headerlink" title="2、RDB"></a>2、RDB</h3><h4 id="RDB启动方式——save"><a href="#RDB启动方式——save" class="headerlink" title="RDB启动方式——save"></a>RDB启动方式——save</h4><ul>
 <li><p>命令</p>
 <pre><code class="hljs ebnf"><span class="hljs-attribute">save</span></code></pre>
@@ -651,7 +653,7 @@ docker run -d --privileged=<span class="hljs-literal">true</span> -p <span class
 </ul>
 </li>
 </ul>
-<h4 id="RDB启动方式——save指令工作原理"><a href="#RDB启动方式——save指令工作原理" class="headerlink" title="RDB启动方式——save指令工作原理"></a>RDB启动方式——save指令工作原理</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200409171955181.png" srcset="/img/loading.gif" alt="image-20200409171955181"></p>
+<h4 id="RDB启动方式——save指令工作原理"><a href="#RDB启动方式——save指令工作原理" class="headerlink" title="RDB启动方式——save指令工作原理"></a>RDB启动方式——save指令工作原理</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142541.png" srcset="/img/loading.gif" alt=""></p>
 <p><strong>注意</strong>：<strong>save指令</strong>的执行会<strong>阻塞</strong>当前Redis服务器，直到当前RDB过程完成为止，有可能会造成<strong>长时间阻塞</strong>，线上环境<strong>不建议使用</strong>。   </p>
 <h4 id="RDB启动方式——bgsave"><a href="#RDB启动方式——bgsave" class="headerlink" title="RDB启动方式——bgsave"></a>RDB启动方式——bgsave</h4><ul>
 <li><p>命令</p>
@@ -661,7 +663,7 @@ docker run -d --privileged=<span class="hljs-literal">true</span> -p <span class
 <p>手动启动后台保存操作，但<strong>不是立即执行</strong> </p>
 </li>
 </ul>
-<h4 id="RDB启动方式-——-bgsave指令工作原理"><a href="#RDB启动方式-——-bgsave指令工作原理" class="headerlink" title="RDB启动方式 —— bgsave指令工作原理"></a>RDB启动方式 —— bgsave指令工作原理</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200409173308552.png" srcset="/img/loading.gif" alt="image-20200409173308552"></p>
+<h4 id="RDB启动方式-——-bgsave指令工作原理"><a href="#RDB启动方式-——-bgsave指令工作原理" class="headerlink" title="RDB启动方式 —— bgsave指令工作原理"></a>RDB启动方式 —— bgsave指令工作原理</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142558.png" srcset="/img/loading.gif" alt=""></p>
 <p><strong>注意</strong>： <strong>bgsave命令</strong>是针对save阻塞问题做的<strong>优化</strong>。Redis内部所有涉及到RDB操作都采用bgsave的方式，save命令可以放弃使用，推荐使用bgsave</p>
 <p><strong>bgsave的保存操作可以通过redis的日志查看</strong></p>
 <pre><code class="hljs ebnf"><span class="hljs-attribute">docker logs myredis</span></code></pre>
@@ -685,14 +687,14 @@ docker run -d --privileged=<span class="hljs-literal">true</span> -p <span class
 <p>在<strong>conf文件</strong>中进行配置 </p>
 </li>
 </ul>
-<h4 id="RDB启动方式-——save配置原理"><a href="#RDB启动方式-——save配置原理" class="headerlink" title="RDB启动方式 ——save配置原理"></a>RDB启动方式 ——save配置原理</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200409175526084.png" srcset="/img/loading.gif" alt="image-20200409175526084"></p>
+<h4 id="RDB启动方式-——save配置原理"><a href="#RDB启动方式-——save配置原理" class="headerlink" title="RDB启动方式 ——save配置原理"></a>RDB启动方式 ——save配置原理</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142617.png" srcset="/img/loading.gif" alt=""></p>
 <p><strong>注意</strong>：</p>
 <ul>
 <li>save配置要根据实际业务情况进行设置，频度过高或过低都会出现性能问题，结果可能是灾难性的 </li>
 <li>save配置中对于second与changes设置通常具有<strong>互补对应</strong>关系（一个大一个小），尽量不要设置成包含性关系 </li>
 <li>save配置启动后执行的是<strong>bgsave操作</strong> </li>
 </ul>
-<h4 id="RDB启动方式对比"><a href="#RDB启动方式对比" class="headerlink" title="RDB启动方式对比"></a>RDB启动方式对比</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200409181625796.png" srcset="/img/loading.gif" alt="image-20200409181625796"></p>
+<h4 id="RDB启动方式对比"><a href="#RDB启动方式对比" class="headerlink" title="RDB启动方式对比"></a>RDB启动方式对比</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142629.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="RDB优缺点"><a href="#RDB优缺点" class="headerlink" title="RDB优缺点"></a>RDB优缺点</h4><ul>
 <li>优点<ul>
 <li>RDB是一个紧凑压缩的二进制文件，<strong>存储效率较高</strong> </li>
@@ -712,7 +714,7 @@ docker run -d --privileged=<span class="hljs-literal">true</span> -p <span class
 <li>AOF(append only file)持久化：以独立日志的方式记录<strong>每次</strong>写命令，重启时再重新执行AOF文件中命令，以达到恢复数据的目的。与RDB相比可以简单描述为改记录数据为记录数据产生的过程  </li>
 <li>AOF的主要作用是解决了数据持久化的实时性，目前已经是Redis持久化的<strong>主流</strong>方式 </li>
 </ul>
-<h4 id="AOF写数据过程"><a href="#AOF写数据过程" class="headerlink" title="AOF写数据过程"></a>AOF写数据过程</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200410200253402.png" srcset="/img/loading.gif" alt="image-20200410200253402"></p>
+<h4 id="AOF写数据过程"><a href="#AOF写数据过程" class="headerlink" title="AOF写数据过程"></a>AOF写数据过程</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142645.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="AOF写数据三种策略-appendfsync"><a href="#AOF写数据三种策略-appendfsync" class="headerlink" title="AOF写数据三种策略(appendfsync)"></a>AOF写数据三种策略(appendfsync)</h4><ul>
 <li>always<ul>
 <li>每次写入操作均同步到AOF文件中，数据零误差，<strong>性能较低</strong>,<strong>不建议使用</strong></li>
@@ -779,7 +781,7 @@ docker run -d --privileged=<span class="hljs-literal">true</span> -p <span class
 
 </li>
 </ul>
-<h5 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h5><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200410221947614.png" srcset="/img/loading.gif" alt="image-20200410221947614"></p>
+<h5 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h5><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142657.png" srcset="/img/loading.gif" alt=""></p>
 <h5 id="AOF自动重写"><a href="#AOF自动重写" class="headerlink" title="AOF自动重写"></a>AOF自动重写</h5><ul>
 <li><p>自动重写触发条件设置 </p>
 <pre><code class="hljs arduino"><span class="hljs-comment">//触发重写的最小大小</span>
@@ -794,18 +796,18 @@ aof_current_size
 aof_base_size</code></pre>
 </li>
 <li><p>自动重写触发条件 </p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200410222544972.png" srcset="/img/loading.gif" alt="image-20200410222544972"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142715.png" srcset="/img/loading.gif" alt=""></p>
 </li>
 </ul>
-<h5 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h5><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200410224942089.png" srcset="/img/loading.gif" alt="image-20200410224942089"></p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200410224949394.png" srcset="/img/loading.gif" alt="image-20200410224949394"></p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200410224957257.png" srcset="/img/loading.gif" alt="image-20200410224957257"></p>
+<h5 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h5><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142734.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142755.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142814.png" srcset="/img/loading.gif" alt=""></p>
 <h5 id="缓冲策略"><a href="#缓冲策略" class="headerlink" title="缓冲策略"></a>缓冲策略</h5><p> AOF缓冲区同步文件策略，由参数<strong>appendfsync</strong>控制 </p>
 <ul>
 <li>write操作会触发延迟写（delayed write）机制，Linux在内核提供页缓冲区用 来提高硬盘IO性能。write操作在写入系统缓冲区后直接返回。同步硬盘操作依 赖于系统调度机制，列如：缓冲区页空间写满或达到特定时间周期。同步文件之 前，如果此时系统故障宕机，缓冲区内数据将丢失。 </li>
 <li>fsync针对单个文件操作（比如AOF文件），做强制硬盘同步，fsync将阻塞知道 写入硬盘完成后返回，保证了数据持久化。 </li>
 </ul>
-<h4 id="4、RDB-VS-AOF"><a href="#4、RDB-VS-AOF" class="headerlink" title="4、RDB VS AOF"></a>4、RDB VS AOF</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200410231121520.png" srcset="/img/loading.gif" alt="image-20200410231121520"></p>
+<h4 id="4、RDB-VS-AOF"><a href="#4、RDB-VS-AOF" class="headerlink" title="4、RDB VS AOF"></a>4、RDB VS AOF</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142837.png" srcset="/img/loading.gif" alt=""></p>
 <h5 id="RDB与AOF的选择之惑"><a href="#RDB与AOF的选择之惑" class="headerlink" title="RDB与AOF的选择之惑"></a>RDB与AOF的选择之惑</h5><ul>
 <li>对数据非常<strong>敏感</strong>，建议使用默认的<strong>AOF</strong>持久化方案  <ul>
 <li>AOF持久化策略使用<strong>everysecond</strong>，每秒钟fsync一次。该策略redis仍可以保持很好的处理性能，当出现问题时，最多丢失0-1秒内的数据。 </li>
@@ -859,7 +861,7 @@ aof_base_size</code></pre>
 </ul>
 </li>
 </ul>
-<h3 id="3、事务操作的基本流程"><a href="#3、事务操作的基本流程" class="headerlink" title="3、事务操作的基本流程"></a>3、事务操作的基本流程</h3><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200412134932826.png" srcset="/img/loading.gif" alt="image-20200412134932826"></p>
+<h3 id="3、事务操作的基本流程"><a href="#3、事务操作的基本流程" class="headerlink" title="3、事务操作的基本流程"></a>3、事务操作的基本流程</h3><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142857.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="4、事务操作的注意事项"><a href="#4、事务操作的注意事项" class="headerlink" title="4、事务操作的注意事项"></a>4、事务操作的注意事项</h3><p><strong>定义事务的过程中，命令格式输入错误怎么办？</strong></p>
 <ul>
 <li>语法错误 <ul>
@@ -929,7 +931,7 @@ pexpire <span class="hljs-keyword">lock</span>-<span class="hljs-keyword">key</s
 <h4 id="时效性数据的存储结构"><a href="#时效性数据的存储结构" class="headerlink" title="时效性数据的存储结构"></a>时效性数据的存储结构</h4><ul>
 <li>Redis中的数据，在expire中以哈希的方式保存在其中。其value是数据在内存中的地址，filed是对应的生命周期</li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200412174039223.png" srcset="/img/loading.gif" alt="image-20200412174039223"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142921.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="数据删除策略的目标"><a href="#数据删除策略的目标" class="headerlink" title="数据删除策略的目标"></a>数据删除策略的目标</h4><p>在内存占用与CPU占用之间寻找一种<strong>平衡</strong>，顾此失彼都会造成整体redis性能的下降，甚至引发服务器宕机或内存泄露 </p>
 <h3 id="2、三种删除策略"><a href="#2、三种删除策略" class="headerlink" title="2、三种删除策略"></a>2、三种删除策略</h3><h4 id="定时删除"><a href="#定时删除" class="headerlink" title="定时删除"></a>定时删除</h4><ul>
 <li><p>创建一个定时器，当key设置有过期时间，且过期时间到达时，由定时器任务<strong>立即执行</strong>对键的删除操作</p>
@@ -951,7 +953,7 @@ pexpire <span class="hljs-keyword">lock</span>-<span class="hljs-keyword">key</s
 <li>缺点：<strong>内存压力很大</strong>，出现长期占用内存的数据 </li>
 <li>总结：用存储空间换取处理器性能 （拿空间换时间） </li>
 </ul>
-<h4 id="定期删除"><a href="#定期删除" class="headerlink" title="定期删除"></a>定期删除</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200412175809292.png" srcset="/img/loading.gif" alt="image-20200412175809292"></p>
+<h4 id="定期删除"><a href="#定期删除" class="headerlink" title="定期删除"></a>定期删除</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142941.png" srcset="/img/loading.gif" alt=""></p>
 <ul>
 <li>周期性轮询redis库中的时效性数据，采用<strong>随机抽取的策略</strong>，利用过期数据占比的方式控制删除频度 </li>
 <li>特点1：CPU性能占用设置有峰值，检测频度可自定义设置 </li>
@@ -980,13 +982,13 @@ pexpire <span class="hljs-keyword">lock</span>-<span class="hljs-keyword">key</s
 <p>达到最大内存后的，对被挑选出来的数据进行删除的策略 </p>
 </li>
 </ul>
-<h4 id="影响数据逐出的相关配置-1"><a href="#影响数据逐出的相关配置-1" class="headerlink" title="影响数据逐出的相关配置"></a>影响数据逐出的相关配置</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200412182618343.png" srcset="/img/loading.gif" alt="image-20200412182618343"></p>
+<h4 id="影响数据逐出的相关配置-1"><a href="#影响数据逐出的相关配置-1" class="headerlink" title="影响数据逐出的相关配置"></a>影响数据逐出的相关配置</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608142953.png" srcset="/img/loading.gif" alt=""></p>
 <p><strong>LRU</strong>：最长时间没被使用的数据</p>
 <p><strong>LFU</strong>：一段时间内使用次数最少的数据</p>
 <h4 id="数据逐出策略配置依据"><a href="#数据逐出策略配置依据" class="headerlink" title="数据逐出策略配置依据"></a><strong>数据逐出策略配置依据</strong></h4><ul>
 <li>使用<strong>INFO命令</strong>输出监控信息，查询缓存 <strong>hit 和 miss</strong> 的次数，根据业务需求调优Redis配置 </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200412182723078.png" srcset="/img/loading.gif" alt="image-20200412182723078"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143004.png" srcset="/img/loading.gif" alt=""></p>
 <h2 id="七、高级数据类型"><a href="#七、高级数据类型" class="headerlink" title="七、高级数据类型"></a>七、高级数据类型</h2><h3 id="1、Bitmaps"><a href="#1、Bitmaps" class="headerlink" title="1、Bitmaps"></a>1、Bitmaps</h3><h4 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h4><ul>
 <li><p>获取指定key对应偏移量上的bit值 </p>
 <pre><code class="hljs applescript">getbit key <span class="hljs-built_in">offset</span></code></pre>
@@ -1020,7 +1022,7 @@ pexpire <span class="hljs-keyword">lock</span>-<span class="hljs-keyword">key</s
 <li>基数是数据集<strong>去重后元素个数</strong> </li>
 <li>HyperLogLog 是用来做基数统计的，运用了LogLog的算法 </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200413160022184.png" srcset="/img/loading.gif" alt="image-20200413160022184"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143020.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="基本操作-7"><a href="#基本操作-7" class="headerlink" title="基本操作"></a>基本操作</h4><ul>
 <li><p>添加数据</p>
 <pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">pfadd</span></span> key element1, element2...</code></pre>
@@ -1060,7 +1062,7 @@ geohash <span class="hljs-built_in">key</span> <span class="hljs-built_in">membe
 
 </li>
 </ul>
-<h2 id="八、主从复制"><a href="#八、主从复制" class="headerlink" title="八、主从复制"></a>八、主从复制</h2><h3 id="1、简介-1"><a href="#1、简介-1" class="headerlink" title="1、简介"></a>1、简介</h3><h4 id="多台服务器连接方案"><a href="#多台服务器连接方案" class="headerlink" title="多台服务器连接方案"></a>多台服务器连接方案</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200420221833634.png" srcset="/img/loading.gif" alt="image-20200420221833634"></p>
+<h2 id="八、主从复制"><a href="#八、主从复制" class="headerlink" title="八、主从复制"></a>八、主从复制</h2><h3 id="1、简介-1"><a href="#1、简介-1" class="headerlink" title="1、简介"></a>1、简介</h3><h4 id="多台服务器连接方案"><a href="#多台服务器连接方案" class="headerlink" title="多台服务器连接方案"></a>多台服务器连接方案</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143033.png" srcset="/img/loading.gif" alt=""></p>
 <ul>
 <li>提供数据方：master <ul>
 <li>主服务器，主节点，主库</li>
@@ -1112,10 +1114,10 @@ geohash <span class="hljs-built_in">key</span> <span class="hljs-built_in">membe
 </ul>
 </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200421081237946.png" srcset="/img/loading.gif" alt="image-20200421081237946"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143046.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="阶段一：建立连接"><a href="#阶段一：建立连接" class="headerlink" title="阶段一：建立连接"></a>阶段一：建立连接</h4><ul>
 <li><p>建立slave到master的连接，使master能够识别slave，并保存slave端口号  </p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200421081748248.png" srcset="/img/loading.gif" alt="image-20200421081748248"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143102.png" srcset="/img/loading.gif" alt=""></p>
 </li>
 </ul>
 <p>*<em>主从连接（slave连接master） *</em></p>
@@ -1164,7 +1166,7 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 
 </li>
 </ul>
-<h4 id="阶段二：数据同步阶段"><a href="#阶段二：数据同步阶段" class="headerlink" title="阶段二：数据同步阶段"></a>阶段二：数据同步阶段</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200421090835319.png" srcset="/img/loading.gif" alt="image-20200421090835319"></p>
+<h4 id="阶段二：数据同步阶段"><a href="#阶段二：数据同步阶段" class="headerlink" title="阶段二：数据同步阶段"></a>阶段二：数据同步阶段</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143117.png" srcset="/img/loading.gif" alt=""></p>
 <ul>
 <li><strong>全量复制</strong><ul>
 <li>将master执行bgsave之前，master中所有的数据同步到slave中</li>
@@ -1254,7 +1256,7 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 <li><p>数据来源：当master接收到主客户端的指令时，除了将指令执行，会将该指令存储到缓冲区中 </p>
 </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200421203825588.png" srcset="/img/loading.gif" alt="image-20200421203825588"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143134.png" srcset="/img/loading.gif" alt=""></p>
 <h5 id="复制缓冲区内部工作原理"><a href="#复制缓冲区内部工作原理" class="headerlink" title="复制缓冲区内部工作原理"></a>复制缓冲区内部工作原理</h5><ul>
 <li><p>组成 </p>
 <ul>
@@ -1268,10 +1270,9 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 <li>master记录<strong>已发送</strong>的信息对应的offset </li>
 <li>slave记录<strong>已接收</strong>的信息对应的offset </li>
 </ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143149.png" srcset="/img/loading.gif" alt=""></p>
 </li>
 </ul>
-<p>  <img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200421203946593.png" srcset="/img/loading.gif" alt="image-20200421203946593"></p>
-<p>  <img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200421203952684.png" srcset="/img/loading.gif" alt="image-20200421203952684"></p>
 <h5 id="主从服务器复制偏移量（offset）"><a href="#主从服务器复制偏移量（offset）" class="headerlink" title="主从服务器复制偏移量（offset）"></a>主从服务器复制偏移量（offset）</h5><ul>
 <li><p>概念：一个数字，描述复制缓冲区中的指令字节位置 </p>
 </li>
@@ -1286,7 +1287,7 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 <li><p>作用：<strong>同步信息</strong>，比对master与slave的差异，当slave断线后，恢复数据使用 </p>
 </li>
 </ul>
-<h5 id="数据同步-命令传播阶段工作流程"><a href="#数据同步-命令传播阶段工作流程" class="headerlink" title="数据同步+命令传播阶段工作流程"></a>数据同步+命令传播阶段工作流程</h5><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200421204751902.png" srcset="/img/loading.gif" alt="image-20200421204751902"></p>
+<h5 id="数据同步-命令传播阶段工作流程"><a href="#数据同步-命令传播阶段工作流程" class="headerlink" title="数据同步+命令传播阶段工作流程"></a>数据同步+命令传播阶段工作流程</h5><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143228.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h4><ul>
 <li><p>进入<strong>命令传播阶段候</strong>，master与slave间需要进行信息交换，使用心跳机制进行维护，实现双方连接保持在线 </p>
 </li>
@@ -1321,14 +1322,14 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 <li><p>slave延迟由slave发送<strong>REPLCONF ACK</strong>命令做确认</p>
 </li>
 </ul>
-<h4 id="完整流程"><a href="#完整流程" class="headerlink" title="完整流程"></a>完整流程</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200421220316032.png" srcset="/img/loading.gif" alt="image-20200421220316032"></p>
-<h4 id="-1"><a href="#-1" class="headerlink" title=""></a></h4><h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><h5 id="频繁的全量复制"><a href="#频繁的全量复制" class="headerlink" title="频繁的全量复制"></a>频繁的全量复制</h5><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200422213322663.png" srcset="/img/loading.gif" alt="image-20200422213322663"></p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200422213331458.png" srcset="/img/loading.gif" alt="image-20200422213331458"></p>
-<h4 id="频繁的网络中断"><a href="#频繁的网络中断" class="headerlink" title="频繁的网络中断"></a>频繁的网络中断</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200422214153923.png" srcset="/img/loading.gif" alt="image-20200422214153923"></p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200422214200391.png" srcset="/img/loading.gif" alt="image-20200422214200391"></p>
-<h4 id="数据不一致"><a href="#数据不一致" class="headerlink" title="数据不一致"></a>数据不一致</h4><p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200422214247999.png" srcset="/img/loading.gif" alt="image-20200422214247999"></p>
+<h4 id="完整流程"><a href="#完整流程" class="headerlink" title="完整流程"></a>完整流程</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143241.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143304.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143317.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="频繁的网络中断"><a href="#频繁的网络中断" class="headerlink" title="频繁的网络中断"></a>频繁的网络中断</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143327.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="D:%5C%E5%90%8E%E7%AB%AF%E8%B5%84%E6%96%99NEW%5C%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3%5CRedis%5CRedis%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3.assets%5Cimage-20200608143339306.png" srcset="/img/loading.gif" alt="image-20200608143339306"></p>
+<h4 id="数据不一致"><a href="#数据不一致" class="headerlink" title="数据不一致"></a>数据不一致</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143352.png" srcset="/img/loading.gif" alt=""></p>
 <h2 id="九、哨兵"><a href="#九、哨兵" class="headerlink" title="九、哨兵"></a>九、哨兵</h2><h3 id="1、简介-2"><a href="#1、简介-2" class="headerlink" title="1、简介"></a>1、简介</h3><p>哨兵(sentinel) 是一个<strong>分布式系统</strong>，用于对主从结构中的每台服务器进行<strong>监控</strong>，当出现故障时通过投票机制<strong>选择</strong>新的master并将所有slave连接到新的master。 </p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424160421583.png" srcset="/img/loading.gif" alt="image-20200424160421583"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143401.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="2、作用-1"><a href="#2、作用-1" class="headerlink" title="2、作用"></a>2、作用</h3><ul>
 <li>监控 <ul>
 <li>不断的检查master和slave是否正常运行。 master存活检测、master与slave运行情况检测 </li>
@@ -1359,7 +1360,7 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 
 </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424162304555.png" srcset="/img/loading.gif" alt="image-20200424162304555"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143413.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="4、工作原理"><a href="#4、工作原理" class="headerlink" title="4、工作原理"></a>4、工作原理</h3><h4 id="监控阶段"><a href="#监控阶段" class="headerlink" title="监控阶段"></a>监控阶段</h4><ul>
 <li>用于同步各个节点的状态信息 <ul>
 <li>获取各个sentinel的状态（是否在线） </li>
@@ -1386,22 +1387,22 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 </ul>
 </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424163637249.png" srcset="/img/loading.gif" alt="image-20200424163637249"></p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424163733708.png" srcset="/img/loading.gif" alt="image-20200424163733708"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143539.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143602.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="通知阶段"><a href="#通知阶段" class="headerlink" title="通知阶段"></a>通知阶段</h4><ul>
 <li>各个哨兵将得到的信息相互同步（信息对称）</li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424164114373.png" srcset="/img/loading.gif" alt="image-20200424164114373"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143614.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="故障转移"><a href="#故障转移" class="headerlink" title="故障转移"></a>故障转移</h4><h5 id="确认master下线"><a href="#确认master下线" class="headerlink" title="确认master下线"></a>确认master下线</h5><ul>
 <li>当某个哨兵发现主服务器挂掉了，会将master中的SentinelRedistance中的master改为<strong>SRI_S_DOWN</strong>（主观下线），并通知其他哨兵，告诉他们发现master挂掉了。</li>
 <li>其他哨兵在接收到该哨兵发送的信息后，也会尝试去连接master，如果超过半数（配置文件中设置的）确认master挂掉后，会将master中的SentinelRedistance中的master改为<strong>SRI_O_DOWN</strong>（客观下线）</li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424165405974.png" srcset="/img/loading.gif" alt="image-20200424165405974"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143633.png" srcset="/img/loading.gif" alt=""></p>
 <h5 id="推选哨兵进行处理"><a href="#推选哨兵进行处理" class="headerlink" title="推选哨兵进行处理"></a>推选哨兵进行处理</h5><ul>
 <li>在确认master挂掉以后，会推选出一个哨兵来进行故障转移工作（由该哨兵来指定哪个slave来做新的master）。</li>
 <li>筛选方式是哨兵互相发送消息，并且参与投票，票多者当选。</li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200424165412952.png" srcset="/img/loading.gif" alt="image-20200424165412952"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143649.png" srcset="/img/loading.gif" alt=""></p>
 <h5 id="具体处理"><a href="#具体处理" class="headerlink" title="具体处理"></a>具体处理</h5><ul>
 <li>由推选出来的哨兵对当前的slave进行筛选，筛选条件有：<ul>
 <li>服务器列表中挑选备选master </li>
@@ -1435,18 +1436,18 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 <li>将所有的存储空间计划切割成16384份，每台主机保存一部分 每份代表的是一个存储空间，不是一个key的保存空间</li>
 <li>将key按照计算出的结果放到对应的存储空间 </li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200425134406971.png" srcset="/img/loading.gif" alt="image-20200425134406971"></p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200425134412554.png" srcset="/img/loading.gif" alt="image-20200425134412554"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143701.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143712.png" srcset="/img/loading.gif" alt=""></p>
 <ul>
 <li>增强可扩展性 ——槽</li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200425134433964.png" srcset="/img/loading.gif" alt="image-20200425134433964"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143720.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="集群内部通讯设计"><a href="#集群内部通讯设计" class="headerlink" title="集群内部通讯设计"></a>集群内部通讯设计</h4><ul>
 <li>各个数据库互相连通，保存各个库中槽的编号数据</li>
 <li>一次命中，直接返回</li>
 <li>一次未命中，告知具体的位置，key再直接去找对应的库保存数据</li>
 </ul>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200425134721853.png" srcset="/img/loading.gif" alt="image-20200425134721853"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143733.png" srcset="/img/loading.gif" alt=""></p>
 <h2 id="十一、企业级解决方案"><a href="#十一、企业级解决方案" class="headerlink" title="十一、企业级解决方案"></a>十一、企业级解决方案</h2><h3 id="1、缓存预热"><a href="#1、缓存预热" class="headerlink" title="1、缓存预热"></a>1、缓存预热</h3><h4 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h4><ul>
 <li>请求数量较高 </li>
 <li>主从之间数据吞吐量较大，数据同步操作频度较高 </li>
@@ -1524,7 +1525,7 @@ config <span class="hljs-builtin-name">get</span> requirepass</code></pre>
 <li>加锁  <strong>慎用！</strong> </li>
 </ol>
 <h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>缓存雪崩就是<strong>瞬间过期数据量太大</strong>，导致对数据库服务器造成压力。如能够<strong>有效避免过期时间集中</strong>，可以有效解决雪崩现象的出现 （约40%），配合其他策略一起使用，并监控服务器的运行数据，根据运行记录做快速调整。 </p>
-<p><img src="C:%5CUsers%5C86183%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200425172033618.png" srcset="/img/loading.gif" alt="image-20200425172033618"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608143749.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="3、缓存击穿"><a href="#3、缓存击穿" class="headerlink" title="3、缓存击穿"></a>3、缓存击穿</h3><h4 id="数据库服务器崩溃（2）"><a href="#数据库服务器崩溃（2）" class="headerlink" title="数据库服务器崩溃（2）"></a>数据库服务器崩溃（2）</h4><ol>
 <li>系统平稳运行过程中 </li>
 <li>数据库连接量<strong>瞬间激增</strong> </li>
