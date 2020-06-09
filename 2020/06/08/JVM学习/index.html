@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>JVM - Nyima&#39;s Blog</title>
+  <title>JVM学习 - Nyima&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11.3k 字
+      12.8k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      142
+      163
        分钟
     </span>
   
@@ -1178,7 +1178,7 @@ Constant pool:
 &#125;</code></pre>
 
 <p>为什么最终的x结果为0呢？ 通过分析字节码指令即可知晓</p>
-<pre><code class="hljs angelscript">Code:
+<pre><code class="hljs java">Code:
      stack=<span class="hljs-number">2</span>, locals=<span class="hljs-number">3</span>, args_size=<span class="hljs-number">1</span>	<span class="hljs-comment">//操作数栈分配2个空间，局部变量表分配3个空间</span>
         <span class="hljs-number">0</span>: iconst_0	<span class="hljs-comment">//准备一个常数0</span>
         <span class="hljs-number">1</span>: istore_1	<span class="hljs-comment">//将常数0放入局部变量表的1号槽位 i=0</span>
@@ -1192,16 +1192,16 @@ Constant pool:
        <span class="hljs-number">14</span>: istore_2	<span class="hljs-comment">//将操作数栈中的数放入到局部变量表的2号槽位，2号槽位的值又变为了1</span>
        <span class="hljs-number">15</span>: iinc          <span class="hljs-number">1</span>, <span class="hljs-number">1</span> <span class="hljs-comment">//1号槽位的值自增1</span>
        <span class="hljs-number">18</span>: goto          <span class="hljs-number">4</span> <span class="hljs-comment">//跳转到第4条指令</span>
-       <span class="hljs-number">21</span>: getstatic     #<span class="hljs-number">2</span>                  <span class="hljs-comment">// Field java/lang/System.out:Ljava/io/PrintStream;</span>
+       21: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
        <span class="hljs-number">24</span>: iload_2
-       <span class="hljs-number">25</span>: invokevirtual #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Method java/io/PrintStream.println:(I)V</span>
+       25: invokevirtual #3                  // Method java/io/PrintStream.println:(I)V
        <span class="hljs-number">28</span>: <span class="hljs-keyword">return</span></code></pre>
 
 
 
 
 
-<h3 id="3、构造方法"><a href="#3、构造方法" class="headerlink" title="3、构造方法"></a>3、构造方法</h3><h4 id="cinit-V"><a href="#cinit-V" class="headerlink" title="cinit()V"></a>cinit()V</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo3</span> </span>&#123;
+<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><h5 id="cinit-V"><a href="#cinit-V" class="headerlink" title="cinit()V"></a>cinit()V</h5><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo3</span> </span>&#123;
 	<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;
 
 	<span class="hljs-keyword">static</span> &#123;
@@ -1231,7 +1231,7 @@ Constant pool:
 
 
 
-<h4 id="init-V"><a href="#init-V" class="headerlink" title="init()V"></a>init()V</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo4</span> </span>&#123;
+<h5 id="init-V"><a href="#init-V" class="headerlink" title="init()V"></a>init()V</h5><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo4</span> </span>&#123;
 	<span class="hljs-keyword">private</span> String a = <span class="hljs-string">"s1"</span>;
 
 	&#123;
@@ -1284,7 +1284,7 @@ Constant pool:
 
 
 
-<h3 id="4、方法调用"><a href="#4、方法调用" class="headerlink" title="4、方法调用"></a>4、方法调用</h3><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo5</span> </span>&#123;
+<h4 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo5</span> </span>&#123;
 	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Demo5</span><span class="hljs-params">()</span> </span>&#123;
 
 	&#125;
@@ -1339,9 +1339,9 @@ Constant pool:
 <li>new 是创建【对象】，给对象分配堆内存，执行成功会将【对象引用】压入操作数栈 </li>
 <li>dup 是赋值操作数栈栈顶的内容，本例即为【对象引用】，为什么需要两份引用呢，一个是要配 合 invokespecial 调用该对象的构造方法 “<init>“:()V （会消耗掉栈顶一个引用），另一个要 配合 astore_1 赋值给局部变量 </li>
 <li>终方法（ﬁnal），私有方法（private），构造方法都是由 invokespecial 指令来调用，属于静态绑定 </li>
-<li>普通成员方法是由 invokevirtual 调用，属于动态绑定，即支持多态 成员方法与静态方法调用的另一个区别是，执行方法前是否需要【对象引用】 </li>
+<li>普通成员方法是由 invokevirtual 调用，属于<strong>动态绑定</strong>，即支持多态 成员方法与静态方法调用的另一个区别是，执行方法前是否需要【对象引用】 </li>
 </ul>
-<h3 id="5、多态原理"><a href="#5、多态原理" class="headerlink" title="5、多态原理"></a>5、多态原理</h3><p>因为普通成员方法需要在运行时才能确定具体的内容，所以虚拟机需要调用<strong>invokevirtual</strong>指令</p>
+<h4 id="多态原理"><a href="#多态原理" class="headerlink" title="多态原理"></a>多态原理</h4><p>因为普通成员方法需要在运行时才能确定具体的内容，所以虚拟机需要调用<strong>invokevirtual</strong>指令</p>
 <p>在执行invokevirtual指令时，经历了以下几个步骤</p>
 <ul>
 <li>先通过栈帧中对象的引用找到对象</li>
@@ -1350,18 +1350,282 @@ Constant pool:
 <li>查询vtable找到方法的具体地址</li>
 <li>执行方法的字节码</li>
 </ul>
-<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2>
+<h4 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h4><h5 id="try-catch"><a href="#try-catch" class="headerlink" title="try-catch"></a>try-catch</h5><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">try</span> &#123;
+			i = <span class="hljs-number">10</span>;
+		&#125;<span class="hljs-keyword">catch</span> (Exception e) &#123;
+			i = <span class="hljs-number">20</span>;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<p>对应字节码指令</p>
+<pre><code class="hljs angelscript">Code:
+     stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">3</span>, args_size=<span class="hljs-number">1</span>
+        <span class="hljs-number">0</span>: iconst_0
+        <span class="hljs-number">1</span>: istore_1
+        <span class="hljs-number">2</span>: bipush        <span class="hljs-number">10</span>
+        <span class="hljs-number">4</span>: istore_1
+        <span class="hljs-number">5</span>: goto          <span class="hljs-number">12</span>
+        <span class="hljs-number">8</span>: astore_2
+        <span class="hljs-number">9</span>: bipush        <span class="hljs-number">20</span>
+       <span class="hljs-number">11</span>: istore_1
+       <span class="hljs-number">12</span>: <span class="hljs-keyword">return</span>
+     <span class="hljs-comment">//多出来一个异常表</span>
+     Exception table:
+        <span class="hljs-keyword">from</span>    to  target type
+            <span class="hljs-number">2</span>     <span class="hljs-number">5</span>     <span class="hljs-number">8</span>   Class java/lang/Exception</code></pre>
+
+<ul>
+<li>可以看到多出来一个 Exception table 的结构，[from, to) 是<strong>前闭后开</strong>（也就是检测2~4行）的检测范围，一旦这个范围内的字节码执行出现异常，则通过 type 匹配异常类型，如果一致，进入 target 所指示行号 </li>
+<li>8行的字节码指令 astore_2 是将异常对象引用存入局部变量表的2号位置（为e）</li>
+</ul>
+<h5 id="多个single-catch"><a href="#多个single-catch" class="headerlink" title="多个single-catch"></a>多个single-catch</h5><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">try</span> &#123;
+			i = <span class="hljs-number">10</span>;
+		&#125;<span class="hljs-keyword">catch</span> (ArithmeticException e) &#123;
+			i = <span class="hljs-number">20</span>;
+		&#125;<span class="hljs-keyword">catch</span> (Exception e) &#123;
+			i = <span class="hljs-number">30</span>;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<p>对应的字节码</p>
+<pre><code class="hljs angelscript">Code:
+     stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">3</span>, args_size=<span class="hljs-number">1</span>
+        <span class="hljs-number">0</span>: iconst_0
+        <span class="hljs-number">1</span>: istore_1
+        <span class="hljs-number">2</span>: bipush        <span class="hljs-number">10</span>
+        <span class="hljs-number">4</span>: istore_1
+        <span class="hljs-number">5</span>: goto          <span class="hljs-number">19</span>
+        <span class="hljs-number">8</span>: astore_2
+        <span class="hljs-number">9</span>: bipush        <span class="hljs-number">20</span>
+       <span class="hljs-number">11</span>: istore_1
+       <span class="hljs-number">12</span>: goto          <span class="hljs-number">19</span>
+       <span class="hljs-number">15</span>: astore_2
+       <span class="hljs-number">16</span>: bipush        <span class="hljs-number">30</span>
+       <span class="hljs-number">18</span>: istore_1
+       <span class="hljs-number">19</span>: <span class="hljs-keyword">return</span>
+     Exception table:
+        <span class="hljs-keyword">from</span>    to  target type
+            <span class="hljs-number">2</span>     <span class="hljs-number">5</span>     <span class="hljs-number">8</span>   Class java/lang/ArithmeticException
+            <span class="hljs-number">2</span>     <span class="hljs-number">5</span>    <span class="hljs-number">15</span>   Class java/lang/Exception</code></pre>
+
+<ul>
+<li>因为异常出现时，<strong>只能进入</strong> Exception table 中<strong>一个分支</strong>，所以局部变量表 slot 2 位置<strong>被共用</strong></li>
+</ul>
+<h5 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h5><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+		<span class="hljs-keyword">try</span> &#123;
+			i = <span class="hljs-number">10</span>;
+		&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+			i = <span class="hljs-number">20</span>;
+		&#125; <span class="hljs-keyword">finally</span> &#123;
+			i = <span class="hljs-number">30</span>;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<p>对应字节码</p>
+<pre><code class="hljs java">Code:
+     stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">4</span>, args_size=<span class="hljs-number">1</span>
+        <span class="hljs-number">0</span>: iconst_0
+        <span class="hljs-number">1</span>: istore_1
+        <span class="hljs-comment">//try块</span>
+        <span class="hljs-number">2</span>: bipush        <span class="hljs-number">10</span>
+        <span class="hljs-number">4</span>: istore_1
+        <span class="hljs-comment">//try块执行完后，会执行finally    </span>
+        <span class="hljs-number">5</span>: bipush        <span class="hljs-number">30</span>
+        <span class="hljs-number">7</span>: istore_1
+        <span class="hljs-number">8</span>: goto          <span class="hljs-number">27</span>
+       <span class="hljs-comment">//catch块     </span>
+       <span class="hljs-number">11</span>: astore_2 <span class="hljs-comment">//异常信息放入局部变量表的2号槽位</span>
+       <span class="hljs-number">12</span>: bipush        <span class="hljs-number">20</span>
+       <span class="hljs-number">14</span>: istore_1
+       <span class="hljs-comment">//catch块执行完后，会执行finally        </span>
+       <span class="hljs-number">15</span>: bipush        <span class="hljs-number">30</span>
+       <span class="hljs-number">17</span>: istore_1
+       <span class="hljs-number">18</span>: goto          <span class="hljs-number">27</span>
+       <span class="hljs-comment">//出现异常，但未被Exception捕获，会抛出其他异常，这时也需要执行finally块中的代码   </span>
+       <span class="hljs-number">21</span>: astore_3
+       <span class="hljs-number">22</span>: bipush        <span class="hljs-number">30</span>
+       <span class="hljs-number">24</span>: istore_1
+       <span class="hljs-number">25</span>: aload_3
+       <span class="hljs-number">26</span>: athrow  <span class="hljs-comment">//抛出异常</span>
+       <span class="hljs-number">27</span>: <span class="hljs-keyword">return</span>
+     Exception table:
+        from    to  target type
+            <span class="hljs-number">2</span>     <span class="hljs-number">5</span>    <span class="hljs-number">11</span>   Class java/lang/Exception
+            <span class="hljs-number">2</span>     <span class="hljs-number">5</span>    <span class="hljs-number">21</span>   any
+           <span class="hljs-number">11</span>    <span class="hljs-number">15</span>    <span class="hljs-number">21</span>   any</code></pre>
+
+<p>可以看到 ﬁnally 中的代码被<strong>复制了 3 份</strong>，分别放入 try 流程，catch 流程以及 catch剩余的异常类型流程 </p>
+<p><strong>注意</strong>：虽然从字节码指令看来，每个块中都有finally块，但是finally块中的代码<strong>只会被执行一次</strong></p>
+<h5 id="finally中的return"><a href="#finally中的return" class="headerlink" title="finally中的return"></a>finally中的return</h5><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo3</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		<span class="hljs-keyword">int</span> i = Demo3.test();
+        <span class="hljs-comment">//结果为20</span>
+		System.out.println(i);
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">int</span> i;
+		<span class="hljs-keyword">try</span> &#123;
+			i = <span class="hljs-number">10</span>;
+			<span class="hljs-keyword">return</span> i;
+		&#125; <span class="hljs-keyword">finally</span> &#123;
+			i = <span class="hljs-number">20</span>;
+			<span class="hljs-keyword">return</span> i;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<p>对应字节码</p>
+<pre><code class="hljs java">Code:
+     stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">3</span>, args_size=<span class="hljs-number">0</span>
+        <span class="hljs-number">0</span>: bipush        <span class="hljs-number">10</span>
+        <span class="hljs-number">2</span>: istore_0
+        <span class="hljs-number">3</span>: iload_0
+        <span class="hljs-number">4</span>: istore_1  <span class="hljs-comment">//暂存返回值</span>
+        <span class="hljs-number">5</span>: bipush        <span class="hljs-number">20</span>
+        <span class="hljs-number">7</span>: istore_0
+        <span class="hljs-number">8</span>: iload_0
+        <span class="hljs-number">9</span>: ireturn	<span class="hljs-comment">//ireturn会返回操作数栈顶的整型值20</span>
+       <span class="hljs-comment">//如果出现异常，还是会执行finally块中的内容，没有抛出异常</span>
+       <span class="hljs-number">10</span>: astore_2
+       <span class="hljs-number">11</span>: bipush        <span class="hljs-number">20</span>
+       <span class="hljs-number">13</span>: istore_0
+       <span class="hljs-number">14</span>: iload_0
+       <span class="hljs-number">15</span>: ireturn	<span class="hljs-comment">//这里没有athrow了，也就是如果在finally块中如果有返回操作的话，且try块中出现异常，会吞掉异常！</span>
+     Exception table:
+        from    to  target type
+            <span class="hljs-number">0</span>     <span class="hljs-number">5</span>    <span class="hljs-number">10</span>   any</code></pre>
+
+<ul>
+<li>由于 ﬁnally 中的 <strong>ireturn</strong> 被插入了所有可能的流程，因此返回结果肯定以ﬁnally的为准 </li>
+<li>至于字节码中第 2 行，似乎没啥用，且留个伏笔，看下个例子 </li>
+<li>跟上例中的 ﬁnally 相比，发现<strong>没有 athrow 了</strong>，这告诉我们：如果在 ﬁnally 中出现了 return，会<strong>吞掉异常</strong></li>
+<li>所以<strong>不要在finally中进行返回操作</strong></li>
+</ul>
+<h5 id="被吞掉的异常"><a href="#被吞掉的异常" class="headerlink" title="被吞掉的异常"></a>被吞掉的异常</h5><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo3</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span> i = Demo3.test();
+      <span class="hljs-comment">//最终结果为20</span>
+      System.out.println(i);
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">int</span> i;
+      <span class="hljs-keyword">try</span> &#123;
+         i = <span class="hljs-number">10</span>;
+         <span class="hljs-comment">//这里应该会抛出异常</span>
+         i = i/<span class="hljs-number">0</span>;
+         <span class="hljs-keyword">return</span> i;
+      &#125; <span class="hljs-keyword">finally</span> &#123;
+         i = <span class="hljs-number">20</span>;
+         <span class="hljs-keyword">return</span> i;
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+<p>会发现打印结果为20，并未抛出异常</p>
+<h5 id="finally不带return"><a href="#finally不带return" class="headerlink" title="finally不带return"></a>finally不带return</h5><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo4</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		<span class="hljs-keyword">int</span> i = Demo4.test();
+		System.out.println(i);
+	&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;
+		<span class="hljs-keyword">try</span> &#123;
+			<span class="hljs-keyword">return</span> i;
+		&#125; <span class="hljs-keyword">finally</span> &#123;
+			i = <span class="hljs-number">20</span>;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<p>对应字节码</p>
+<pre><code class="hljs java">Code:
+     stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">3</span>, args_size=<span class="hljs-number">0</span>
+        <span class="hljs-number">0</span>: bipush        <span class="hljs-number">10</span>
+        <span class="hljs-number">2</span>: istore_0 <span class="hljs-comment">//赋值给i 10</span>
+        <span class="hljs-number">3</span>: iload_0	<span class="hljs-comment">//加载到操作数栈顶</span>
+        <span class="hljs-number">4</span>: istore_1 <span class="hljs-comment">//加载到局部变量表的1号位置</span>
+        <span class="hljs-number">5</span>: bipush        <span class="hljs-number">20</span>
+        <span class="hljs-number">7</span>: istore_0 <span class="hljs-comment">//赋值给i 20</span>
+        <span class="hljs-number">8</span>: iload_1 <span class="hljs-comment">//加载局部变量表1号位置的数10到操作数栈</span>
+        <span class="hljs-number">9</span>: ireturn <span class="hljs-comment">//返回操作数栈顶元素 10</span>
+       <span class="hljs-number">10</span>: astore_2
+       <span class="hljs-number">11</span>: bipush        <span class="hljs-number">20</span>
+       <span class="hljs-number">13</span>: istore_0
+       <span class="hljs-number">14</span>: aload_2 <span class="hljs-comment">//加载异常</span>
+       <span class="hljs-number">15</span>: athrow <span class="hljs-comment">//抛出异常</span>
+     Exception table:
+        from    to  target type
+            <span class="hljs-number">3</span>     <span class="hljs-number">5</span>    <span class="hljs-number">10</span>   any</code></pre>
+
+
+
+<h4 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a>Synchronized</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo5</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		<span class="hljs-keyword">int</span> i = <span class="hljs-number">10</span>;
+		Lock lock = <span class="hljs-keyword">new</span> Lock();
+		<span class="hljs-keyword">synchronized</span> (lock) &#123;
+			System.out.println(i);
+		&#125;
+	&#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Lock</span></span>&#123;&#125;</code></pre>
+
+<p>对应字节码</p>
+<pre><code class="hljs java">Code:
+     stack=<span class="hljs-number">2</span>, locals=<span class="hljs-number">5</span>, args_size=<span class="hljs-number">1</span>
+        <span class="hljs-number">0</span>: bipush        <span class="hljs-number">10</span>
+        <span class="hljs-number">2</span>: istore_1
+        3: new           #2                  // class com/nyima/JVM/day06/Lock
+        <span class="hljs-number">6</span>: dup <span class="hljs-comment">//复制一份，放到操作数栈顶，用于构造函数消耗</span>
+        7: invokespecial #3                  // Method com/nyima/JVM/day06/Lock."&lt;init&gt;":()V
+       <span class="hljs-number">10</span>: astore_2 <span class="hljs-comment">//剩下的一份放到局部变量表的2号位置</span>
+       <span class="hljs-number">11</span>: aload_2 <span class="hljs-comment">//加载到操作数栈</span>
+       <span class="hljs-number">12</span>: dup <span class="hljs-comment">//复制一份，放到操作数栈，用于加锁时消耗</span>
+       <span class="hljs-number">13</span>: astore_3 <span class="hljs-comment">//将操作数栈顶元素弹出，暂存到局部变量表的三号槽位。这时操作数栈中有一份对象的引用</span>
+       <span class="hljs-number">14</span>: monitorenter <span class="hljs-comment">//加锁</span>
+       <span class="hljs-comment">//锁住后代码块中的操作    </span>
+       15: getstatic     #4                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       <span class="hljs-number">18</span>: iload_1
+       19: invokevirtual #5                  // Method java/io/PrintStream.println:(I)V
+       <span class="hljs-comment">//加载局部变量表中三号槽位对象的引用，用于解锁    </span>
+       <span class="hljs-number">22</span>: aload_3    
+       <span class="hljs-number">23</span>: monitorexit <span class="hljs-comment">//解锁</span>
+       <span class="hljs-number">24</span>: goto          <span class="hljs-number">34</span>
+       <span class="hljs-comment">//异常操作    </span>
+       <span class="hljs-number">27</span>: astore        <span class="hljs-number">4</span>
+       <span class="hljs-number">29</span>: aload_3
+       <span class="hljs-number">30</span>: monitorexit <span class="hljs-comment">//解锁</span>
+       <span class="hljs-number">31</span>: aload         <span class="hljs-number">4</span>
+       <span class="hljs-number">33</span>: athrow
+       <span class="hljs-number">34</span>: <span class="hljs-keyword">return</span>
+     <span class="hljs-comment">//可以看出，无论何时出现异常，都会跳转到27行，将异常放入局部变量中，并进行解锁操作，然后加载异常并抛出异常。      </span>
+     Exception table:
+        from    to  target type
+           <span class="hljs-number">15</span>    <span class="hljs-number">24</span>    <span class="hljs-number">27</span>   any
+           <span class="hljs-number">27</span>    <span class="hljs-number">31</span>    <span class="hljs-number">27</span>   any</code></pre>
+
+
+
+<h3 id="3、编译期处理"><a href="#3、编译期处理" class="headerlink" title="3、编译期处理"></a>3、编译期处理</h3><h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2>
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/JAVA/">JAVA</a>
-                    
-                  </div>
                 
                 
               </div>
@@ -1580,7 +1844,7 @@ Constant pool:
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "JVM&nbsp;",
+        "JVM学习&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
