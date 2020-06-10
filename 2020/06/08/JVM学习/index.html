@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>JVM学习 - Nyima&#39;s Blog</title>
+  <title>JVM - Nyima&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.8k 字
+      14.7k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      163
+      192
        分钟
     </span>
   
@@ -1621,11 +1621,413 @@ Constant pool:
 
 
 
-<h3 id="3、编译期处理"><a href="#3、编译期处理" class="headerlink" title="3、编译期处理"></a>3、编译期处理</h3><h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2>
+<h3 id="3、编译期处理"><a href="#3、编译期处理" class="headerlink" title="3、编译期处理"></a>3、编译期处理</h3><p>所谓的 <strong>语法糖</strong> ，其实就是指 java 编译器把 <em>.java 源码编译为 <em>.class 字节码的过程中，</em></em>自动生成<strong>和</strong>转换**的一些代码，主要是为了减轻程序员的负担，算是 java 编译器给我们的一个额外福利</p>
+<p><strong>注意</strong>，以下代码的分析，借助了 javap 工具，idea 的反编译功能，idea 插件 jclasslib 等工具。另外， 编译器转换的<strong>结果直接就是 class 字节码</strong>，只是为了便于阅读，给出了 几乎等价 的 java 源码方式，并不是编译器还会转换出中间的 java 源码，切记。 </p>
+<h4 id="默认构造函数"><a href="#默认构造函数" class="headerlink" title="默认构造函数"></a>默认构造函数</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Candy1</span> </span>&#123;
+
+&#125;</code></pre>
+
+<p>经过编译期优化后</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Candy1</span> </span>&#123;
+   <span class="hljs-comment">//这个无参构造器是java编译器帮我们加上的</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Candy1</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-comment">//即调用父类 Object 的无参构造方法，即调用 java/lang/Object." &lt;init&gt;":()V</span>
+      <span class="hljs-keyword">super</span>();
+   &#125;
+&#125;</code></pre>
+
+
+
+<h4 id="自动拆装箱"><a href="#自动拆装箱" class="headerlink" title="自动拆装箱"></a>自动拆装箱</h4><p>基本类型和其包装类型的相互转换过程，称谓拆装箱</p>
+<p>在JDK 5以后，它们的转换可以在编译期自动完成</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      Integer x = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">int</span> y = x;
+   &#125;
+&#125;</code></pre>
+
+<p>转换过程如下</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-comment">//基本类型赋值给包装类型，称为装箱</span>
+      Integer x = Integer.valueOf(<span class="hljs-number">1</span>);
+      <span class="hljs-comment">//包装类型赋值给基本类型，称谓拆箱</span>
+      <span class="hljs-keyword">int</span> y = x.intValue();
+   &#125;
+&#125;</code></pre>
+
+
+
+<h4 id="泛型集合取值"><a href="#泛型集合取值" class="headerlink" title="泛型集合取值"></a>泛型集合取值</h4><p>泛型也是在 JDK 5 开始加入的特性，但 java 在<strong>编译泛型代码后</strong>会执行 <strong>泛型擦除</strong> 的动作，即泛型信息在编译为字节码之后就<strong>丢失</strong>了，实际的类型都当做了 <strong>Object</strong> 类型来处理：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo3</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      List&lt;Integer&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+      list.add(<span class="hljs-number">10</span>);
+      Integer x = list.get(<span class="hljs-number">0</span>);
+   &#125;
+&#125;</code></pre>
+
+<p>对应字节码</p>
+<pre><code class="hljs java">Code:
+    stack=<span class="hljs-number">2</span>, locals=<span class="hljs-number">3</span>, args_size=<span class="hljs-number">1</span>
+       0: new           #2                  // class java/util/ArrayList
+       <span class="hljs-number">3</span>: dup
+       4: invokespecial #3                  // Method java/util/ArrayList."&lt;init&gt;":()V
+       <span class="hljs-number">7</span>: astore_1
+       <span class="hljs-number">8</span>: aload_1
+       <span class="hljs-number">9</span>: bipush        <span class="hljs-number">10</span>
+      11: invokestatic  #4                  // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      <span class="hljs-comment">//这里进行了泛型擦除，实际调用的是add(Objcet o)</span>
+      14: invokeinterface #5,  2            // InterfaceMethod java/util/List.add:(Ljava/lang/Object;)Z
+
+      <span class="hljs-number">19</span>: pop
+      <span class="hljs-number">20</span>: aload_1
+      <span class="hljs-number">21</span>: iconst_0
+      <span class="hljs-comment">//这里也进行了泛型擦除，实际调用的是get(Object o)   </span>
+      22: invokeinterface #6,  2            // InterfaceMethod java/util/List.get:(I)Ljava/lang/Object;
+<span class="hljs-comment">//这里进行了类型转换，将Object转换成了Integer</span>
+      27: checkcast     #7                  // class java/lang/Integer
+      <span class="hljs-number">30</span>: astore_2
+      <span class="hljs-number">31</span>: <span class="hljs-keyword">return</span></code></pre>
+
+<p>所以调用get函数取值时，有一个类型转换的操作</p>
+<pre><code class="hljs java">Integer x = (Integer) list.get(<span class="hljs-number">0</span>);</code></pre>
+
+<p>如果要将返回结果赋值给一个int类型的变量，则还有<strong>自动拆箱</strong>的操作</p>
+<pre><code class="hljs java"><span class="hljs-keyword">int</span> x = (Integer) list.get(<span class="hljs-number">0</span>).intValue();</code></pre>
+
+
+
+<h4 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo4</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">foo</span><span class="hljs-params">(String... args)</span> </span>&#123;
+      <span class="hljs-comment">//将args赋值给arr，可以看出String...实际就是String[] </span>
+      String[] arr = args;
+      System.out.println(arr.length);
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      foo(<span class="hljs-string">"hello"</span>, <span class="hljs-string">"world"</span>);
+   &#125;
+&#125;</code></pre>
+
+<p>可变参数 <strong>String…</strong> args 其实是一个 <strong>String[]</strong> args ，从代码中的赋值语句中就可以看出来。 同 样 java 编译器会在编译期间将上述代码变换为：</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo4</span> </span>&#123;
+   <span class="hljs-keyword">public</span> Demo4 &#123;&#125;
+
+    
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">foo</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      String[] arr = args;
+      System.out.println(arr.length);
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      foo(<span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">"hello"</span>, <span class="hljs-string">"world"</span>&#125;);
+   &#125;
+&#125;</code></pre>
+
+<p>注意，如果调用的是foo()，即未传递参数时，等价代码为foo(new String[]{})，<strong>创建了一个空数组</strong>，而不是直接传递的null</p>
+<h4 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo5</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+        <span class="hljs-comment">//数组赋初值的简化写法也是一种语法糖。</span>
+		<span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;
+		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> x : arr) &#123;
+			System.out.println(x);
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<p>编译器会帮我们转换为</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo5</span> </span>&#123;
+    <span class="hljs-keyword">public</span> Demo5 &#123;&#125;
+
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+		<span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;
+		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;arr.length; ++i) &#123;
+			<span class="hljs-keyword">int</span> x = arr[i];
+			System.out.println(x);
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+
+
+<p><strong>如果是集合使用foreach</strong></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo5</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      List&lt;Integer&gt; list = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>);
+      <span class="hljs-keyword">for</span> (Integer x : list) &#123;
+         System.out.println(x);
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+<p>集合要使用foreach，需要该集合类实现了<strong>Iterable接口</strong>，因为集合的遍历需要用到<strong>迭代器Iterator</strong></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo5</span> </span>&#123;
+    <span class="hljs-keyword">public</span> Demo5 &#123;&#125;
+    
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      List&lt;Integer&gt; list = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>);
+      <span class="hljs-comment">//获得该集合的迭代器</span>
+      Iterator&lt;Integer&gt; iterator = list.iterator();
+      <span class="hljs-keyword">while</span>(iterator.hasNext()) &#123;
+         Integer x = iterator.next();
+         System.out.println(x);
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+
+
+<h4 id="switch字符串"><a href="#switch字符串" class="headerlink" title="switch字符串"></a>switch字符串</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo6</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      String str = <span class="hljs-string">"hello"</span>;
+      <span class="hljs-keyword">switch</span> (str) &#123;
+         <span class="hljs-keyword">case</span> <span class="hljs-string">"hello"</span> :
+            System.out.println(<span class="hljs-string">"h"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">case</span> <span class="hljs-string">"world"</span> :
+            System.out.println(<span class="hljs-string">"w"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">break</span>;
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+<p>在编译器中执行的操作</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo6</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Demo6</span><span class="hljs-params">()</span> </span>&#123;
+      
+   &#125;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      String str = <span class="hljs-string">"hello"</span>;
+      <span class="hljs-keyword">int</span> x = -<span class="hljs-number">1</span>;
+      <span class="hljs-comment">//通过字符串的hashCode+value来判断是否匹配</span>
+      <span class="hljs-keyword">switch</span> (str.hashCode()) &#123;
+         <span class="hljs-comment">//hello的hashCode</span>
+         <span class="hljs-keyword">case</span> <span class="hljs-number">99162322</span> :
+            <span class="hljs-comment">//再次比较，因为字符串的hashCode有可能相等</span>
+            <span class="hljs-keyword">if</span>(str.equals(<span class="hljs-string">"hello"</span>)) &#123;
+               x = <span class="hljs-number">0</span>;
+            &#125;
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-comment">//world的hashCode</span>
+         <span class="hljs-keyword">case</span> <span class="hljs-number">11331880</span> :
+            <span class="hljs-keyword">if</span>(str.equals(<span class="hljs-string">"world"</span>)) &#123;
+               x = <span class="hljs-number">1</span>;
+            &#125;
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">break</span>;
+      &#125;
+
+      <span class="hljs-comment">//用第二个switch在进行输出判断</span>
+      <span class="hljs-keyword">switch</span> (x) &#123;
+         <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+            System.out.println(<span class="hljs-string">"h"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+            System.out.println(<span class="hljs-string">"w"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">break</span>;
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+<p>过程说明：</p>
+<ul>
+<li>在编译期间，单个的switch被分为了两个<ul>
+<li>第一个用来匹配字符串，并给x赋值<ul>
+<li>字符串的匹配用到了字符串的hashCode，还用到了equals方法</li>
+<li>使用hashCode是为了提高比较效率，使用equals是防止有hashCode冲突（如BM和C.）</li>
+</ul>
+</li>
+<li>第二个用来根据x的值来决定输出语句</li>
+</ul>
+</li>
+</ul>
+<h4 id="switch枚举"><a href="#switch枚举" class="headerlink" title="switch枚举"></a>switch枚举</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo7</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      SEX sex = SEX.MALE;
+      <span class="hljs-keyword">switch</span> (sex) &#123;
+         <span class="hljs-keyword">case</span> MALE:
+            System.out.println(<span class="hljs-string">"man"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">case</span> FEMALE:
+            System.out.println(<span class="hljs-string">"woman"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">break</span>;
+      &#125;
+   &#125;
+&#125;
+
+<span class="hljs-keyword">enum</span> SEX &#123;
+   MALE, FEMALE;
+&#125;</code></pre>
+
+<p>编译器中执行的代码如下</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo7</span> </span>&#123;
+   <span class="hljs-comment">/**     </span>
+<span class="hljs-comment">    * 定义一个合成类（仅 jvm 使用，对我们不可见）     </span>
+<span class="hljs-comment">    * 用来映射枚举的 ordinal 与数组元素的关系     </span>
+<span class="hljs-comment">    * 枚举的 ordinal 表示枚举对象的序号，从 0 开始     </span>
+<span class="hljs-comment">    * 即 MALE 的 ordinal()=0，FEMALE 的 ordinal()=1     </span>
+<span class="hljs-comment">    */</span> 
+   <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> $<span class="hljs-title">MAP</span> </span>&#123;
+      <span class="hljs-comment">//数组大小即为枚举元素个数，里面存放了case用于比较的数字</span>
+      <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] map = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">2</span>];
+      <span class="hljs-keyword">static</span> &#123;
+         <span class="hljs-comment">//ordinal即枚举元素对应所在的位置，MALE为0，FEMALE为1</span>
+         map[SEX.MALE.ordinal()] = <span class="hljs-number">1</span>;
+         map[SEX.FEMALE.ordinal()] = <span class="hljs-number">2</span>;
+      &#125;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      SEX sex = SEX.MALE;
+      <span class="hljs-comment">//将对应位置枚举元素的值赋给x，用于case操作</span>
+      <span class="hljs-keyword">int</span> x = $MAP.map[sex.ordinal()];
+      <span class="hljs-keyword">switch</span> (x) &#123;
+         <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+            System.out.println(<span class="hljs-string">"man"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+            System.out.println(<span class="hljs-string">"woman"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">break</span>;
+      &#125;
+   &#125;
+&#125;
+
+<span class="hljs-keyword">enum</span> SEX &#123;
+   MALE, FEMALE;
+&#125;</code></pre>
+
+
+
+<h4 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h4><pre><code class="hljs java"><span class="hljs-keyword">enum</span> SEX &#123;
+   MALE, FEMALE;
+&#125;</code></pre>
+
+<p>转换后的代码</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sex</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Enum</span>&lt;<span class="hljs-title">Sex</span>&gt; </span>&#123;   
+   <span class="hljs-comment">//对应枚举类中的元素</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Sex MALE;    
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Sex FEMALE;    
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Sex[] $VALUES;
+   
+    <span class="hljs-keyword">static</span> &#123;       
+    	<span class="hljs-comment">//调用构造函数，传入枚举元素的值及ordinal</span>
+    	MALE = <span class="hljs-keyword">new</span> Sex(<span class="hljs-string">"MALE"</span>, <span class="hljs-number">0</span>);    
+        FEMALE = <span class="hljs-keyword">new</span> Sex(<span class="hljs-string">"FEMALE"</span>, <span class="hljs-number">1</span>);   
+        $VALUES = <span class="hljs-keyword">new</span> Sex[]&#123;MALE, FEMALE&#125;; 
+   &#125;
+ 	
+   <span class="hljs-comment">//调用父类中的方法</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Sex</span><span class="hljs-params">(String name, <span class="hljs-keyword">int</span> ordinal)</span> </span>&#123;     
+        <span class="hljs-keyword">super</span>(name, ordinal);    
+    &#125;
+   
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Sex[] values() &#123;  
+        <span class="hljs-keyword">return</span> $VALUES.clone();  
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Sex <span class="hljs-title">valueOf</span><span class="hljs-params">(String name)</span> </span>&#123; 
+        <span class="hljs-keyword">return</span> Enum.valueOf(Sex<span class="hljs-class">.<span class="hljs-keyword">class</span>, <span class="hljs-title">name</span>)</span>;  
+    &#125; 
+   
+&#125;</code></pre>
+
+
+
+<h4 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo8</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      Runnable runnable = <span class="hljs-keyword">new</span> Runnable() &#123;
+         <span class="hljs-meta">@Override</span>
+         <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+            System.out.println(<span class="hljs-string">"running..."</span>);
+         &#125;
+      &#125;;
+   &#125;
+&#125;</code></pre>
+
+<p>转换后的代码</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo8</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-comment">//用额外创建的类来创建匿名内部类对象</span>
+      Runnable runnable = <span class="hljs-keyword">new</span> Demo8$<span class="hljs-number">1</span>();
+   &#125;
+&#125;
+
+<span class="hljs-comment">//创建了一个额外的类，实现了Runnable接口</span>
+<span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo8</span>$1 <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span> </span>&#123;
+   <span class="hljs-keyword">public</span> Demo8$<span class="hljs-number">1</span>() &#123;&#125;
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+      System.out.println(<span class="hljs-string">"running..."</span>);
+   &#125;
+&#125;</code></pre>
+
+
+
+<p>如果匿名内部类中引用了<strong>局部变量</strong></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo8</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;
+      Runnable runnable = <span class="hljs-keyword">new</span> Runnable() &#123;
+         <span class="hljs-meta">@Override</span>
+         <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+            System.out.println(x);
+         &#125;
+      &#125;;
+   &#125;
+&#125;</code></pre>
+
+<p>转化后代码</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo8</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span> x = <span class="hljs-number">1</span>;
+      Runnable runnable = <span class="hljs-keyword">new</span> Runnable() &#123;
+         <span class="hljs-meta">@Override</span>
+         <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+            System.out.println(x);
+         &#125;
+      &#125;;
+   &#125;
+&#125;
+
+<span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo8</span>$1 <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span> </span>&#123;
+   <span class="hljs-comment">//多创建了一个变量</span>
+   <span class="hljs-keyword">int</span> val$x;
+   <span class="hljs-comment">//变为了有参构造器</span>
+   <span class="hljs-keyword">public</span> Demo8$<span class="hljs-number">1</span>(<span class="hljs-keyword">int</span> x) &#123;
+      <span class="hljs-keyword">this</span>.val$x = x;
+   &#125;
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;
+      System.out.println(val$x);
+   &#125;
+&#125;</code></pre>
+
+
+
+<h3 id="4、类加载阶段"><a href="#4、类加载阶段" class="headerlink" title="4、类加载阶段"></a>4、类加载阶段</h3><h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2>
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JAVA/">JAVA</a>
+                    
+                  </div>
                 
                 
               </div>
@@ -1844,7 +2246,7 @@ Constant pool:
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "JVM学习&nbsp;",
+        "JVM&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
