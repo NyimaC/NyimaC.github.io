@@ -2046,7 +2046,8 @@ Constant pool:
 <li>如果 static 变量是 ﬁnal 的<strong>基本类型</strong>，以及<strong>字符串常量</strong>，那么编译阶段值就确定了，<strong>赋值在准备阶段完成</strong> </li>
 <li>如果 static 变量是 ﬁnal 的，但属于<strong>引用类型</strong>，那么赋值也会在<strong>初始化阶段完成</strong></li>
 </ul>
-<h5 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h5><h6 id="HSDB的使用"><a href="#HSDB的使用" class="headerlink" title="HSDB的使用"></a>HSDB的使用</h6><ul>
+<h5 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h5><p><strong>HSDB的使用</strong></p>
+<ul>
 <li>先获得要查看的进程ID</li>
 </ul>
 <pre><code class="hljs ebnf"><span class="hljs-attribute">jps</span></code></pre>
@@ -2063,8 +2064,10 @@ Constant pool:
 <ul>
 <li>定位需要的进程</li>
 </ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200611221857.png" srcset="/img/loading.gif" alt=""></h2><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200611222029.png" srcset="/img/loading.gif" alt=""></p>
-<h6 id="解析的含义"><a href="#解析的含义" class="headerlink" title="解析的含义"></a>解析的含义</h6><p>将常量池中的符号引用解析为直接引用</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200611221857.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200611222029.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>解析的含义</strong></p>
+<p>将常量池中的符号引用解析为直接引用</p>
 <ul>
 <li>未解析时，常量池中的看到的对象仅是符号，未真正的存在于内存中</li>
 </ul>
@@ -2094,7 +2097,7 @@ Constant pool:
 </ul>
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200611223153.png" srcset="/img/loading.gif" alt=""></p>
 <p>查看类C的常量池，可以看到类D<strong>未被解析</strong>，只是存在于常量池中的符号</p>
-<p><img src="D:%5C%E5%90%8E%E7%AB%AF%E8%B5%84%E6%96%99NEW%5C%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3%5CJVM%E5%AD%A6%E4%B9%A0%5CJVM%E5%AD%A6%E4%B9%A0.assets%5Cimage-20200611223258210.png" srcset="/img/loading.gif" alt="image-20200611223258210"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200611230658.png" srcset="/img/loading.gif" alt=""></p>
 <ul>
 <li><p>解析以后，会将常量池中的符号引用解析为直接引用</p>
 <ul>
