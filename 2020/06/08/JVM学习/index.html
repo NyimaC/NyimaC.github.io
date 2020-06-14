@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15.6k 字
+      18.2k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      203
+      234
        分钟
     </span>
   
@@ -2106,8 +2106,8 @@ Constant pool:
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200611223441.png" srcset="/img/loading.gif" alt=""></p>
 </li>
 </ul>
-<p><img src="D:%5C%E5%90%8E%E7%AB%AF%E8%B5%84%E6%96%99NEW%5C%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3%5CJVM%E5%AD%A6%E4%B9%A0%5CJVM%E5%AD%A6%E4%B9%A0.assets%5Cimage-20200611223535271.png" srcset="/img/loading.gif" alt="image-20200611223535271"></p>
-<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>初始化即调用 <strong><cinit>()V</strong> ，虚拟机会保证这个类的『构造方法』的线程安全</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200613104723.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>初始化即调用 <strong>cinit()V</strong> ，虚拟机会保证这个类的『构造方法』的线程安全</p>
 <h5 id="发生时机"><a href="#发生时机" class="headerlink" title="发生时机"></a>发生时机</h5><p><strong>类的初始化的懒惰的</strong>，以下情况会初始化</p>
 <ul>
 <li>main 方法所在的类，总会被首先初始化 </li>
@@ -2126,6 +2126,274 @@ Constant pool:
 <li>Class.forNamed的参数2为false时</li>
 </ul>
 <p><strong>验证类是否被初始化，可以看改类的静态代码块是否被执行</strong></p>
+<h3 id="5、类加载器"><a href="#5、类加载器" class="headerlink" title="5、类加载器"></a>5、类加载器</h3><p>以JDK 8为例</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>加载的类</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bootstrap ClassLoader（启动类加载器）</td>
+<td>JAVA_HOME/jre/lib</td>
+<td>无法直接访问</td>
+</tr>
+<tr>
+<td>Extension ClassLoader(拓展类加载器)</td>
+<td>JAVA_HOME/jre/lib/ext</td>
+<td>上级为Bootstrap，<strong>显示为null</strong></td>
+</tr>
+<tr>
+<td>Application ClassLoader(应用程序类加载器)</td>
+<td>classpath</td>
+<td>上级为Extension</td>
+</tr>
+<tr>
+<td>自定义类加载器</td>
+<td>自定义</td>
+<td>上级为Application</td>
+</tr>
+</tbody></table>
+<h4 id="启动类加载器"><a href="#启动类加载器" class="headerlink" title="启动类加载器"></a>启动类加载器</h4><p>可通过在控制台输入指令，使得类被启动类加器加载</p>
+<h4 id="拓展类加载器"><a href="#拓展类加载器" class="headerlink" title="拓展类加载器"></a>拓展类加载器</h4><p>如果classpath和JAVA_HOME/jre/lib/ext 下有同名类，加载时会使用<strong>拓展类加载器</strong>加载。当应用程序类加载器发现拓展类加载器已将该同名类加载过了，则不会再次加载</p>
+<h4 id="双亲委派模式"><a href="#双亲委派模式" class="headerlink" title="双亲委派模式"></a>双亲委派模式</h4><p>双亲委派模式，即调用类加载器ClassLoader 的 loadClass 方法时，查找类的规则</p>
+<p>loadClass源码</p>
+<pre><code class="hljs java"><span class="hljs-keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="hljs-keyword">boolean</span> resolve)
+    <span class="hljs-keyword">throws</span> ClassNotFoundException
+&#123;
+    <span class="hljs-keyword">synchronized</span> (getClassLoadingLock(name)) &#123;
+        <span class="hljs-comment">// 首先查找该类是否已经被该类加载器加载过了</span>
+        Class&lt;?&gt; c = findLoadedClass(name);
+        <span class="hljs-comment">//如果没有被加载过</span>
+        <span class="hljs-keyword">if</span> (c == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">long</span> t0 = System.nanoTime();
+            <span class="hljs-keyword">try</span> &#123;
+                <span class="hljs-comment">//看是否被它的上级加载器加载过了 Extension的上级是Bootstarp，但它显示为null</span>
+                <span class="hljs-keyword">if</span> (parent != <span class="hljs-keyword">null</span>) &#123;
+                    c = parent.loadClass(name, <span class="hljs-keyword">false</span>);
+                &#125; <span class="hljs-keyword">else</span> &#123;
+                    <span class="hljs-comment">//看是否被启动类加载器加载过</span>
+                    c = findBootstrapClassOrNull(name);
+                &#125;
+            &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;
+                <span class="hljs-comment">// ClassNotFoundException thrown if class not found</span>
+                <span class="hljs-comment">// from the non-null parent class loader</span>
+                <span class="hljs-comment">//捕获异常，但不做任何处理</span>
+            &#125;
+
+            <span class="hljs-keyword">if</span> (c == <span class="hljs-keyword">null</span>) &#123;
+                <span class="hljs-comment">//如果还是没有找到，先让拓展类加载器调用findClass方法去找到该类，如果还是没找到，就抛出异常</span>
+                <span class="hljs-comment">//然后让应用类加载器去找classpath下找该类</span>
+                <span class="hljs-keyword">long</span> t1 = System.nanoTime();
+                c = findClass(name);
+
+                <span class="hljs-comment">// 记录时间</span>
+                sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
+                sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+                sun.misc.PerfCounter.getFindClasses().increment();
+            &#125;
+        &#125;
+        <span class="hljs-keyword">if</span> (resolve) &#123;
+            resolveClass(c);
+        &#125;
+        <span class="hljs-keyword">return</span> c;
+    &#125;
+&#125;</code></pre>
+
+
+
+<h4 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h4><h5 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h5><ul>
+<li>想加载非 classpath 随意路径中的类文件 </li>
+<li>通过接口来使用实现，希望解耦时，常用在框架设计 </li>
+<li>这些类希望予以隔离，不同应用的同名类都可以加载，不冲突，常见于 tomcat 容器</li>
+</ul>
+<h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><ul>
+<li>继承ClassLoader父类</li>
+<li>要遵从双亲委派机制，重写 ﬁndClass 方法 <ul>
+<li>不是重写loadClass方法，否则不会走双亲委派机制</li>
+</ul>
+</li>
+<li>读取类文件的字节码</li>
+<li>调用父类的 deﬁneClass 方法来加载类 </li>
+<li>使用者调用该类加载器的 loadClass 方法</li>
+</ul>
+<h3 id="6、运行期优化"><a href="#6、运行期优化" class="headerlink" title="6、运行期优化"></a>6、运行期优化</h3><h4 id="分层编译"><a href="#分层编译" class="headerlink" title="分层编译"></a>分层编译</h4><p>JVM 将执行状态分成了 5 个层次：</p>
+<ul>
+<li>0层：解释执行，用解释器将字节码翻译为机器码</li>
+<li>1层：使用 C1 <strong>即时编译器</strong>编译执行（不带 proﬁling） </li>
+<li>2层：使用  C1 即时编译器编译执行（带基本的profiling）</li>
+<li>3层：使用 C1 即时编译器编译执行（带完全的profiling）</li>
+<li>4层：使用 C2 即时编译器编译执行</li>
+</ul>
+<p>proﬁling 是指在运行过程中收集一些程序执行状态的数据，例如【方法的调用次数】，【循环的 回边次数】等</p>
+<h5 id="即时编译器（JIT）与解释器的区别"><a href="#即时编译器（JIT）与解释器的区别" class="headerlink" title="即时编译器（JIT）与解释器的区别"></a>即时编译器（JIT）与解释器的区别</h5><ul>
+<li>解释器<ul>
+<li>将字节码<strong>解释</strong>为机器码，下次即使遇到相同的字节码，仍会执行重复的解释 </li>
+<li>是将字节码解释为针对所有平台都通用的机器码 </li>
+</ul>
+</li>
+<li>即时编译器 <ul>
+<li>将一些字节码<strong>编译</strong>为机器码，<strong>并存入 Code Cache</strong>，下次遇到相同的代码，直接执行，无需再编译 </li>
+<li>根据平台类型，生成平台特定的机器码</li>
+</ul>
+</li>
+</ul>
+<p>对于大部分的不常用的代码，我们无需耗费时间将其编译成机器码，而是采取解释执行的方式运行；另一方面，对于仅占据小部分的热点代码，我们则可以将其编译成机器码，以达到理想的运行速度。 执行效率上简单比较一下 Interpreter &lt; C1 &lt; C2，总的目标是发现热点代码（hotspot名称的由 来），并优化这些热点代码</p>
+<h5 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h5><p>逃逸分析（Escape Analysis）简单来讲就是，Java Hotspot 虚拟机可以分析新创建对象的使用范围，并决定是否在 Java 堆上分配内存的一项技术</p>
+<p>逃逸分析的 JVM 参数如下：</p>
+<ul>
+<li>开启逃逸分析：-XX:+DoEscapeAnalysis</li>
+<li>关闭逃逸分析：-XX:-DoEscapeAnalysis</li>
+<li>显示分析结果：-XX:+PrintEscapeAnalysis</li>
+</ul>
+<p>逃逸分析技术在 Java SE 6u23+ 开始支持，并默认设置为启用状态，可以不用额外加这个参数</p>
+<p><strong>对象逃逸状态</strong></p>
+<p><strong>全局逃逸（GlobalEscape）</strong></p>
+<ul>
+<li>即一个对象的作用范围逃出了当前方法或者当前线程，有以下几种场景：<ul>
+<li>对象是一个静态变量</li>
+<li>对象是一个已经发生逃逸的对象</li>
+<li>对象作为当前方法的返回值</li>
+</ul>
+</li>
+</ul>
+<p><strong>参数逃逸（ArgEscape）</strong></p>
+<ul>
+<li>即一个对象被作为方法参数传递或者被参数引用，但在调用过程中不会发生全局逃逸，这个状态是通过被调方法的字节码确定的</li>
+</ul>
+<p><strong>没有逃逸</strong></p>
+<ul>
+<li>即方法中的对象没有发生逃逸</li>
+</ul>
+<p><strong>逃逸分析优化</strong></p>
+<p>针对上面第三点，当一个对象<strong>没有逃逸</strong>时，可以得到以下几个虚拟机的优化</p>
+<p><strong>锁消除</strong></p>
+<p>我们知道线程同步锁是非常牺牲性能的，当编译器确定当前对象只有当前线程使用，那么就会移除该对象的同步锁</p>
+<p>例如，StringBuffer 和 Vector 都是用 synchronized 修饰线程安全的，但大部分情况下，它们都只是在当前线程中用到，这样编译器就会优化移除掉这些锁操作</p>
+<p>锁消除的 JVM 参数如下：</p>
+<ul>
+<li>开启锁消除：-XX:+EliminateLocks</li>
+<li>关闭锁消除：-XX:-EliminateLocks</li>
+</ul>
+<p>锁消除在 JDK8 中都是默认开启的，并且锁消除都要建立在逃逸分析的基础上</p>
+<p><strong>标量替换</strong></p>
+<p>首先要明白标量和聚合量，<strong>基础类型</strong>和<strong>对象的引用</strong>可以理解为<strong>标量</strong>，它们不能被进一步分解。而能被进一步分解的量就是聚合量，比如：对象</p>
+<p>对象是聚合量，它又可以被进一步分解成标量，将其成员变量分解为分散的变量，这就叫做<strong>标量替换</strong>。</p>
+<p>这样，如果一个对象没有发生逃逸，那压根就不用创建它，只会在栈或者寄存器上创建它用到的成员标量，节省了内存空间，也提升了应用程序性能</p>
+<p>标量替换的 JVM 参数如下：</p>
+<ul>
+<li>开启标量替换：-XX:+EliminateAllocations</li>
+<li>关闭标量替换：-XX:-EliminateAllocations</li>
+<li>显示标量替换详情：-XX:+PrintEliminateAllocations</li>
+</ul>
+<p>标量替换同样在 JDK8 中都是默认开启的，并且都要建立在逃逸分析的基础上</p>
+<p><strong>栈上分配</strong></p>
+<p>当对象没有发生逃逸时，该<strong>对象</strong>就可以通过标量替换分解成成员标量分配在<strong>栈内存</strong>中，和方法的生命周期一致，随着栈帧出栈时销毁，减少了 GC 压力，提高了应用程序性能</p>
+<h4 id="方法内联"><a href="#方法内联" class="headerlink" title="方法内联"></a>方法内联</h4><h5 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a><strong>内联函数</strong></h5><p>内联函数就是在程序编译时，编译器将程序中出现的内联函数的调用表达式用内联函数的函数体来直接进行替换</p>
+<h5 id="JVM内联函数"><a href="#JVM内联函数" class="headerlink" title="JVM内联函数"></a><strong>JVM内联函数</strong></h5><p>C++是否为内联函数由自己决定，Java由<strong>编译器决定</strong>。Java不支持直接声明为内联函数的，如果想让他内联，你只能够向编译器提出请求: 关键字<strong>final修饰</strong> 用来指明那个函数是希望被JVM内联的，如</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doSomething</span><span class="hljs-params">()</span> </span>&#123;  
+        <span class="hljs-comment">// to do something  </span>
+&#125;</code></pre>
+
+<p>总的来说，一般的函数都不会被当做内联函数，只有声明了final后，编译器才会考虑是不是要把你的函数变成内联函数</p>
+<p>JVM内建有许多运行时优化。首先<strong>短方法</strong>更利于JVM推断。流程更明显，作用域更短，副作用也更明显。如果是长方法JVM可能直接就跪了。</p>
+<p>第二个原因则更重要：<strong>方法内联</strong> </p>
+<p> 如果JVM监测到一些<strong>小方法被频繁的执行</strong>，它会把方法的调用替换成方法体本身，如：</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">add4</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> x2, <span class="hljs-keyword">int</span> x3, <span class="hljs-keyword">int</span> x4)</span> </span>&#123; 
+		<span class="hljs-comment">//这里调用了add2方法</span>
+        <span class="hljs-keyword">return</span> add2(x1, x2) + add2(x3, x4);  
+    &#125;  
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">add2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> x2)</span> </span>&#123;  
+        <span class="hljs-keyword">return</span> x1 + x2;  
+    &#125;</code></pre>
+
+<p>方法调用被替换后</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">add4</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x1, <span class="hljs-keyword">int</span> x2, <span class="hljs-keyword">int</span> x3, <span class="hljs-keyword">int</span> x4)</span> </span>&#123;  
+    	<span class="hljs-comment">//被替换为了方法本身</span>
+        <span class="hljs-keyword">return</span> x1 + x2 + x3 + x4;  
+    &#125;</code></pre>
+
+
+
+<h4 id="反射优化"><a href="#反射优化" class="headerlink" title="反射优化"></a>反射优化</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Reflect1</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span> </span>&#123;
+      System.out.println(<span class="hljs-string">"foo..."</span>);
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> NoSuchMethodException, InvocationTargetException, IllegalAccessException </span>&#123;
+      Method foo = Demo3.class.getMethod("foo");
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;=<span class="hljs-number">16</span>; i++) &#123;
+         foo.invoke(<span class="hljs-keyword">null</span>);
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+<p>foo.invoke 前面 0 ~ 15 次调用使用的是 MethodAccessor 的 NativeMethodAccessorImpl 实现</p>
+<p>invoke方法源码</p>
+<pre><code class="hljs java"><span class="hljs-meta">@CallerSensitive</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">invoke</span><span class="hljs-params">(Object obj, Object... args)</span></span>
+<span class="hljs-function">    <span class="hljs-keyword">throws</span> IllegalAccessException, IllegalArgumentException,</span>
+<span class="hljs-function">       InvocationTargetException</span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">if</span> (!override) &#123;
+        <span class="hljs-keyword">if</span> (!Reflection.quickCheckMemberAccess(clazz, modifiers)) &#123;
+            Class&lt;?&gt; caller = Reflection.getCallerClass();
+            checkAccess(caller, clazz, obj, modifiers);
+        &#125;
+    &#125;
+    <span class="hljs-comment">//MethodAccessor是一个接口，有3个实现类，其中有一个是抽象类</span>
+    MethodAccessor ma = methodAccessor;             <span class="hljs-comment">// read volatile</span>
+    <span class="hljs-keyword">if</span> (ma == <span class="hljs-keyword">null</span>) &#123;
+        ma = acquireMethodAccessor();
+    &#125;
+    <span class="hljs-keyword">return</span> ma.invoke(obj, args);
+&#125;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200614133554.png" srcset="/img/loading.gif" alt=""></p>
+<p>会由DelegatingMehodAccessorImpl去调用NativeMethodAccessorImpl</p>
+<p>NativeMethodAccessorImpl源码</p>
+<pre><code class="hljs reasonml"><span class="hljs-keyword">class</span> NativeMethodAccessorImpl extends MethodAccessorImpl &#123;
+    <span class="hljs-keyword">private</span> final Method <span class="hljs-keyword">method</span>;
+    <span class="hljs-keyword">private</span> DelegatingMethodAccessorImpl parent;
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> numInvocations;
+
+    <span class="hljs-constructor">NativeMethodAccessorImpl(Method <span class="hljs-params">var1</span>)</span> &#123;
+        this.<span class="hljs-keyword">method</span> = var1;
+    &#125;
+	
+	<span class="hljs-comment">//每次进行反射调用，会让numInvocation与ReflectionFactory.inflationThreshold的值（15）进行比较，并使使得numInvocation的值加一</span>
+	<span class="hljs-comment">//如果numInvocation&gt;ReflectionFactory.inflationThreshold，则会调用本地方法invoke0方法</span>
+    public Object invoke(Object var1, Object<span class="hljs-literal">[]</span> var2) throws IllegalArgumentException, InvocationTargetException &#123;
+        <span class="hljs-keyword">if</span> (++this.numInvocations &gt; <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ReflectionFactory</span>.</span></span>inflation<span class="hljs-constructor">Threshold()</span><span class="hljs-operator"> &amp;&amp; </span>!<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">ReflectUtil</span>.</span></span>is<span class="hljs-constructor">VMAnonymousClass(<span class="hljs-params">this</span>.<span class="hljs-params">method</span>.<span class="hljs-params">getDeclaringClass</span>()</span>)) &#123;
+            MethodAccessorImpl var3 = (MethodAccessorImpl)(<span class="hljs-keyword">new</span> <span class="hljs-constructor">MethodAccessorGenerator()</span>).generate<span class="hljs-constructor">Method(<span class="hljs-params">this</span>.<span class="hljs-params">method</span>.<span class="hljs-params">getDeclaringClass</span>()</span>, this.<span class="hljs-keyword">method</span>.get<span class="hljs-constructor">Name()</span>, this.<span class="hljs-keyword">method</span>.get<span class="hljs-constructor">ParameterTypes()</span>, this.<span class="hljs-keyword">method</span>.get<span class="hljs-constructor">ReturnType()</span>, this.<span class="hljs-keyword">method</span>.get<span class="hljs-constructor">ExceptionTypes()</span>, this.<span class="hljs-keyword">method</span>.get<span class="hljs-constructor">Modifiers()</span>);
+            this.parent.set<span class="hljs-constructor">Delegate(<span class="hljs-params">var3</span>)</span>;
+        &#125;
+
+        return invoke0(this.<span class="hljs-keyword">method</span>, var1, var2);
+    &#125;
+
+    void set<span class="hljs-constructor">Parent(DelegatingMethodAccessorImpl <span class="hljs-params">var1</span>)</span> &#123;
+        this.parent = var1;
+    &#125;
+
+    <span class="hljs-keyword">private</span> static native Object invoke0(Method var0, Object var1, Object<span class="hljs-literal">[]</span> var2);
+&#125;</code></pre>
+
+<pre><code class="hljs java"><span class="hljs-comment">//ReflectionFactory.inflationThreshold()方法的返回值</span>
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> inflationThreshold = <span class="hljs-number">15</span>;</code></pre>
+
+<ul>
+<li>一开始if条件不满足，就会调用本地方法invoke0</li>
+<li>随着numInvocation的增大，当它大于ReflectionFactory.inflationThreshold的值16时，就会本地方法访问器替换为一个运行时动态生成的访问器，来提高效率<ul>
+<li>这时会从反射调用变为<strong>正常调用</strong>，即直接调用 Reflect1.foo()</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200614135011.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="五、内存模型"><a href="#五、内存模型" class="headerlink" title="五、内存模型"></a>五、内存模型</h2><p>内存模型内容详见 <a href="[http://www.wenwenlulu.cn/2020/06/08/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/#%E5%9B%9B%E3%80%81%E5%85%B1%E4%BA%AB%E6%A8%A1%E5%9E%8B%E4%B9%8B%E5%86%85%E5%AD%98](http://www.wenwenlulu.cn/2020/06/08/并发编程/#四、共享模型之内存)">JAVA并发 第四章</a></p>
 
             </article>
             <hr>
