@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.7k 字
+      10.4k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      109
+      144
        分钟
     </span>
   
@@ -1310,19 +1310,19 @@ KillerNode&#123;<span class="hljs-attribute">id</span>=3&#125;</code></pre>
 
 
 
-<h1 id="三、栈"><a href="#三、栈" class="headerlink" title="三、栈"></a>三、栈</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><ul>
+<h1 id="三、栈"><a href="#三、栈" class="headerlink" title="三、栈"></a>三、栈</h1><h2 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h2><ul>
 <li>栈是一个<strong>先入后出</strong>的有序列表</li>
 <li>栈(stack)是限制线性表中元素的插入和删除只能在线性表的<strong>同一端进行</strong>的一种特殊线性表。允许插入和删除的一端，为变化的一端，称为栈顶，另一端为固定的一端，称为栈底</li>
 <li>最先放入的元素在栈底，且最后出栈。最后放入的元素在栈顶，且最先出栈</li>
 </ul>
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200617090532.png" srcset="/img/loading.gif" alt=""></p>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<h2 id="2、应用场景"><a href="#2、应用场景" class="headerlink" title="2、应用场景"></a>2、应用场景</h2><ul>
 <li>子程序递归调用。如JVM中的虚拟机栈</li>
 <li>表达式转换（中缀转后缀）与求值</li>
 <li>二叉树的遍历</li>
 <li>图的深度优先遍历</li>
 </ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="用数组实现"><a href="#用数组实现" class="headerlink" title="用数组实现"></a>用数组实现</h3><p><strong>思路</strong></p>
+<h2 id="3、实现"><a href="#3、实现" class="headerlink" title="3、实现"></a>3、实现</h2><h3 id="用数组实现"><a href="#用数组实现" class="headerlink" title="用数组实现"></a>用数组实现</h3><p><strong>思路</strong></p>
 <ul>
 <li>定义top表示栈顶，初始值为-1</li>
 <li>入栈的操作，先让top++，再放入数组</li>
@@ -1385,7 +1385,7 @@ KillerNode&#123;<span class="hljs-attribute">id</span>=3&#125;</code></pre>
 
 
 
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h3><p><strong>思路</strong></p>
+<h2 id="4、应用"><a href="#4、应用" class="headerlink" title="4、应用"></a>4、应用</h2><h3 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h3><p><strong>思路</strong></p>
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200617103635.png" srcset="/img/loading.gif" alt=""></p>
 <ul>
 <li>准备一个索引index来帮助我们遍历表达式</li>
@@ -1590,7 +1590,7 @@ KillerNode&#123;<span class="hljs-attribute">id</span>=3&#125;</code></pre>
 
 
 
-<h2 id="中缀转后缀"><a href="#中缀转后缀" class="headerlink" title="中缀转后缀"></a>中缀转后缀</h2><p><strong>后缀表达式</strong>运算方法</p>
+<h2 id="5、中缀转后缀"><a href="#5、中缀转后缀" class="headerlink" title="5、中缀转后缀"></a>5、中缀转后缀</h2><p><strong>后缀表达式</strong>运算方法</p>
 <ul>
 <li><p>从左向右读取表达式</p>
 <ul>
@@ -1739,6 +1739,390 @@ KillerNode&#123;<span class="hljs-attribute">id</span>=3&#125;</code></pre>
 <p>结果</p>
 <pre><code class="hljs angelscript"><span class="hljs-number">123</span>+<span class="hljs-number">4</span>*+<span class="hljs-number">5</span>-</code></pre>
 
+
+
+<h1 id="四、递归"><a href="#四、递归" class="headerlink" title="四、递归"></a>四、递归</h1><h2 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h2><p> <strong>递归就是方法自己调用自己</strong>,每次调用时<strong>传入不同的变量</strong>.递归有助于编程者解决复杂的问题,同时可以让代码变得简洁。并且递归用到了<strong>虚拟机栈</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200618210040.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="2、能解决的问题"><a href="#2、能解决的问题" class="headerlink" title="2、能解决的问题"></a>2、能解决的问题</h2><p><strong>数学问题</strong></p>
+<ul>
+<li>八皇后问题</li>
+<li>汉诺塔</li>
+<li>求阶乘</li>
+<li>迷宫问题</li>
+<li>球和篮子</li>
+</ul>
+<p><strong>各种排序算法</strong></p>
+<h2 id="3、规则"><a href="#3、规则" class="headerlink" title="3、规则"></a>3、规则</h2><ul>
+<li><p>方法的变量是独立的，不会相互影响的</p>
+</li>
+<li><p>如果方法中使用的是引用类型变量(比如数组)，就会共享该引用类型的数据</p>
+</li>
+<li><p>递归<strong>必须向退出递归的条件逼近</strong>，否则就是无限递归，出现 StackOverflowError</p>
+</li>
+<li><p>当一个方法执行完毕，或者遇到 return，就会返回，<strong>遵守谁调用，就将结果返回给谁</strong>，同时当方法执行完毕或</p>
+<p> 者返回时，该方法也就执行完毕</p>
+</li>
+</ul>
+<h2 id="4、迷宫问题"><a href="#4、迷宫问题" class="headerlink" title="4、迷宫问题"></a>4、迷宫问题</h2><p><strong>思路</strong></p>
+<ul>
+<li>用一个二维矩阵代表地图<ul>
+<li>1代表边界</li>
+<li>0代表未做过该地点</li>
+<li>2代表走过且能走得通</li>
+<li>3代表走过但走不通</li>
+</ul>
+</li>
+<li>设置起点和终点以及每个地点的<strong>行走策略</strong><ul>
+<li>行走策略指<strong>在该点所走的方向的顺序</strong>，如 右-&gt;下-&gt;左-&gt;上（调用寻找路径的方法，使用递归）</li>
+</ul>
+</li>
+<li>每次行走时假设该点能够走通，然后按照策略去判断，如果所有策略判断后都走不通，则<strong>该点走不通</strong></li>
+</ul>
+<p><strong>图解</strong></p>
+<p>初始地图</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200618223850.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>行走路径</strong></p>
+<p>策略：右下左上</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200618224021.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>代码</strong></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-comment">//得到地图</span>
+      <span class="hljs-keyword">int</span> length = <span class="hljs-number">7</span>;
+      <span class="hljs-keyword">int</span> width = <span class="hljs-number">6</span>;
+      <span class="hljs-keyword">int</span>[][] map = getMap(length, width);
+
+      <span class="hljs-comment">//设置一些障碍</span>
+      map[<span class="hljs-number">1</span>][<span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;
+      map[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;
+
+      <span class="hljs-comment">//打印地图</span>
+      System.out.println(<span class="hljs-string">"地图如下"</span>);
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;length; i++) &#123;
+         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>; j&lt;width; j++) &#123;
+            System.out.print(map[i][j]+<span class="hljs-string">" "</span>);
+         &#125;
+         System.out.println();
+      &#125;
+
+      <span class="hljs-comment">//走迷宫</span>
+      getWay(map, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+
+      <span class="hljs-comment">//行走路径</span>
+      System.out.println(<span class="hljs-string">"行走路径"</span>);
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;length; i++) &#123;
+         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>; j&lt;width; j++) &#123;
+            System.out.print(map[i][j]+<span class="hljs-string">" "</span>);
+         &#125;
+         System.out.println();
+      &#125;
+
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 创建地图</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> length 地图的长</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> width 地图的宽</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 创建好的地图</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[][] getMap(<span class="hljs-keyword">int</span> length, <span class="hljs-keyword">int</span> width) &#123;
+      <span class="hljs-keyword">int</span>[][] map = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[length][width];
+      <span class="hljs-comment">//先将第一行和最后一行设置为1（边界）</span>
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;width; i++) &#123;
+         map[<span class="hljs-number">0</span>][i] = <span class="hljs-number">1</span>;
+         map[length-<span class="hljs-number">1</span>][i] = <span class="hljs-number">1</span>;
+      &#125;
+      <span class="hljs-comment">//再将第一列和最后一列设置为1</span>
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;length; i++) &#123;
+         map[i][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+         map[i][width-<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;
+      &#125;
+      <span class="hljs-keyword">return</span> map;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 开始走迷宫</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> map 地图</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> i 起点横坐标</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> j 七点纵坐标</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 能否走通，true能走通，false反之</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">getWay</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] map, <span class="hljs-keyword">int</span> i, <span class="hljs-keyword">int</span> j)</span> </span>&#123;
+      <span class="hljs-keyword">int</span> length= map.length;
+      <span class="hljs-keyword">int</span> width = map[<span class="hljs-number">0</span>].length;
+      <span class="hljs-comment">//假设右下角为终点</span>
+      <span class="hljs-keyword">if</span>(map[length-<span class="hljs-number">2</span>][width-<span class="hljs-number">2</span>] == <span class="hljs-number">2</span>) &#123;
+         <span class="hljs-comment">//走通了，返回true</span>
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">if</span>(map[i][j] == <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-comment">//假设改路能走通</span>
+            map[i][j] = <span class="hljs-number">2</span>;
+            <span class="hljs-comment">//行走策略 右-&gt;下-&gt;左-&gt;上</span>
+            <span class="hljs-keyword">if</span>(getWay(map, i, j+<span class="hljs-number">1</span>)) &#123;
+               <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(getWay(map, i+<span class="hljs-number">1</span>, j)) &#123;
+               <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(getWay(map, i-<span class="hljs-number">1</span>, j)) &#123;
+               <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(getWay(map, i, j-<span class="hljs-number">1</span>)) &#123;
+               <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+            &#125;
+            <span class="hljs-comment">//右下左上都走不通</span>
+            map[i][j] = <span class="hljs-number">3</span>;
+         &#125;<span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">//改路已经被标记过了，不用再走了，直接返回false</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+         &#125;
+      &#125;
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+   &#125;
+&#125;</code></pre>
+
+<p>运行结果</p>
+<pre><code class="hljs angelscript">地图如下
+<span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> 
+行走路径
+<span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">2</span> <span class="hljs-number">2</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">1</span> 
+<span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span></code></pre>
+
+
+
+<h2 id="5、八皇后问题"><a href="#5、八皇后问题" class="headerlink" title="5、八皇后问题"></a>5、八皇后问题</h2><p>八皇后问题，是一个古老而著名的问题，是<strong>回溯算法</strong>的典型案例。该问题是国际西洋棋棋手马克斯·贝瑟尔于1848年提出：在 8×8格的国际象棋上摆放八个皇后，使其不能互相攻击，即：任意两个皇后都<strong>不能处于同一行、同一列或同一斜线上</strong>，问有多少种摆法(92)。</p>
+<p><strong>思路</strong></p>
+<ul>
+<li><p>将第一个皇后放在第一行第一列</p>
+</li>
+<li><p>将第二个皇后放在第二行第一列，判断是否会和其他皇后相互攻击，若会相互攻击，则将其放到第三列、第四列…知道不会相互攻击为止</p>
+</li>
+<li><p>将第三个皇后放在第三行第一列，判断是否会和其他皇后相互攻击，若会相互攻击，则将其放到第三列、第四列…知道不会相互攻击为止，并<strong>以此类推</strong>，<strong>在摆放的过程中，有可能会改动前面所放的皇后的位置</strong></p>
+</li>
+<li><p>当得到一个正确的解时，就会回溯到上一行，由此来找出第一个皇后在第一行第一列的所有解</p>
+</li>
+<li><p>再将第一个皇后放到第一行第二列，并重复以上四个步骤</p>
+</li>
+<li><p><strong>注意</strong>：</p>
+<ul>
+<li>棋盘本身应该是用二维数组表示，但是应为皇后所在的行数是固定的，所以可以简化为用一个一维数组来表示。其中的值代表皇后所在的列</li>
+<li>数组下标代表皇后所在行数，所以判断是否在同一行列斜线上时，只需要判断是否在同一列和同一斜线上即可</li>
+<li>是否同列判断：值是否相同<ul>
+<li>是否同一斜线：行号-行号是否等于列号-列号，且<strong>列号相减要取绝对值</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>代码</strong></p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo3</span> </span>&#123;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 创建皇后所放位置的数组，数组的下标代表行号，数组中的值代表所在的列号</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+   <span class="hljs-keyword">int</span>  max = <span class="hljs-number">8</span>;
+   <span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[max];
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      Demo3 demo = <span class="hljs-keyword">new</span> Demo3();
+      <span class="hljs-comment">//放入第一个皇后，开始求后面的皇后</span>
+      demo.check(<span class="hljs-number">0</span>);
+      System.out.println(<span class="hljs-string">"一共有"</span>+sum+<span class="hljs-string">"种放法"</span>);
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 打印数组元素</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;arr.length; i++) &#123;
+         System.out.print(arr[i] + <span class="hljs-string">" "</span>);
+      &#125;
+      sum++;
+      System.out.println();
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 判断该位置的皇后与前面几个是否冲突</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> position 需要判断的皇后的位置</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> true代表冲突，false代表不冲突</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">judge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> position)</span> </span>&#123;
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;position; i++) &#123;
+         <span class="hljs-comment">//如果两个皇后在同一列或者同一斜线，就冲突</span>
+         <span class="hljs-comment">//因为数组下标代表行数，所以不会存在皇后在同一行</span>
+         <span class="hljs-comment">//所在行数-所在行数 如果等于 所在列数-所在列数，则两个皇后在同一斜线上</span>
+         <span class="hljs-keyword">if</span>(arr[i] == arr[position] || (position-i) == Math.abs(arr[position]-arr[i])) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+         &#125;
+      &#125;
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 检查该皇后应放的位置</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> queen 要检查的皇后</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">check</span><span class="hljs-params">(<span class="hljs-keyword">int</span> queen)</span> </span>&#123;
+      <span class="hljs-keyword">if</span>(queen == max) &#123;
+         <span class="hljs-comment">//所有的皇后都放好了，打印并返回</span>
+         print();
+         <span class="hljs-keyword">return</span>;
+      &#125;
+      <span class="hljs-comment">//把皇后放在每一列上，看哪些不会和之前的冲突</span>
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;max; i++) &#123;
+         <span class="hljs-comment">//把第queen+1个皇后放在第i列</span>
+         arr[queen] = i;
+         <span class="hljs-keyword">if</span>(!judge(queen)) &#123;
+            <span class="hljs-comment">//不冲突，就去放下一个皇后</span>
+            check(queen+<span class="hljs-number">1</span>);
+         &#125;
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+<p>一共有92种放法，就不一一展示了</p>
+<h1 id="五、排序"><a href="#五、排序" class="headerlink" title="五、排序"></a>五、排序</h1><h2 id="1、常见的排序算法"><a href="#1、常见的排序算法" class="headerlink" title="1、常见的排序算法"></a>1、常见的排序算法</h2><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200619194904.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="2、算法的时间复杂度"><a href="#2、算法的时间复杂度" class="headerlink" title="2、算法的时间复杂度"></a>2、算法的时间复杂度</h2><h3 id="时间频度和时间复杂度"><a href="#时间频度和时间复杂度" class="headerlink" title="时间频度和时间复杂度"></a>时间频度和时间复杂度</h3><p><strong>时间频度T(n)</strong></p>
+<p>一个算法执行所耗费的时间，从理论上是不能算出来的，必须上机运行测试才能知道。但我们不可能也没有必要对每个算法都上机测试，只需知道哪个算法花费的时间多，哪个算法花费的时间少就可以了。并且一个算法花费的时间与算法中<strong>语句的执行次数成正比例</strong>，哪个算法中语句执行次数多，它花费时间就多。<strong>一个算法中的语句执行次数称为语句频度或时间频度</strong>。记为T(n)。</p>
+<p><strong>时间复杂度O(n)</strong></p>
+<p>一般情况下，算法中基本操作重复执行的次数是问题规模n的某个函数，用T(n)表示，若有某个辅助函数f(n),使得当n趋近于无穷大时，T（n)/f(n)的极限值为不等于零的常数，则称f(n)是T(n)的同数量级函数。记作T(n)=O(f(n)),称O(f(n)) 为算法的渐进时间复杂度，简称时间复杂度。</p>
+<p>在T(n)=4n²-2n+2中，就有f(n)=n²，使得T（n)/f(n)的极限值为4，那么O(f(n))，也就是时间复杂度为O(n²)</p>
+<ul>
+<li><p>对于不是只有常数的时间复杂度<strong>忽略时间频度的系数、低次项常数</strong></p>
+</li>
+<li><p>对于只有常数的时间复杂度，将常数看为1</p>
+</li>
+</ul>
+<h3 id="常见的时间复杂度"><a href="#常见的时间复杂度" class="headerlink" title="常见的时间复杂度"></a>常见的时间复杂度</h3><h4 id="常数阶-O-1"><a href="#常数阶-O-1" class="headerlink" title="常数阶 O(1)"></a>常数阶 O(1)</h4><pre><code class="hljs java"><span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;
+i++;</code></pre>
+
+<p>无论代码执行了多少行，只要没有循环等复杂的结构，时间复杂度都是O(1)</p>
+<h4 id="对数阶O-log2n"><a href="#对数阶O-log2n" class="headerlink" title="对数阶O(log2n)"></a>对数阶O(log<del>2</del>n)</h4><pre><code class="hljs java"><span class="hljs-keyword">while</span>(i&lt;n) &#123;
+    i = i*<span class="hljs-number">2</span>;
+&#125;</code></pre>
+
+<p>此处i并不是依次递增到n，而是每次都以倍数增长。假设循环了x次后i大于n。则2^x^ = n，x=log<del>2</del>n</p>
+<h4 id="线性阶O-n"><a href="#线性阶O-n" class="headerlink" title="线性阶O(n)"></a>线性阶O(n)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
+	i++;
+&#125;</code></pre>
+
+<p>这其中，循环体中的代码会执行n+1次，时间复杂度为O(n)</p>
+<h4 id="线性对数阶O-nlog2n"><a href="#线性对数阶O-nlog2n" class="headerlink" title="线性对数阶O(nlog2n)"></a>线性对数阶O(nlog<del>2</del>n)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
+    j = <span class="hljs-number">1</span>;
+	<span class="hljs-keyword">while</span>(j&lt;n) &#123;
+		j = j*<span class="hljs-number">2</span>;
+	&#125;
+&#125;</code></pre>
+
+<p>此处外部为一个循环，循环了n次。内部也是一个循环，但内部循环的时间复杂度是log<del>2</del>n</p>
+<p>所以总体的时间复杂度为线性对数阶O(nlog<del>2</del>n)</p>
+<h4 id="平方阶O-n-2"><a href="#平方阶O-n-2" class="headerlink" title="平方阶O(n^2^)"></a>平方阶O(n^2^)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;n; j++) &#123;
+		<span class="hljs-comment">//循环体</span>
+	&#125;
+&#125;</code></pre>
+
+<h4 id="立方阶O-n-3"><a href="#立方阶O-n-3" class="headerlink" title="立方阶O(n^3^)"></a>立方阶O(n^3^)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
+	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;n; j++) &#123;
+		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k&lt;n; k++) &#123;
+			<span class="hljs-comment">//循环体</span>
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<p>可以看出平方阶、立方阶的复杂度主要是否循环嵌套了几层来决定的</p>
+<h2 id="3、排序算法的时间复杂度"><a href="#3、排序算法的时间复杂度" class="headerlink" title="3、排序算法的时间复杂度"></a>3、排序算法的时间复杂度</h2><table>
+<thead>
+<tr>
+<th>排序算法</th>
+<th>平均时间</th>
+<th>最差时间</th>
+<th>稳定性</th>
+<th>空间复杂度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>冒泡排序</td>
+<td>O(n^2^)</td>
+<td>O(n^2^)</td>
+<td>稳定</td>
+<td>O(1)</td>
+<td>n较小时好</td>
+</tr>
+<tr>
+<td>交换排序</td>
+<td>O(n^2^)</td>
+<td>O(n^2^)</td>
+<td>不稳定</td>
+<td>O(1)</td>
+<td>n较小时好</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>O(n^2^)</td>
+<td>O(n^2^)</td>
+<td>不稳定</td>
+<td>O(1)</td>
+<td>n较小时好</td>
+</tr>
+<tr>
+<td>插入排序</td>
+<td>O(n^2^)</td>
+<td>O(n^2^)</td>
+<td>稳定</td>
+<td>O(1)</td>
+<td>大部分已有序时好</td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td>O(log<del>R</del>B)</td>
+<td>O(log<del>R</del>B)</td>
+<td>稳定</td>
+<td>O(n)</td>
+<td>B是真数，R是基数</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>O(nlogn)</td>
+<td>O(n^s^)(1&lt;s&lt;2)</td>
+<td>不稳定</td>
+<td>O(1)</td>
+<td>s是所选分组</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>O(nlogn)</td>
+<td>O(n^2^)</td>
+<td>不稳定</td>
+<td>O(nlogn)</td>
+<td>n较大时好</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>稳定</td>
+<td>O(1)</td>
+<td>n较大时好</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>不稳定</td>
+<td>O(1)</td>
+<td>n较大时好</td>
+</tr>
+</tbody></table>
 
             </article>
             <hr>
