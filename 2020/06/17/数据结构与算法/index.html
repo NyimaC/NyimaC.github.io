@@ -2015,7 +2015,7 @@ i++;</code></pre>
 &#125;</code></pre>
 
 <p>这其中，循环体中的代码会执行n+1次，时间复杂度为O(n)</p>
-<h4 id="线性对数阶O-nlog2n"><a href="#线性对数阶O-nlog2n" class="headerlink" title="线性对数阶O(nlog2n)"></a>线性对数阶O(nlog<del>2</del>n)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
+<h4 id="线性对数阶O-nlog-2n"><a href="#线性对数阶O-nlog-2n" class="headerlink" title="线性对数阶O(nlog_2n)"></a>线性对数阶O(nlog_2n)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
     j = <span class="hljs-number">1</span>;
 	<span class="hljs-keyword">while</span>(j&lt;n) &#123;
 		j = j*<span class="hljs-number">2</span>;
@@ -2024,13 +2024,13 @@ i++;</code></pre>
 
 <p>此处外部为一个循环，循环了n次。内部也是一个循环，但内部循环的时间复杂度是log<del>2</del>n</p>
 <p>所以总体的时间复杂度为线性对数阶O(nlog<del>2</del>n)</p>
-<h4 id="平方阶O-n-2"><a href="#平方阶O-n-2" class="headerlink" title="平方阶O(n^2^)"></a>平方阶O(n^2^)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
+<h4 id="平方阶O-n-2"><a href="#平方阶O-n-2" class="headerlink" title="平方阶O(n^{2})"></a>平方阶O(n^{2})</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
 	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;n; j++) &#123;
 		<span class="hljs-comment">//循环体</span>
 	&#125;
 &#125;</code></pre>
 
-<h4 id="立方阶O-n-3"><a href="#立方阶O-n-3" class="headerlink" title="立方阶O(n^3^)"></a>立方阶O(n^3^)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
+<h4 id="立方阶O-n-3"><a href="#立方阶O-n-3" class="headerlink" title="立方阶O(n^3)"></a>立方阶O(n^3)</h4><pre><code class="hljs java"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;
 	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;n; j++) &#123;
 		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k&lt;n; k++) &#123;
 			<span class="hljs-comment">//循环体</span>
@@ -2414,6 +2414,45 @@ i++;</code></pre>
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
 
 
 
