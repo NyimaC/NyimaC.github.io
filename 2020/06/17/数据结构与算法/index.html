@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13.5k 字
+      14.9k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      185
+      205
        分钟
     </span>
   
@@ -216,7 +216,8 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="JAVA数据结构与算法"><a href="#JAVA数据结构与算法" class="headerlink" title="JAVA数据结构与算法"></a>JAVA数据结构与算法</h1><h1 id="一、稀疏数组和队列"><a href="#一、稀疏数组和队列" class="headerlink" title="一、稀疏数组和队列"></a>一、稀疏数组和队列</h1><h2 id="1、稀疏数组"><a href="#1、稀疏数组" class="headerlink" title="1、稀疏数组"></a>1、稀疏数组</h2><h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><p>当一个数组中大部分元素为０，或者为同一个值的数组时，可以使用<strong>稀疏数组</strong>来保存该数组。</p>
+              <h1 id="JAVA数据结构与算法"><a href="#JAVA数据结构与算法" class="headerlink" title="JAVA数据结构与算法"></a>JAVA数据结构与算法</h1><p>该博客是根据<a href="https://www.bilibili.com/video/BV1B4411H76f?from=search&seid=14863448557523728830" target="_blank" rel="noopener">Java -韩顺平 图解Java 数据结构 和 算法-尚硅谷</a>学习时，所做的笔记</p>
+<h1 id="一、稀疏数组和队列"><a href="#一、稀疏数组和队列" class="headerlink" title="一、稀疏数组和队列"></a>一、稀疏数组和队列</h1><h2 id="1、稀疏数组"><a href="#1、稀疏数组" class="headerlink" title="1、稀疏数组"></a>1、稀疏数组</h2><h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><p>当一个数组中大部分元素为０，或者为同一个值的数组时，可以使用<strong>稀疏数组</strong>来保存该数组。</p>
 <h3 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h3><ul>
 <li>记录数组<strong>一共有几行几列</strong>，有多少个<strong>不同的值</strong></li>
 <li>把具有不同值的元素的行列及值记录在一个小规模的数组中，从而<strong>缩小程序</strong>的规模</li>
@@ -2347,13 +2348,13 @@ i++;</code></pre>
 
 
    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * 返回基准下标</span>
 <span class="hljs-comment">    * <span class="hljs-doctag">@param</span> arr 待排序的数组</span>
 <span class="hljs-comment">    * <span class="hljs-doctag">@param</span> left 左侧开始下标</span>
 <span class="hljs-comment">    * <span class="hljs-doctag">@param</span> right 右侧开始下标</span>
 <span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 中间值的下标</span>
 <span class="hljs-comment">    */</span>
-    <span class="hljs-function"><span class="hljs-keyword">private</span>  <span class="hljs-keyword">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">partition</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;
       <span class="hljs-comment">//以该分区最左边的数为基数</span>
       <span class="hljs-keyword">int</span> pivot = arr[left];
 
@@ -2411,7 +2412,7 @@ i++;</code></pre>
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MergeSort</span> </span>&#123;
    <span class="hljs-comment">/**</span>
-<span class="hljs-comment">    * 零时数组，用于合并时用于存放元素</span>
+<span class="hljs-comment">    * 临时数组，用于合并时用于存放元素</span>
 <span class="hljs-comment">    */</span>
    <span class="hljs-keyword">int</span>[] temp;
 
@@ -2464,7 +2465,7 @@ i++;</code></pre>
          arrRight++;
       &#125;
 
-      <span class="hljs-comment">//将零时数组中的元素放回数组arr中</span>
+      <span class="hljs-comment">//将临时数组中的元素放回数组arr中</span>
       tempLeft = <span class="hljs-number">0</span>;
       arrLeft = left;
       <span class="hljs-keyword">while</span> (arrLeft &lt;= right) &#123;
@@ -2587,6 +2588,220 @@ i++;</code></pre>
       <span class="hljs-keyword">return</span> digits;
    &#125;
 &#125;</code></pre>
+
+
+
+<h1 id="六、查找"><a href="#六、查找" class="headerlink" title="六、查找"></a>六、查找</h1><h2 id="1、线性查找"><a href="#1、线性查找" class="headerlink" title="1、线性查找"></a>1、线性查找</h2><p>线性查找是一种非常简单的查找方式。查找思路是：从数组的一个元素出发，一个个地和要查找的值进行比较，如果发现有相同的元素就返回该元素的下标。反之返回-1（未找到）</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">11</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">55</span>&#125;;
+      <span class="hljs-keyword">int</span> result = seqSearch(arr, <span class="hljs-number">1</span>);
+      <span class="hljs-keyword">if</span>(result == -<span class="hljs-number">1</span>) &#123;
+         System.out.println(<span class="hljs-string">"数组中没有该元素"</span>);
+      &#125;<span class="hljs-keyword">else</span> &#123;
+         System.out.println(<span class="hljs-string">"该元素在数组的下标是："</span> + result);
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 线性查找</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> arr 查找的数组</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> num 待查找的数字</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 数字的索引</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">seqSearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> num)</span> </span>&#123;
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;arr.length; i++) &#123;
+         <span class="hljs-keyword">if</span>(arr[i] == num) &#123;
+            <span class="hljs-keyword">return</span> i;
+         &#125;
+      &#125;
+      <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+   &#125;
+&#125;</code></pre>
+
+
+
+<h2 id="2、二分查找"><a href="#2、二分查找" class="headerlink" title="2、二分查找"></a>2、二分查找</h2><p>进行二分查找的数组必须为<strong>有序数组</strong></p>
+<ul>
+<li>设置一个指向中间元素下标的变量mid，mid=(left + right)/2</li>
+<li>让要查找的元素和数组mid下标的元素进行比较<ul>
+<li>如果查找的元素大于arr[mid]，则left变为mid后面一个元素的下标</li>
+<li>如果查找的元素小于arr[mid]，则right变为mid前一个元素的下标</li>
+<li>如果查找的元素等于arr[mid]，则mid就是要查找元素所在的位置</li>
+</ul>
+</li>
+<li>当left &gt; rigth时，说明元素不在该数组中</li>
+</ul>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-comment">//进行二分查找的数组必须是有序</span>
+      <span class="hljs-keyword">int</span>[] arr = &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">11</span>, <span class="hljs-number">30</span>&#125;;
+      <span class="hljs-keyword">int</span> result = binarySearch(arr, <span class="hljs-number">11</span>);
+      <span class="hljs-keyword">if</span>(result == -<span class="hljs-number">1</span>) &#123;
+         System.out.println(<span class="hljs-string">"未找到该元素"</span>);
+      &#125;<span class="hljs-keyword">else</span> &#123;
+         System.out.println(<span class="hljs-string">"该元素的下标是："</span> + result);
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 二分查找</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> arr 要查找的有序数组</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> num 要查找的数字</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 对应数字的下标</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> num)</span> </span>&#123;
+      <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">int</span> right = arr.length-<span class="hljs-number">1</span>;
+      <span class="hljs-keyword">while</span>(left &lt;= right) &#123;
+         <span class="hljs-keyword">int</span> mid = (left + right)/<span class="hljs-number">2</span>;
+         <span class="hljs-comment">//如果要查找的值大于中间位置的值，说明要查找的值在右边部分</span>
+         <span class="hljs-keyword">if</span>(arr[mid] &lt; num) &#123;
+            left = mid + <span class="hljs-number">1</span>;
+         &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(arr[mid] &gt; num) &#123;
+            <span class="hljs-comment">//如果要查找的值小于中间位置的值</span>
+            <span class="hljs-comment">//说明要查找的值在左边部分</span>
+            right = mid - <span class="hljs-number">1</span>;
+         &#125;<span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">//找到了该元素</span>
+            <span class="hljs-keyword">return</span> mid;
+         &#125;
+      &#125;
+      <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+   &#125;
+&#125;</code></pre>
+
+
+
+<p><strong>但是有可能要查找的元素有多个</strong>。这时就需要在找到一个元素后，不要立即返回，而是<strong>扫描其左边和右边的元素</strong>，将所有相同元素的下标保存到一个数组中，然后一起返回</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span>[] arr = &#123;-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">11</span>, <span class="hljs-number">11</span>, <span class="hljs-number">11</span>, <span class="hljs-number">11</span>, <span class="hljs-number">30</span>&#125;;
+      <span class="hljs-comment">//进行二分查找的数组必须是有序</span>
+      Arrays.sort(arr);
+      List&lt;Integer&gt; result = binarySearch(arr, <span class="hljs-number">11</span>);
+      <span class="hljs-keyword">if</span>(result.size() == <span class="hljs-number">0</span>) &#123;
+         System.out.println(<span class="hljs-string">"未找到该元素"</span>);
+      &#125;<span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">for</span>(Integer index : result) &#123;
+            System.out.println(index);
+         &#125;
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 二分查找（可以查找重复元素的下标）</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> arr 要查找的有序数组</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> num 要查找的数字</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 保存了所有该值元素所在的位置</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Integer&gt; <span class="hljs-title">binarySearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> num)</span> </span>&#123;
+      <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">int</span> right = arr.length-<span class="hljs-number">1</span>;
+      <span class="hljs-keyword">int</span> mid;
+      <span class="hljs-comment">//用户保存查找值下标</span>
+      List&lt;Integer&gt; positionList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+      <span class="hljs-keyword">while</span>(left &lt;= right) &#123;
+         mid = (left + right)/<span class="hljs-number">2</span>;
+         <span class="hljs-comment">//如果要查找的值大于中间位置的值，说明要查找的值在右边部分</span>
+         <span class="hljs-keyword">if</span>(arr[mid] &lt; num) &#123;
+            left = mid + <span class="hljs-number">1</span>;
+         &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(arr[mid] &gt; num) &#123;
+            <span class="hljs-comment">//如果要查找的值小于中间位置的值</span>
+            <span class="hljs-comment">//说明要查找的值在左边部分</span>
+            right = mid - <span class="hljs-number">1</span>;
+         &#125;<span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">//将下标存入到集合中</span>
+            positionList.add(mid);
+            <span class="hljs-comment">//用于遍历mid左边的相同元素</span>
+            <span class="hljs-keyword">int</span> leftIndex = mid - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">while</span>(leftIndex &gt; <span class="hljs-number">0</span> &amp;&amp; arr[leftIndex] == num) &#123;
+               positionList.add(leftIndex);
+               leftIndex--;
+            &#125;
+
+            <span class="hljs-keyword">int</span> rightIndex = mid + <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">while</span>(rightIndex &lt; right &amp;&amp; arr[rightIndex] == num) &#123;
+               positionList.add(rightIndex);
+               rightIndex++;
+            &#125;
+
+            <span class="hljs-keyword">return</span> positionList;
+         &#125;
+      &#125;
+
+      <span class="hljs-keyword">return</span> positionList;
+   &#125;
+&#125;</code></pre>
+
+
+
+<h2 id="3、插值查找"><a href="#3、插值查找" class="headerlink" title="3、插值查找"></a>3、插值查找</h2><p>在二分查找中，如果我们 要找的元素位于数组的最前端或者最后段，这时的查找效率是很低的。所以在二分查找至上，引入了插值查找，也是一种<strong>基于有序数组</strong>的查找方式</p>
+<p>插值查找与二分查找的区别是：插值查找使用了一种<strong>自适应</strong>算法，用这种算法来计算mid。</p>
+<p>mid的值在两种查找算法中的求法：</p>
+<ul>
+<li>二分查找：mid = (left + right)/2</li>
+<li>插值查找：<strong>mid = left + (right - left) * (num - arr[left]) / (arr[right] - arr[left])</strong><ul>
+<li>其中num为要查找的那个值</li>
+</ul>
+</li>
+</ul>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo3</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span>[] arr = &#123;-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">11</span>, <span class="hljs-number">11</span>, <span class="hljs-number">11</span>, <span class="hljs-number">11</span>, <span class="hljs-number">30</span>&#125;;
+      <span class="hljs-comment">//进行二分查找的数组必须是有序</span>
+      Arrays.sort(arr);
+      List&lt;Integer&gt; result = insertSearch(arr, <span class="hljs-number">30</span>);
+      <span class="hljs-keyword">if</span>(result.size() == <span class="hljs-number">0</span>) &#123;
+         System.out.println(<span class="hljs-string">"未找到该元素"</span>);
+      &#125;<span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">for</span>(Integer index : result) &#123;
+            System.out.println(index);
+         &#125;
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 插值查找查找（可以查找重复元素的下标）</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> arr 要查找的有序数组</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> num 要查找的数字</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 保存了所有该值元素所在的位置</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Integer&gt; <span class="hljs-title">insertSearch</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr, <span class="hljs-keyword">int</span> num)</span> </span>&#123;
+      List&lt;Integer&gt; positionList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+      <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">int</span> right = arr.length - <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">int</span> mid;
+      <span class="hljs-keyword">while</span>(left&lt;=right) &#123;
+         <span class="hljs-comment">//插值查找的自适应算法</span>
+         mid = left+(right-left)*(num-arr[left])/(arr[right]-arr[left]);
+         <span class="hljs-keyword">if</span>(arr[mid] &gt; num) &#123;
+            right = mid - <span class="hljs-number">1</span>;
+         &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(arr[mid] &lt; num) &#123;
+            left = mid + <span class="hljs-number">1</span>;
+         &#125;<span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">//找到了该元素的位置</span>
+            positionList.add(mid);
+         &#125;
+
+         <span class="hljs-comment">//继续查找mid附近值相同的元素</span>
+         <span class="hljs-keyword">int</span> leftIndex = mid - <span class="hljs-number">1</span>;
+         <span class="hljs-keyword">while</span>(leftIndex &gt;=<span class="hljs-number">0</span> &amp;&amp; arr[leftIndex] == num) &#123;
+            positionList.add(leftIndex);
+            leftIndex++;
+         &#125;
+         <span class="hljs-keyword">int</span> rightIndex = mid + <span class="hljs-number">1</span>;
+         <span class="hljs-keyword">while</span> (rightIndex &lt;= right &amp;&amp; arr[rightIndex] == num) &#123;
+            positionList.add(rightIndex);
+            rightIndex++;
+         &#125;
+         <span class="hljs-keyword">return</span> positionList;
+      &#125;
+      <span class="hljs-keyword">return</span> positionList;
+   &#125;
+&#125;</code></pre>
+
+
             </article>
             <hr>
             <div>
