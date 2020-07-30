@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      20.3k 字
+      26.3k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      283
+      362
        分钟
     </span>
   
@@ -2482,7 +2482,6 @@ i++;</code></pre>
          mergeSort(arr, mid+<span class="hljs-number">1</span>, right);
          merge(arr, left, right);
       &#125;
-
    &#125;
 &#125;</code></pre>
 
@@ -2607,8 +2606,8 @@ i++;</code></pre>
 <li><p>一般升序排序采用大顶堆，降序排列使用小顶堆</p>
 </li>
 </ul>
-<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200727154253.png" srcset="/img/loading.gif" alt=""></p>
-<p><img src="D:%5C%E5%90%8E%E7%AB%AF%E8%B5%84%E6%96%99NEW%5C%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3%5C%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%5C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95.assets%5Cimage-20200727154321280.png" srcset="/img/loading.gif" alt="image-20200727154321280"></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200727191935.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200727191922.png" srcset="/img/loading.gif" alt=""></p>
 <p><strong>排序思路</strong></p>
 <ul>
 <li>堆是一种树结构，但是排序中会将堆进行<strong>顺序存储</strong>（变为数组结构）</li>
@@ -3625,7 +3624,7 @@ Student&#123;<span class="hljs-attribute">id</span>=4, <span class="hljs-attribu
 <li>顺序二叉树通常只考虑<strong>完全二叉树</strong></li>
 <li>第 n个元素的<strong>左</strong>子节点为 <strong>2 × n + 1</strong></li>
 <li>第 n个元素的<strong>右</strong>子节点为 <strong>2 × n + 2</strong></li>
-<li>第 n个元素的<strong>父</strong>节点为 <strong>(n-1) /÷2</strong><ul>
+<li>第 n个元素的<strong>父</strong>节点为 <strong>(n-1) ÷2</strong><ul>
 <li>其中<strong>n</strong> 表示二叉树中的第几个元素(从0开始编号)</li>
 </ul>
 </li>
@@ -3969,6 +3968,946 @@ Student&#123;<span class="hljs-attribute">id</span>=3, <span class="hljs-attribu
 
 
 <h2 id="2、树的应用"><a href="#2、树的应用" class="headerlink" title="2、树的应用"></a>2、树的应用</h2><h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>详见<a href="http://www.wenwenlulu.cn/2020/06/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/#11%E3%80%81%E5%A0%86%E6%8E%92%E5%BA%8F" target="_blank" rel="noopener">排序算法——堆排序</a></p>
+<h3 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h3><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200727192923.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h4><ul>
+<li>给定 n个权值作为 n个叶子结点，构造一棵二叉树，<strong>若该树的带权路径长度(wpl)达到最小</strong>，称这样的二叉树为最优二叉树，也称为哈夫曼树(Huffman Tree)</li>
+<li>哈夫曼树是带权路径长度最短的树，<strong>权值较大的结点离根较近</strong></li>
+</ul>
+<h4 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h4><ul>
+<li><strong>路径和路径长度</strong>：在一棵树中，从一个结点往下可以达到的孩子或孙子结点之间的通路，称为路径。<strong>通路中分支的数目称为路径长度</strong>。若规定根结点的层数为1，则从根结点到第L层结点的路径长度为 <strong>L-1</strong></li>
+<li><strong>结点的权及带权路径长度</strong>：若将树中结点赋给一个有着某种含义的数值，则这个数值称为该<strong>结点的权</strong>。<ul>
+<li><strong>结点的带权路径长度为</strong>：从根结点到该结点之间的路径长度与该结点的权的<strong>乘积</strong>（W×L）</li>
+</ul>
+</li>
+<li><strong>树的带权路径长度</strong>：树的带权路径长度规定为<strong>所有叶子结点的带权路径长度之和</strong>（W1×L1+W2×L2…），记为WPL(weighted pathlength) ,权值越大的结点离根结点越近的二叉树才是最优二叉树。</li>
+<li>WPL最小的就是哈夫曼树</li>
+</ul>
+<h4 id="创建思路及图解"><a href="#创建思路及图解" class="headerlink" title="创建思路及图解"></a>创建思路及图解</h4><p><strong>创建思路</strong></p>
+<ul>
+<li>从小到大进行排序, 将每一个数据，每个数据都是一个节点 ， 每个节点可以看成是一颗最简单的二叉树</li>
+<li>取出<strong>根节点权值最小</strong>的两颗二叉树</li>
+<li>组成一颗新的二叉树, 该新的二叉树的根节点的权值是前面两颗二叉树<strong>根节点权值的和</strong></li>
+<li>再将这颗新的二叉树，以<strong>根节点的权值大小 再次排序</strong>，不断重复 1-2-3-4 的步骤，直到数列中，所有的数据都被处理，就得到一颗赫夫曼树</li>
+</ul>
+<p><strong>图解</strong></p>
+<p>以{3, 6, 7, 1, 8, 29, 13}为例</p>
+<p><strong>首先排序</strong>：{1, 3, 6, 7, 8, 13, 29}</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200729185121.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200729185142.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200729185223.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200729185340.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200729185434.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200729185516.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="实现代码-4"><a href="#实现代码-4" class="headerlink" title="实现代码"></a>实现代码</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>, <span class="hljs-number">8</span>, <span class="hljs-number">29</span>, <span class="hljs-number">13</span>&#125;;
+      HuffmanTree huffmanTree = <span class="hljs-keyword">new</span> HuffmanTree();
+      Node root = huffmanTree.createHuffmanTree(arr);
+      root.preTraverse();
+   &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HuffmanTree</span> </span>&#123;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">createHuffmanTree</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arr)</span> </span>&#123;
+      <span class="hljs-comment">//创建数组用于存放Node</span>
+      ArrayList&lt;Node&gt; nodes = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(arr.length);
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> value : arr) &#123;
+         nodes.add(<span class="hljs-keyword">new</span> Node(value));
+      &#125;
+      <span class="hljs-comment">//对集合中的元素进行排序</span>
+      Collections.sort(nodes);
+
+      <span class="hljs-keyword">while</span>(nodes.size() &gt; <span class="hljs-number">1</span>) &#123;
+         <span class="hljs-comment">//左右子树在集合中对应的下标</span>
+         <span class="hljs-keyword">int</span> leftIndex = <span class="hljs-number">0</span>;
+         <span class="hljs-keyword">int</span> rightIndex = <span class="hljs-number">1</span>;
+
+         <span class="hljs-comment">//取出最小的两个节点</span>
+         Node leftNode = nodes.get(leftIndex);
+         Node rightNode = nodes.get(rightIndex);
+         <span class="hljs-comment">//创建父节点，并创建左右子树</span>
+         Node parent = <span class="hljs-keyword">new</span> Node(leftNode.value + rightNode.value);
+         parent.left = leftNode;
+         parent.right = rightNode;
+         <span class="hljs-comment">//从集合中移除两个最小的节点，并将父节点放入集合中</span>
+         nodes.add(parent);
+         nodes.remove(leftNode);
+         nodes.remove(rightNode);
+         <span class="hljs-comment">//再次比较</span>
+         Collections.sort(nodes);
+      &#125;
+      <span class="hljs-comment">//返回根节点</span>
+      <span class="hljs-keyword">return</span> nodes.get(<span class="hljs-number">0</span>);
+   &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Comparable</span>&lt;<span class="hljs-title">Node</span>&gt; </span>&#123;
+   <span class="hljs-keyword">int</span> value;
+   Node left;
+   Node right;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
+      <span class="hljs-keyword">this</span>.value = value;
+   &#125;
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"Node&#123;"</span> +
+            <span class="hljs-string">"value="</span> + value +
+            <span class="hljs-string">'&#125;'</span>;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 重写比较函数，用于排序</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(Node o)</span> </span>&#123;
+      <span class="hljs-keyword">return</span> value - o.value;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">preTraverse</span><span class="hljs-params">()</span> </span>&#123;
+      System.out.print(<span class="hljs-keyword">this</span>.value + <span class="hljs-string">" "</span>);
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.left != <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-keyword">this</span>.left.preTraverse();
+      &#125;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.right != <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-keyword">this</span>.right.preTraverse();
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+<p><strong>运行结果</strong></p>
+<pre><code class="hljs java">前序遍历哈夫曼树
+<span class="hljs-number">67</span> <span class="hljs-number">29</span> <span class="hljs-number">38</span> <span class="hljs-number">15</span> <span class="hljs-number">7</span> <span class="hljs-number">8</span> <span class="hljs-number">23</span> <span class="hljs-number">10</span> <span class="hljs-number">4</span> <span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">6</span> <span class="hljs-number">13</span></code></pre>
+
+
+
+<h3 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h3><h4 id="原理及图解"><a href="#原理及图解" class="headerlink" title="原理及图解"></a>原理及图解</h4><p><strong>前缀编码</strong>：任何一个字符的编码，都不会是其它的字符的前缀</p>
+<ul>
+<li>统计需编码的字符串中，各个字符出现的次数：如helloworld<ul>
+<li>h:1 e:1 w:1 r:1 d:1 o:2 l:3</li>
+</ul>
+</li>
+<li>将字符出现的次数作为权值，构建哈弗曼树。如下图</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200728190229.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li>根据哈弗曼树进行编码，向左的路径为0，向右的路径为1<ul>
+<li>字符编码结果为：h:000 e:001 w:100 d:1010 r:1011 l:11 o:01</li>
+<li>字符串编码结果为：000001111101100011011111010</li>
+</ul>
+</li>
+</ul>
+<h4 id="实现代码-5"><a href="#实现代码-5" class="headerlink" title="实现代码"></a>实现代码</h4><p>此处代码只实现了哈弗曼树的创建与每个字符的编码</p>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      String str = <span class="hljs-string">"helloworld"</span>;
+      <span class="hljs-comment">//哈夫曼编码</span>
+      HuffmanCode huffmanCode = <span class="hljs-keyword">new</span> HuffmanCode();
+      ArrayList&lt;Code&gt; list = huffmanCode.getList(str);
+      <span class="hljs-comment">//构建哈弗曼树</span>
+      Code root = huffmanCode.createHuffmanTree(list);
+      System.out.println(<span class="hljs-string">"前序遍历哈弗曼树"</span>);
+      root.preTraverse();
+      <span class="hljs-comment">//进行哈弗曼编码</span>
+      Map&lt;Byte, String&gt; codeMap = root.getCodeMap();
+      System.out.println(<span class="hljs-string">"哈弗曼编码"</span>);
+      System.out.println(codeMap);
+   &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HuffmanCode</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> ArrayList&lt;Code&gt; <span class="hljs-title">getList</span><span class="hljs-params">(String codes)</span> </span>&#123;
+      <span class="hljs-comment">//得到字符串对应的字节数组</span>
+      <span class="hljs-keyword">byte</span>[] byteCodes = codes.getBytes();
+
+      <span class="hljs-comment">//创建哈希表，用于存放数据及其权值（出现次数）</span>
+      Map&lt;Byte, Integer&gt; dataAndWight = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">byte</span> b : byteCodes) &#123;
+         Integer wight = dataAndWight.get(b);
+         <span class="hljs-comment">//如果还没有该数据，就创建并让其权值为1</span>
+         <span class="hljs-keyword">if</span>(dataAndWight.get(b) == <span class="hljs-keyword">null</span>) &#123;
+            dataAndWight.put(b, <span class="hljs-number">1</span>);
+         &#125;<span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">//如果已经有了该数据，就让其权值加一</span>
+            dataAndWight.put(b, wight+<span class="hljs-number">1</span>);
+         &#125;
+      &#125;
+
+      <span class="hljs-comment">//创建List，用于返回</span>
+      ArrayList&lt;Code&gt; list = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+      <span class="hljs-comment">//遍历哈希表，放入List集合中</span>
+      <span class="hljs-keyword">for</span>(Map.Entry&lt;Byte, Integer&gt; entry : dataAndWight.entrySet()) &#123;
+         list.add(<span class="hljs-keyword">new</span> Code(entry.getKey(), entry.getValue()));
+      &#125;
+      <span class="hljs-keyword">return</span> list;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Code <span class="hljs-title">createHuffmanTree</span><span class="hljs-params">(ArrayList&lt;Code&gt; lists)</span> </span>&#123;
+      <span class="hljs-keyword">int</span> leftIndex = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">int</span> rightIndex = <span class="hljs-number">1</span>;
+      <span class="hljs-comment">//根据权值进行排序</span>
+      Collections.sort(lists);
+
+      <span class="hljs-keyword">while</span> (lists.size() &gt; <span class="hljs-number">1</span>) &#123;
+         Code leftCode = lists.get(leftIndex);
+         Code rightCode = lists.get(rightIndex);
+         Code parent = <span class="hljs-keyword">new</span> Code(<span class="hljs-keyword">null</span>,leftCode.weight + rightCode.weight);
+         parent.left = leftCode;
+         parent.right = rightCode;
+         lists.add(parent);
+         lists.remove(leftCode);
+         lists.remove(rightCode);
+         <span class="hljs-comment">//再次排序</span>
+         Collections.sort(lists);
+      &#125;
+      <span class="hljs-keyword">return</span> lists.get(<span class="hljs-number">0</span>);
+   &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Code</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Comparable</span>&lt;<span class="hljs-title">Code</span>&gt; </span>&#123;
+   Byte data;
+   <span class="hljs-keyword">int</span> weight;
+   Code left;
+   Code right;
+   <span class="hljs-keyword">private</span> Map&lt;Byte, String&gt; codeMap = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+
+
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Code</span><span class="hljs-params">(Byte data, <span class="hljs-keyword">int</span> weight)</span> </span>&#123;
+      <span class="hljs-keyword">this</span>.data = data;
+      <span class="hljs-keyword">this</span>.weight = weight;
+   &#125;
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"Code&#123;"</span> +
+            <span class="hljs-string">"data="</span> + data +
+            <span class="hljs-string">", weight="</span> + weight +
+            <span class="hljs-string">'&#125;'</span>;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">preTraverse</span><span class="hljs-params">()</span> </span>&#123;
+      System.out.println(<span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">if</span>(left != <span class="hljs-keyword">null</span>) &#123;
+         left.preTraverse();
+      &#125;
+      <span class="hljs-keyword">if</span>(right != <span class="hljs-keyword">null</span>) &#123;
+         right.preTraverse();
+      &#125;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Map&lt;Byte, String&gt; <span class="hljs-title">getCodeMap</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">return</span> getCode(<span class="hljs-keyword">this</span>, <span class="hljs-string">""</span>, <span class="hljs-keyword">new</span> StringBuilder());
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 对哈弗曼树中的叶子节点进行编码</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> node 根节点</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> code 左子树为0，右子树为1</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> stringBuilder 用于拼接的字符串</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">private</span> Map&lt;Byte, String&gt; <span class="hljs-title">getCode</span><span class="hljs-params">(Code node, String code, StringBuilder stringBuilder)</span> </span>&#123;
+      <span class="hljs-comment">//新建拼接路径</span>
+      StringBuilder appendCode = <span class="hljs-keyword">new</span> StringBuilder(stringBuilder);
+      appendCode.append(code);
+      <span class="hljs-keyword">if</span>(node != <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-comment">//如果是非叶子结点，就继续向下遍历</span>
+         <span class="hljs-keyword">if</span>(node.data == <span class="hljs-keyword">null</span>) &#123;
+            getCode(node.left, <span class="hljs-string">"0"</span>, appendCode);
+            getCode(node.right, <span class="hljs-string">"1"</span>, appendCode);
+         &#125;<span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">//如果是叶子节点，就将哈弗曼编码放入哈希表中</span>
+            codeMap.put(node.data, appendCode.toString());
+         &#125;
+      &#125;
+      <span class="hljs-keyword">return</span> codeMap;
+   &#125;
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(Code o)</span> </span>&#123;
+      <span class="hljs-keyword">return</span> weight - o.weight;
+   &#125;
+&#125;</code></pre>
+
+<p><strong>运行结果</strong></p>
+<pre><code class="hljs java">前序遍历哈弗曼树
+Code&#123;data=<span class="hljs-keyword">null</span>, weight=<span class="hljs-number">10</span>&#125;
+Code&#123;data=<span class="hljs-keyword">null</span>, weight=<span class="hljs-number">4</span>&#125;
+Code&#123;data=<span class="hljs-keyword">null</span>, weight=<span class="hljs-number">2</span>&#125;
+Code&#123;data=<span class="hljs-number">114</span>, weight=<span class="hljs-number">1</span>&#125;
+Code&#123;data=<span class="hljs-number">100</span>, weight=<span class="hljs-number">1</span>&#125;
+Code&#123;data=<span class="hljs-keyword">null</span>, weight=<span class="hljs-number">2</span>&#125;
+Code&#123;data=<span class="hljs-number">101</span>, weight=<span class="hljs-number">1</span>&#125;
+Code&#123;data=<span class="hljs-number">119</span>, weight=<span class="hljs-number">1</span>&#125;
+Code&#123;data=<span class="hljs-keyword">null</span>, weight=<span class="hljs-number">6</span>&#125;
+Code&#123;data=<span class="hljs-number">108</span>, weight=<span class="hljs-number">3</span>&#125;
+Code&#123;data=<span class="hljs-keyword">null</span>, weight=<span class="hljs-number">3</span>&#125;
+Code&#123;data=<span class="hljs-number">104</span>, weight=<span class="hljs-number">1</span>&#125;
+Code&#123;data=<span class="hljs-number">111</span>, weight=<span class="hljs-number">2</span>&#125;
+每个字符对应的哈弗曼编码
+&#123;<span class="hljs-number">114</span>=<span class="hljs-number">000</span>, <span class="hljs-number">100</span>=<span class="hljs-number">001</span>, <span class="hljs-number">101</span>=<span class="hljs-number">010</span>, <span class="hljs-number">119</span>=<span class="hljs-number">011</span>, <span class="hljs-number">104</span>=<span class="hljs-number">110</span>, <span class="hljs-number">108</span>=<span class="hljs-number">10</span>, <span class="hljs-number">111</span>=<span class="hljs-number">111</span>&#125;</code></pre>
+
+
+
+<h3 id="二叉排序树"><a href="#二叉排序树" class="headerlink" title="二叉排序树"></a>二叉排序树</h3><h4 id="基本介绍-1"><a href="#基本介绍-1" class="headerlink" title="基本介绍"></a>基本介绍</h4><p><strong>二叉排序树</strong>：BST: (Binary Sort(Search) Tree), 对于二叉排序树的<strong>任何一个非叶子节点</strong>，要求<strong>左子节点的值比当前节点的值小，右子节点的值比当前节点的值大</strong></p>
+<ul>
+<li><strong>特别说明</strong>：如果有相同的值，可以将该节点放在左子节点或右子节点</li>
+</ul>
+<p> 比如针对前面的数据 (7, 3, 10, 12, 5, 1, 9) ，对应的二叉排序树为：</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200729161543.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="操作思路"><a href="#操作思路" class="headerlink" title="操作思路"></a>操作思路</h4><p><strong>添加</strong></p>
+<ul>
+<li>根据插入节点的值来寻找其应该插入的位置</li>
+<li>新插入的节点都是<strong>叶子节点</strong></li>
+</ul>
+<p><strong>删除</strong></p>
+<p>删除<strong>叶子节点</strong>（如删除值为2节点）</p>
+<ul>
+<li>找到待删除的节点</li>
+<li>找到待删除节点的父节点</li>
+<li>判断待删除节点是其<strong>父节点</strong>的左孩子还是右孩子，然后让其令为空</li>
+</ul>
+<p>删除<strong>只有一颗子树的节点</strong>（如删除值为1的节点）</p>
+<ul>
+<li>找到待删除的节点</li>
+<li>找到待删除的节点的父节点</li>
+<li>判断待删除节点是其<strong>父节点</strong>的左孩子还是右孩子</li>
+<li>判断待删除节点的<strong>子树</strong>是其左孩子还是右孩子</li>
+<li>让父节点指向待删除节点的子树指向待删除节点的子树</li>
+</ul>
+<p>删除有<strong>两颗子树的节点</strong>（如删除值为3的节点）</p>
+<ul>
+<li>找到待删除的节点</li>
+<li>找到待删除的节点的父节点</li>
+<li>判断待删除节点是其<strong>父节点</strong>的左孩子还是右孩子</li>
+<li>顺着待删除节点的<strong>右子树</strong>，找到一个值最小的节点（该值的大小最接近待删除节点的值）</li>
+<li>让父节点指向待删除节点的子树指向上一步找到的最小的节点</li>
+</ul>
+<p>删除<strong>根节点</strong>（如删除值为7的节点）</p>
+<ul>
+<li>删除根结点的方法和删除有两个子树的方法相似</li>
+<li>找到一个接近根节点值的节点</li>
+<li>删除该节点，将该节点的值赋值给根节点即可</li>
+</ul>
+<h4 id="实现代码-6"><a href="#实现代码-6" class="headerlink" title="实现代码"></a>实现代码</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">12</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>&#125;;
+      <span class="hljs-comment">//创建二叉排序树</span>
+      BinarySortTree binarySortTree = <span class="hljs-keyword">new</span> BinarySortTree();
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;
+         binarySortTree.addNode(<span class="hljs-keyword">new</span> Node(arr[i]));
+      &#125;
+      <span class="hljs-comment">//前序遍历</span>
+      System.out.println(<span class="hljs-string">"前序遍历二叉排序树"</span>);
+      binarySortTree.preTraverse();
+      System.out.println();
+      <span class="hljs-comment">//删除值为5、1、3、10、7的节点</span>
+      binarySortTree.deleteNode(<span class="hljs-number">2</span>);
+      binarySortTree.deleteNode(<span class="hljs-number">1</span>);
+      binarySortTree.deleteNode(<span class="hljs-number">10</span>);
+      binarySortTree.deleteNode(<span class="hljs-number">7</span>);
+      System.out.println(<span class="hljs-string">"前序遍历二叉排序树"</span>);
+      binarySortTree.preTraverse();
+   &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BinarySortTree</span> </span>&#123;
+   <span class="hljs-keyword">private</span> Node root;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addNode</span><span class="hljs-params">(Node node)</span> </span>&#123;
+      <span class="hljs-comment">//如果根节点为空，就直接将该节点作为根节点</span>
+      <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;
+         root = node;
+         <span class="hljs-keyword">return</span>;
+      &#125;
+      <span class="hljs-comment">//否则就插入该节点到对应的位置</span>
+      root.add(node);
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">preTraverse</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">if</span>(root == <span class="hljs-keyword">null</span>) &#123;
+         System.out.println(<span class="hljs-string">"二叉树为空"</span>);
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         root.preTraverse();
+      &#125;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">getTargetNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> targetValue)</span> </span>&#123;
+      <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;
+         System.out.println(<span class="hljs-string">"请先创建二叉树"</span>);
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">return</span> root.getTargetNode(targetValue);
+      &#125;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">getParentNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> targetValue)</span> </span>&#123;
+      <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;
+         System.out.println(<span class="hljs-string">"请先创建二叉树"</span>);
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">return</span> root.getParentNode(targetValue);
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 删除节点</span>
+<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> targetValue 待删除节点的值</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">deleteNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> targetValue)</span> </span>&#123;
+      <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;
+         System.out.println(<span class="hljs-string">"请先创建二叉树"</span>);
+         <span class="hljs-keyword">return</span>;
+      &#125;
+
+      <span class="hljs-comment">//找到待删除结点</span>
+      Node targetNode = getTargetNode(targetValue);
+      <span class="hljs-keyword">if</span> (targetNode == <span class="hljs-keyword">null</span>) &#123;
+         System.out.println(<span class="hljs-string">"未找到该节点，删除失败"</span>);
+         <span class="hljs-keyword">return</span>;
+      &#125;
+      <span class="hljs-comment">//如果只有一个根节点，就删除根节点</span>
+      <span class="hljs-keyword">if</span>(root.left == <span class="hljs-keyword">null</span> &amp;&amp; root.right == <span class="hljs-keyword">null</span>) &#123;
+         root = <span class="hljs-keyword">null</span>;
+         System.out.println(<span class="hljs-string">"删除成功"</span>);
+         <span class="hljs-keyword">return</span>;
+      &#125;
+
+      <span class="hljs-comment">//得到其父节点</span>
+      Node parentNode = getParentNode(targetValue);
+      <span class="hljs-comment">//如果父节点为空（待删除节点为根节点）</span>
+      <span class="hljs-keyword">if</span>(parentNode == <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-keyword">int</span> minValue = getMinValue(targetNode.right);
+         deleteNode(minValue);
+         <span class="hljs-comment">//根节点的值令为最接近的值</span>
+         targetNode.value = minValue;
+         <span class="hljs-keyword">return</span>;
+      &#125;
+
+      <span class="hljs-comment">//如果待删除节点为叶子节点</span>
+      <span class="hljs-keyword">if</span> (targetNode.left == <span class="hljs-keyword">null</span> &amp;&amp; targetNode.right == <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-keyword">if</span> (parentNode.left != <span class="hljs-keyword">null</span> &amp;&amp; parentNode.left == targetNode) &#123;
+            <span class="hljs-comment">//删除左子树</span>
+            parentNode.left = <span class="hljs-keyword">null</span>;
+            System.out.println(<span class="hljs-string">"删除成功"</span>);
+         &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parentNode.right != <span class="hljs-keyword">null</span> &amp;&amp; parentNode.right == targetNode) &#123;
+            <span class="hljs-comment">//删除右子树</span>
+            parentNode.right = <span class="hljs-keyword">null</span>;
+            System.out.println(<span class="hljs-string">"删除成功"</span>);
+         &#125;
+      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (targetNode.left != <span class="hljs-keyword">null</span> &amp;&amp; targetNode.right != <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-comment">//待删除节点有左右子树</span>
+         <span class="hljs-comment">//得到并删除待删除节点右子树中值最小的节点</span>
+         <span class="hljs-keyword">int</span> minValue = getMinValue(targetNode.right);
+         deleteNode(minValue);
+         <span class="hljs-comment">//将值最小的节点的值作为新的目标节点</span>
+         targetNode.value = minValue;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-comment">//待删除节点只有左子树</span>
+         <span class="hljs-keyword">if</span>(targetNode.left != <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">if</span>(parentNode.left != <span class="hljs-keyword">null</span> &amp;&amp; parentNode.left == targetNode) &#123;
+               parentNode.left = targetNode.left;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parentNode.right != <span class="hljs-keyword">null</span> &amp;&amp; parentNode.right == targetNode) &#123;
+               parentNode.right = targetNode.left;
+            &#125;
+         &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">//待删除节点只有右子树</span>
+            <span class="hljs-keyword">if</span>(parentNode.left != <span class="hljs-keyword">null</span> &amp;&amp; parentNode.left == targetNode) &#123;
+               parentNode.left = targetNode.right;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parentNode.right != <span class="hljs-keyword">null</span> &amp;&amp; parentNode.right == targetNode) &#123;
+               parentNode.right = targetNode.right;
+            &#125;
+         &#125;
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 找到以node为根节点的二叉树的最小节点的值</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> node 作为根节点的节点</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 值最小的节点的值</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMinValue</span><span class="hljs-params">(Node node)</span> </span>&#123;
+      <span class="hljs-keyword">while</span>(node.left != <span class="hljs-keyword">null</span>) &#123;
+         node = node.left;
+      &#125;
+      <span class="hljs-comment">//返回值最小的节点</span>
+      <span class="hljs-keyword">return</span> node.value;
+   &#125;
+&#125;
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
+   <span class="hljs-keyword">int</span> value;
+   Node left;
+   Node right;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
+      <span class="hljs-keyword">this</span>.value = value;
+   &#125;
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"Node&#123;"</span> +
+            <span class="hljs-string">"value="</span> + value +
+            <span class="hljs-string">'&#125;'</span>;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 添加节点到二叉排序树的对应位置</span>
+<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> node 待插入的节点</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Node node)</span> </span>&#123;
+      <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-keyword">return</span>;
+      &#125;
+      <span class="hljs-comment">//如果该节点的值大待插入节点的值</span>
+      <span class="hljs-keyword">if</span> (value &gt; node.value) &#123;
+         <span class="hljs-comment">//如果该节点的左子树为空，就直接插入</span>
+         <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span>) &#123;
+            left = node;
+         &#125; <span class="hljs-keyword">else</span> &#123;
+            left.add(node);
+         &#125;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">if</span> (right == <span class="hljs-keyword">null</span>) &#123;
+            right = node;
+         &#125; <span class="hljs-keyword">else</span> &#123;
+            right.add(node);
+         &#125;
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 前序遍历</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">preTraverse</span><span class="hljs-params">()</span> </span>&#123;
+      System.out.println(<span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span>) &#123;
+         left.preTraverse();
+      &#125;
+      <span class="hljs-keyword">if</span> (right != <span class="hljs-keyword">null</span>) &#123;
+         right.preTraverse();
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 得到目标节点</span>
+<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> targetValue 目标节点的值</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 目标节点</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">getTargetNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> targetValue)</span> </span>&#123;
+      <span class="hljs-comment">//如果当前节点就是目标节点，就返回</span>
+      <span class="hljs-keyword">if</span> (value == targetValue) &#123;
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+      &#125;
+      <span class="hljs-comment">//如果当前节点的值大于目标节点，就向左查找，反之向右查找</span>
+      <span class="hljs-keyword">if</span> (value &gt; targetValue) &#123;
+         <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+         &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">return</span> left.getTargetNode(targetValue);
+         &#125;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">if</span> (right == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+         &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">return</span> right.getTargetNode(targetValue);
+         &#125;
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 得到目标节点的父节点</span>
+<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> targetValue 目标节点的值</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 目标节点的父节点</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> Node <span class="hljs-title">getParentNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> targetValue)</span> </span>&#123;
+      <span class="hljs-comment">//如果左右子树是目标节点，就返回该节点，否则继续向下查找</span>
+      <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span> &amp;&amp; left.value == targetValue) &#123;
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (right != <span class="hljs-keyword">null</span> &amp;&amp; right.value == targetValue) &#123;
+         <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span> &amp;&amp; value &gt; targetValue) &#123;
+            <span class="hljs-keyword">return</span> left.getParentNode(targetValue);
+         &#125;
+         <span class="hljs-keyword">if</span> (right != <span class="hljs-keyword">null</span> &amp;&amp; value &lt;= targetValue) &#123;
+            <span class="hljs-keyword">return</span> right.getParentNode(targetValue);
+         &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">//没有父节点（根节点）</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+         &#125;
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+
+
+<p><strong>运行结果</strong></p>
+<pre><code class="hljs crmsh">前序遍历二叉排序树
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">7</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">3</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">1</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">2</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">5</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">10</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">9</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">12</span>&#125;
+
+删除成功
+删除成功
+删除成功
+删除成功
+前序遍历二叉排序树
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">9</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">3</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">5</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">12</span>&#125;</code></pre>
+
+
+
+<h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><h4 id="基本介绍-2"><a href="#基本介绍-2" class="headerlink" title="基本介绍"></a>基本介绍</h4><p><strong>为什么需要平衡二叉树</strong></p>
+<ul>
+<li>如果由数组{1, 2, 3, 4}来构建一颗二叉排序树，得到的二叉树不仅没有体现其特点，反而还退化成了链表</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730152912.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>简介</strong></p>
+<ul>
+<li><p>平衡二叉树也叫平衡<strong>二叉搜索树</strong>（Self-balancing binary search tree）又被称为AVL树，可以保证<strong>查询效率较高</strong></p>
+</li>
+<li><p>具有以下特点：</p>
+<ul>
+<li><strong>它是一棵空树</strong>或<strong>它的左右两个子树的高度差的绝对值不超过</strong> <strong>1</strong>，并且<strong>左右两个子树都是一棵平衡二叉树</strong></li>
+<li>平衡二叉树的常用实现方法有红黑树、AVL、替罪羊树、Treap、伸展树等</li>
+</ul>
+</li>
+<li><p>下图所示的二叉树就是平衡二叉树</p>
+</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730153215.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="应用案例——左旋转"><a href="#应用案例——左旋转" class="headerlink" title="应用案例——左旋转"></a>应用案例——左旋转</h4><p>将由数列 {4,3,6,5,7,8}构建的二叉排序树，修改为一颗平衡二叉树</p>
+<p>此处<strong>右子树的高度高于左子树，且差值大于1</strong>，所以需要进行<strong>左旋转</strong>，来降低右子树的高度</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730154440.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>步骤</strong></p>
+<ul>
+<li>创建一个新节点，值为当前节点的值（4）</li>
+</ul>
+<p><img src="D:%5C%E5%90%8E%E7%AB%AF%E8%B5%84%E6%96%99NEW%5C%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3%5C%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%5C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95.assets%5Cimage-20200730154515715.png" srcset="/img/loading.gif" alt="image-20200730154515715"></p>
+<ul>
+<li>让新节点的左子树指向当前节点的左子树</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730154609.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li>让新节点的右子树指向当前节点的右子树的左子树</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730155228.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li><p>将当前节点的值改为其右子树的值</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730155216.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+<li><p>将当前节点的右子树变为其右子树的右子树</p>
+</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730155146.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li>让当前节点的左子树指向新节点</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730155127.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>整理后结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730155105.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="应用案例——右旋转"><a href="#应用案例——右旋转" class="headerlink" title="应用案例——右旋转"></a>应用案例——右旋转</h4><p>当一颗二叉排序树的<strong>左子树高度大于右子树高度，且差值大于1</strong>时，需要进行右旋转，来降低左子树的高度</p>
+<p><strong>步骤</strong></p>
+<ul>
+<li>创建一个新节点，其值为当前节点的值</li>
+<li>将新节点的右子树指向当前节点的右子树</li>
+<li>将新节点的左子树指向当前节点的左子树的右子树</li>
+<li>将当前节点的值改为其左子树的值</li>
+<li>将当前节点的左子树指向其左子树的左子树</li>
+<li>将当前节点的右子树指向新节点</li>
+</ul>
+<h4 id="应用案例——双旋转"><a href="#应用案例——双旋转" class="headerlink" title="应用案例——双旋转"></a>应用案例——双旋转</h4><p>某些时候，只进行左旋转或者右旋转，并不能将二叉排序树变为平衡二叉树。这时就需要进行<strong>双旋转</strong>，即<strong>同时进行左旋转和右旋转</strong></p>
+<ul>
+<li>进行左旋转时，如果当前节点右子树的左子树高于其右子树，需要先进行左旋转</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730171100.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li>进行右旋转时，如果当前节点左子树的右子树高于其左子树，需要先进性右旋转</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730171151.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="实现代码-7"><a href="#实现代码-7" class="headerlink" title="实现代码"></a>实现代码</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span>[] arr = &#123;<span class="hljs-number">10</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>&#125;;
+      AVLTree tree = <span class="hljs-keyword">new</span> AVLTree();
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> value : arr) &#123;
+         tree.addNode(<span class="hljs-keyword">new</span> Node(value));
+      &#125;
+      System.out.println(<span class="hljs-string">"左右子树高度差值为 "</span> + tree.getDifference());
+      System.out.println(<span class="hljs-string">"前序遍历"</span>);
+      tree.preTraverse();
+   &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AVLTree</span> </span>&#123;
+   <span class="hljs-keyword">private</span> Node root;
+
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addNode</span><span class="hljs-params">(Node node)</span> </span>&#123;
+      <span class="hljs-comment">//如果根节点为空，就直接将该节点作为根节点</span>
+      <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) &#123;
+         root = node;
+         <span class="hljs-keyword">return</span>;
+      &#125;
+      <span class="hljs-comment">//否则就插入该节点到对应的位置</span>
+      root.add(node);
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">preTraverse</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">if</span>(root == <span class="hljs-keyword">null</span>) &#123;
+         System.out.println(<span class="hljs-string">"二叉树为空"</span>);
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         root.preTraverse();
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 找到以node为根节点的二叉树的最小节点的值</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> node 作为根节点的节点</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 值最小的节点的值</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMinValue</span><span class="hljs-params">(Node node)</span> </span>&#123;
+      <span class="hljs-keyword">while</span>(node.left != <span class="hljs-keyword">null</span>) &#123;
+         node = node.left;
+      &#125;
+      <span class="hljs-comment">//返回值最小的节点</span>
+      <span class="hljs-keyword">return</span> node.value;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getDifference</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">int</span> leftHeight = root.getLeftHeight();
+      <span class="hljs-keyword">int</span> rightHeight = root.getRightHeight();
+      <span class="hljs-comment">//返回左右子树高度差值</span>
+      <span class="hljs-keyword">return</span> Math.abs(leftHeight - rightHeight);
+   &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span> </span>&#123;
+   <span class="hljs-keyword">int</span> value;
+   Node left;
+   Node right;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Node</span><span class="hljs-params">(<span class="hljs-keyword">int</span> value)</span> </span>&#123;
+      <span class="hljs-keyword">this</span>.value = value;
+   &#125;
+
+   <span class="hljs-meta">@Override</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">toString</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-string">"Node&#123;"</span> +
+            <span class="hljs-string">"value="</span> + value +
+            <span class="hljs-string">'&#125;'</span>;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 添加节点到二叉排序树的对应位置</span>
+<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> node 待插入的节点</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Node node)</span> </span>&#123;
+      <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-keyword">return</span>;
+      &#125;
+      <span class="hljs-comment">//如果该节点的值大待插入节点的值</span>
+      <span class="hljs-keyword">if</span> (value &gt; node.value) &#123;
+         <span class="hljs-comment">//如果该节点的左子树为空，就直接插入</span>
+         <span class="hljs-keyword">if</span> (left == <span class="hljs-keyword">null</span>) &#123;
+            left = node;
+         &#125; <span class="hljs-keyword">else</span> &#123;
+            left.add(node);
+         &#125;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">if</span> (right == <span class="hljs-keyword">null</span>) &#123;
+            right = node;
+         &#125; <span class="hljs-keyword">else</span> &#123;
+            right.add(node);
+         &#125;
+      &#125;
+
+      <span class="hljs-comment">//如果右子树高度与左子树高度差值大于一，就进行左旋转</span>
+      <span class="hljs-keyword">if</span>(getRightHeight() - getLeftHeight() &gt; <span class="hljs-number">1</span>) &#123;
+         <span class="hljs-comment">//如果当前节点右子树的左子树高度高于右子树，其右子树先进行右旋转</span>
+         <span class="hljs-keyword">if</span>(right.getLeftHeight() &gt; right.getRightHeight()) &#123;
+            right.rightRotate();
+         &#125;
+         leftRotate();
+      &#125;
+      <span class="hljs-comment">//如果左子树高度与右子树的高度差值大于一，就进行右旋转</span>
+      <span class="hljs-keyword">if</span>(getLeftHeight() - getRightHeight() &gt; <span class="hljs-number">1</span>) &#123;
+         <span class="hljs-comment">//如果当前节点左子树的右子树高度高于左子树，其左子树先进行左旋转</span>
+         <span class="hljs-keyword">if</span>(left.getRightHeight() &gt; left.getLeftHeight()) &#123;
+            left.leftRotate();
+         &#125;
+         rightRotate();
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 前序遍历</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">preTraverse</span><span class="hljs-params">()</span> </span>&#123;
+      System.out.println(<span class="hljs-keyword">this</span>);
+      <span class="hljs-keyword">if</span> (left != <span class="hljs-keyword">null</span>) &#123;
+         left.preTraverse();
+      &#125;
+      <span class="hljs-keyword">if</span> (right != <span class="hljs-keyword">null</span>) &#123;
+         right.preTraverse();
+      &#125;
+   &#125;
+   
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 获得该节点为根节点的树的高度</span>
+<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@return</span> 高度</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getHeight</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">return</span> Math.max(left == <span class="hljs-keyword">null</span> ? <span class="hljs-number">0</span> : left.getHeight(), right == <span class="hljs-keyword">null</span> ? <span class="hljs-number">0</span> : right.getHeight()) + <span class="hljs-number">1</span>;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getLeftHeight</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">if</span>(left == <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">return</span> left.getHeight();
+      &#125;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getRightHeight</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">if</span>(right == <span class="hljs-keyword">null</span>) &#123;
+         <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+         <span class="hljs-keyword">return</span> right.getHeight();
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 对二叉排序树进行左旋转（右子树高度较高）</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">leftRotate</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-comment">//创建新节点</span>
+      Node newNode = <span class="hljs-keyword">new</span> Node(value);
+      <span class="hljs-comment">//新节点的左子树指向当前节点的左子树</span>
+      newNode.left = left;
+      <span class="hljs-comment">//新节点的右子树指向当前节点的右子树的左子树</span>
+      newNode.right = right.left;
+      <span class="hljs-comment">//当前节点的值变为其右子树的值</span>
+      value = right.value;
+      <span class="hljs-comment">//当前节点的右子树指向其右子树的右子树</span>
+      right = right.right;
+      <span class="hljs-comment">//当前节点的左子树指向新节点</span>
+      left = newNode;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 对二叉树进行右旋转（左子树高度较高）</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rightRotate</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-comment">//创建新节点，值为当前节点的值</span>
+      Node newNode = <span class="hljs-keyword">new</span> Node(value);
+      <span class="hljs-comment">//新节点的右子树为当前节点的右子树</span>
+      newNode.right = right;
+      <span class="hljs-comment">//新节点的左子树为当前节点的左子树的右子树</span>
+      newNode.left = left.right;
+      <span class="hljs-comment">//当前节点的值为其左子树的值</span>
+      value = left.value;
+      <span class="hljs-comment">//当前节点的左子树为其左子树的左子树</span>
+      left = left.left;
+      <span class="hljs-comment">//当前节点的右子树为新节点</span>
+      right = newNode;
+   &#125;
+&#125;</code></pre>
+
+
+
+<p><strong>运行结果</strong></p>
+<pre><code class="hljs crmsh">左右子树高度差值为 <span class="hljs-number">0</span>
+前序遍历
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">8</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">7</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">5</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">10</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">9</span>&#125;
+<span class="hljs-keyword">Node</span><span class="hljs-title">&#123;value</span>=<span class="hljs-number">11</span>&#125;</code></pre>
+
+
+
+<h2 id="3、多叉树"><a href="#3、多叉树" class="headerlink" title="3、多叉树"></a>3、多叉树</h2><h4 id="基本介绍-3"><a href="#基本介绍-3" class="headerlink" title="基本介绍"></a>基本介绍</h4><p>在二叉树中，每个节点最多有<strong>一个</strong>数据项和<strong>两个</strong>子节点。如果允许每个节点可以有更多的数据项和更多的子节点，就是多叉树（multiway tree）</p>
+<p>多叉树通过重新组织节点，<strong>减少树的高度，能对二叉树进行优化</strong></p>
+<h4 id="2-3树"><a href="#2-3树" class="headerlink" title="2-3树"></a><strong>2-3树</strong></h4><p><img src="D:%5C%E5%90%8E%E7%AB%AF%E8%B5%84%E6%96%99NEW%5C%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3%5C%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%5C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95.assets%5Cimage-20200730185602222.png" srcset="/img/loading.gif" alt="image-20200730185602222"></p>
+<p><strong>2-3树是最简单的B树结构，具有以下特点</strong></p>
+<ul>
+<li>2-3树的所有<strong>叶子节点都在同一层</strong>(只要是 B树都满足这个条件)</li>
+<li>有两个子节点的节点叫<strong>二节点</strong>，二节点要么没有子节点，要么有两个子节点</li>
+<li>有三个子节点的节点叫三节点，三节点要么没有子节点，要么有三个子节点</li>
+<li>2-3树是由<strong>二节点和三节点构成的树</strong>（2和3）</li>
+</ul>
+<p><strong>2-3树插入规则</strong></p>
+<ul>
+<li><p>2-3树的所有<strong>叶子节点都在同一层</strong>.(只要是 B树都满足这个条件)</p>
+</li>
+<li><p>有两个子节点的节点叫二节点，二节点要么没有子节点，要么有两个子节点</p>
+</li>
+<li><p>有三个子节点的节点叫三节点，三节点要么没有子节点，要么有三个子节点</p>
+</li>
+<li><p>当按照规则插入一个数到某个节点时，不能满足上面三个要求，就需要拆，<strong>先向上拆，如果上层满，则拆本层，拆后仍然需要满足上面 3个条件</strong></p>
+</li>
+<li><p>对于三节点的子树的值大小仍然遵守(BST 二叉排序树)的规则</p>
+<ul>
+<li>左边的子树值小于父节点的值</li>
+<li>中间的子树值在父节点的值之间</li>
+<li>右边子树的值大于父节点的值</li>
+</ul>
+</li>
+</ul>
+<h4 id="B树、B-和B-树"><a href="#B树、B-和B-树" class="headerlink" title="B树、B+和B*树"></a>B树、B+和B*树</h4><p><strong>B树</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730192248.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li><p>B树的阶：节点的<strong>最多子节点个数</strong>。比如 2-3树的阶是3，2-3-4树的阶是4</p>
+</li>
+<li><p>B树的搜索，从根结点开始，对结点内的关键字（有序）序列进行二分查找，如果命中则结束，否则进入查询关键字所属范围的儿子结点；重复，直到所对应的儿子指针为空，或已经是叶子结点</p>
+</li>
+<li><p>关键字集合分布在整颗树中, 即叶子节点和非叶子节点都存放数据</p>
+</li>
+<li><p>搜索<strong>有可能在非叶子结点结束</strong></p>
+</li>
+<li><p>其搜索性能等价于在关键字全集内做一次二分查找</p>
+</li>
+</ul>
+<p><strong>B+树</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730193949.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li>B+树是B树的变体，也是一种多路搜索树</li>
+<li>B+树的搜索与 B树也基本相同，区别是 B+树只有达到叶子结点才命中（B树可以在非叶子结点命中），其性能也等价于在关键字全集做一次二分查找</li>
+<li><strong>所有关键字都出现在叶子结点的链表中</strong>（即数据只能在叶子节点【也叫<strong>稠密索引</strong>】），且链表中的关键字(数据)恰好是有序的</li>
+<li><strong>不可能在非叶子结点命中</strong></li>
+<li><strong>非叶子结点</strong>相当于是叶子结点的<strong>索引</strong>（稀疏索引），<strong>叶子结点</strong>相当于是存储（关键字）<strong>数据</strong>的数据层</li>
+<li>更适合文件索引系统</li>
+<li>B树和 B+树各有自己的应用场景，不能说 B+树完全比 B树好，反之亦然</li>
+</ul>
+<p><strong>B*树</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730194359.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li><p>B<em>树是 B+树的变体，在 B+树的*</em>非根和非叶子结点<strong>再</strong>增加指向兄弟的指针**</p>
+</li>
+<li><p>B*树定义了非叶子结点关键字个数至少为(2/3)M，即块的最低使用率为 2/3，而B+树的块的最低使用率为的1/2</p>
+</li>
+<li><p>从第 1个特点我们可以看出，B<em>树分配新结点的概率比B+树要低，*</em>空间使用率更高**</p>
+</li>
+</ul>
 
             </article>
             <hr>
