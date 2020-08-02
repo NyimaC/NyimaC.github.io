@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      27.5k 字
+      30k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      380
+      412
        分钟
     </span>
   
@@ -4847,7 +4847,7 @@ Code&#123;data=<span class="hljs-number">111</span>, weight=<span class="hljs-nu
 
 <h2 id="3、多叉树"><a href="#3、多叉树" class="headerlink" title="3、多叉树"></a>3、多叉树</h2><h4 id="基本介绍-3"><a href="#基本介绍-3" class="headerlink" title="基本介绍"></a>基本介绍</h4><p>在二叉树中，每个节点最多有<strong>一个</strong>数据项和<strong>两个</strong>子节点。如果允许每个节点可以有更多的数据项和更多的子节点，就是多叉树（multiway tree）</p>
 <p>多叉树通过重新组织节点，<strong>减少树的高度，能对二叉树进行优化</strong></p>
-<h4 id="2-3树"><a href="#2-3树" class="headerlink" title="2-3树"></a><strong>2-3树</strong></h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730195237.png" srcset="/img/loading.gif" alt=""></p>
+<h4 id="2-3树"><a href="#2-3树" class="headerlink" title="2-3树"></a>2-3树</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200730195237.png" srcset="/img/loading.gif" alt=""></p>
 <p><strong>2-3树是最简单的B树结构，具有以下特点</strong></p>
 <ul>
 <li>2-3树的所有<strong>叶子节点都在同一层</strong>(只要是 B树都满足这个条件)</li>
@@ -4901,11 +4901,11 @@ Code&#123;data=<span class="hljs-number">111</span>, weight=<span class="hljs-nu
 <p><strong>B*树</strong></p>
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200801002754.png" srcset="/img/loading.gif" alt=""></p>
 <ul>
-<li><p>B<em>树是 B+树的变体，在 B+树的*</em>非根和非叶子结点<strong>再</strong>增加指向兄弟的指针**</p>
+<li><p>B*树是 B+树的变体，在 B+树的非根和非叶子结点再增加指向兄弟的指针</p>
 </li>
 <li><p>B*树定义了非叶子结点关键字个数至少为(2/3)M，即块的最低使用率为 2/3，而B+树的块的最低使用率为的1/2</p>
 </li>
-<li><p>从第 1个特点我们可以看出，B<em>树分配新结点的概率比B+树要低，*</em>空间使用率更高**</p>
+<li><p>从第 1个特点我们可以看出，B*树分配新结点的概率比B+树要低，空间使用率更高</p>
 </li>
 </ul>
 <h1 id="九、图结构"><a href="#九、图结构" class="headerlink" title="九、图结构"></a>九、图结构</h1><h2 id="1、基本介绍-1"><a href="#1、基本介绍-1" class="headerlink" title="1、基本介绍"></a>1、基本介绍</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><ul>
@@ -5011,7 +5011,7 @@ Code&#123;data=<span class="hljs-number">111</span>, weight=<span class="hljs-nu
 
 
 <h2 id="3、图的遍历"><a href="#3、图的遍历" class="headerlink" title="3、图的遍历"></a>3、图的遍历</h2><p>对该图进行深度优先遍历和广度优先遍历</p>
-<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200731175732.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200801122515.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="深度优先遍历（DFS）"><a href="#深度优先遍历（DFS）" class="headerlink" title="深度优先遍历（DFS）"></a>深度优先遍历（DFS）</h3><ul>
 <li>深度优先遍历，从初始访问结点出发，初始访问结点可能有多个邻接结点，深度优先遍历的策略就是首先访问第一个邻接结点，然后再以这个被访问的邻接结点作为初始结点，访问它的第一个邻接结点，可以这样理解：每次都在访问完当前结点后首先访问当前结点的第一个邻接结点。</li>
 <li>这样的访问策略是<strong>优先往纵向挖掘深入</strong></li>
@@ -5036,8 +5036,8 @@ Code&#123;data=<span class="hljs-number">111</span>, weight=<span class="hljs-nu
 		<span class="hljs-comment">//指明相连的顶点</span>
 		graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
 		graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+		graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);
 		graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
-		graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);
 		graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>);
 		<span class="hljs-comment">//显示邻接矩阵</span>
 		System.out.println(<span class="hljs-string">"邻接矩阵"</span>);
@@ -5122,22 +5122,339 @@ Code&#123;data=<span class="hljs-number">111</span>, weight=<span class="hljs-nu
 [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
 [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
 进行深度优先遍历
-A-&gt;B-&gt;C-&gt;D-&gt;E</code></pre>
+A-&gt;B-&gt;C-&gt;E-&gt;D-&gt;</code></pre>
 
 
 
-<h3 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h3>
+<h3 id="广度优先遍历（BFS）"><a href="#广度优先遍历（BFS）" class="headerlink" title="广度优先遍历（BFS）"></a>广度优先遍历（BFS）</h3><ul>
+<li>类似于一个<strong>分层搜索</strong>的过程，广度优先遍历需要使用一个<strong>队列</strong>以保持访问过的结点的顺序，以便按这个顺序来访问这些结点的邻接结点</li>
+</ul>
+<h4 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h4><ul>
+<li>访问初始结点 v并标记结点 v为已访问</li>
+<li>结点v入队列</li>
+<li>当队列非空时，继续执行，否则算法结束</li>
+<li>出队列，取得队头结点u</li>
+<li>查找结点 u的第一个邻接结点 w。</li>
+<li>若结点 u的邻接结点 w不存在，则转到步骤 3；否则循环执行以下三个步骤：<ul>
+<li>若结点 w尚未被访问，则访问结点 w并标记为已访问</li>
+<li>结点 w入队列</li>
+<li>查找结点 u的继 w邻接结点后的下一个邻接结点 w，转到步骤6</li>
+</ul>
+</li>
+</ul>
+<h4 id="实现代码-9"><a href="#实现代码-9" class="headerlink" title="实现代码"></a>实现代码</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-keyword">int</span> sum = <span class="hljs-number">5</span>;
+      String[] vertex = &#123;<span class="hljs-string">"A"</span>, <span class="hljs-string">"B"</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"E"</span>&#125;;
+      Graph graph = <span class="hljs-keyword">new</span> Graph(sum);
+      <span class="hljs-comment">//指明图的顶点</span>
+      <span class="hljs-keyword">for</span>(String top : vertex) &#123;
+         graph.insertVertex(top);
+      &#125;
+      <span class="hljs-comment">//指明相连的顶点</span>
+      graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+      graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+      graph.insertEdge(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);
+      graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
+      graph.insertEdge(<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>);
+      <span class="hljs-comment">//显示邻接矩阵</span>
+      System.out.println(<span class="hljs-string">"邻接矩阵"</span>);
+      graph.showGraph();
+      <span class="hljs-comment">//广度优先遍历</span>
+      System.out.println(<span class="hljs-string">"进行广度优先遍历"</span>);
+      graph.bfs();
+   &#125;
+&#125;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Graph</span> </span>&#123;
+   <span class="hljs-keyword">private</span> ArrayList&lt;String&gt; vertexList;
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[][] edges;
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> numOfEdges;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 标记是否访问过该顶点，用于遍历</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span>[] isTraversed;
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 用于保存访问过的顶点</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-keyword">private</span> Queue&lt;Integer&gt; queue;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Graph</span><span class="hljs-params">(<span class="hljs-keyword">int</span> sum)</span> </span>&#123;
+      <span class="hljs-comment">//根据顶点总数进行初始化</span>
+      vertexList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(sum);
+      edges = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[sum][sum];
+      isTraversed = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[sum];
+      numOfEdges = <span class="hljs-number">0</span>;
+      queue = <span class="hljs-keyword">new</span> LinkedList&lt;Integer&gt;();
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertVertex</span><span class="hljs-params">(String vertex)</span> </span>&#123;
+      vertexList.add(vertex);
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertEdge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> vertex1, <span class="hljs-keyword">int</span> vertex2, <span class="hljs-keyword">int</span> weight)</span> </span>&#123;
+      edges[vertex1][vertex2] = weight;
+      edges[vertex2][vertex1] = weight;
+      numOfEdges++;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showGraph</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span>[] list : edges) &#123;
+         System.out.println(Arrays.toString(list));
+      &#125;
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 广度优先遍历</span>
+<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> vertex 遍历顶点的下标</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> vertex)</span> </span>&#123;
+      <span class="hljs-comment">//未被访问，打印顶点信息</span>
+      <span class="hljs-keyword">if</span>(!isTraversed[vertex]) &#123;
+         System.out.print(vertexList.get(vertex) + <span class="hljs-string">"-&gt;"</span>);
+         isTraversed[vertex] = <span class="hljs-keyword">true</span>;
+      &#125;
+      <span class="hljs-comment">//继续访问相邻元素</span>
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> nextVertex = vertex+<span class="hljs-number">1</span>; nextVertex &lt; vertexList.size(); nextVertex++) &#123;
+         <span class="hljs-comment">//如果存在且未被访问</span>
+         <span class="hljs-keyword">if</span>(edges[vertex][nextVertex] != <span class="hljs-number">0</span> &amp;&amp; !isTraversed[nextVertex]) &#123;
+            <span class="hljs-comment">//打印顶点信息</span>
+            System.out.print(vertexList.get(nextVertex) + <span class="hljs-string">"-&gt;"</span>);
+            <span class="hljs-comment">//标记为已访问</span>
+            isTraversed[nextVertex] = <span class="hljs-keyword">true</span>;
+            <span class="hljs-comment">//入队</span>
+            queue.add(nextVertex);
+         &#125;
+      &#125;
+      <span class="hljs-comment">//相邻元素访问完了（广度优先），再让队列中的元素出队，继续访问</span>
+      <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;
+         <span class="hljs-comment">//队首元素出队，继续访问</span>
+         bfs(queue.remove());
+      &#125;
+   &#125;
+
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">bfs</span><span class="hljs-params">()</span> </span>&#123;
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;vertexList.size(); i++) &#123;
+         <span class="hljs-comment">//未被访问过，就进行广度优先遍历</span>
+         <span class="hljs-keyword">if</span>(!isTraversed[i]) &#123;
+            bfs(i);
+         &#125;
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+
+
+<p><strong>运行结果</strong></p>
+<pre><code class="hljs java">邻接矩阵
+[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]
+[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+进行广度优先遍历
+A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;</code></pre>
+
+
+
+<h1 id="十、算法"><a href="#十、算法" class="headerlink" title="十、算法"></a>十、算法</h1><h2 id="1、分治算法"><a href="#1、分治算法" class="headerlink" title="1、分治算法"></a>1、分治算法</h2><h3 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h3><p>分治法是一种很重要的算法。字面上的解释是“分而治之”，就是<strong>把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并</strong>。这个技巧是很多高效算法的基础，如排序算法(快速排序，归并排序)，傅立叶变换(快速傅立叶变换)……</p>
+<h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><p><strong>分治法在每一层递归上都有三个步骤</strong>：</p>
+<ul>
+<li>分解：将原问题分解为若干个规模较小，相互独立，与原问题形式相同的子问题</li>
+<li>解决：若子问题规模较小而容易被解决则直接解，否则递归地解各个子问题</li>
+<li>合并：将各个子问题的解合并为原问题的解</li>
+</ul>
+<h3 id="应用——汉诺塔"><a href="#应用——汉诺塔" class="headerlink" title="应用——汉诺塔"></a>应用——汉诺塔</h3><h4 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h4><p>A、B、C三个塔</p>
+<ul>
+<li>如果只有一个盘，直接A-&gt;C</li>
+<li>如果大于等于两个盘，就分成两部分。<strong>最下面的一个盘为一部分，上面的所有盘为一部分</strong><ul>
+<li>将上面部分的盘A-&gt;B</li>
+<li>最下面的盘A-&gt;C</li>
+<li>再将B中的盘B-&gt;C</li>
+</ul>
+</li>
+</ul>
+<h4 id="实现代码-10"><a href="#实现代码-10" class="headerlink" title="实现代码"></a>实现代码</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo1</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      hanoiTower(<span class="hljs-number">3</span>, <span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>, <span class="hljs-string">'C'</span>);
+   &#125;
+
+   <span class="hljs-comment">/**</span>
+<span class="hljs-comment">    * 汉诺塔</span>
+<span class="hljs-comment">    *</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> num 盘的总数</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> a 第一个塔</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> b 第二个塔</span>
+<span class="hljs-comment">    * <span class="hljs-doctag">@param</span> c 第三个塔</span>
+<span class="hljs-comment">    */</span>
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">hanoiTower</span><span class="hljs-params">(<span class="hljs-keyword">int</span> num, <span class="hljs-keyword">char</span> a, <span class="hljs-keyword">char</span> b, <span class="hljs-keyword">char</span> c)</span> </span>&#123;
+      <span class="hljs-comment">//如果只有一个盘，把这个盘从A移动到C</span>
+      <span class="hljs-keyword">if</span>(num == <span class="hljs-number">1</span>) &#123;
+         System.out.println(<span class="hljs-string">"把第"</span> + num + <span class="hljs-string">"个盘从"</span> + a + <span class="hljs-string">"-&gt;"</span> + c);
+         <span class="hljs-keyword">return</span>;
+      &#125;
+      <span class="hljs-comment">//如果大于等于两个盘，将上面部分的盘从A借助C移动到B</span>
+      hanoiTower(num-<span class="hljs-number">1</span>, a, c, b);
+      <span class="hljs-comment">//把最下面的盘从A移动到C</span>
+      System.out.println(<span class="hljs-string">"把第"</span> + num + <span class="hljs-string">"个盘从"</span> + a + <span class="hljs-string">"-&gt;"</span> + c);
+      <span class="hljs-comment">//把上面部分的盘从B借助A移动到C</span>
+      hanoiTower(num-<span class="hljs-number">1</span>, b, a, c);
+   &#125;
+&#125;</code></pre>
+
+
+
+<p><strong>运行结果</strong></p>
+<pre><code class="hljs angelscript">把第<span class="hljs-number">1</span>个盘从A-&gt;C
+把第<span class="hljs-number">2</span>个盘从A-&gt;B
+把第<span class="hljs-number">1</span>个盘从C-&gt;B
+把第<span class="hljs-number">3</span>个盘从A-&gt;C
+把第<span class="hljs-number">1</span>个盘从B-&gt;A
+把第<span class="hljs-number">2</span>个盘从B-&gt;C
+把第<span class="hljs-number">1</span>个盘从A-&gt;C</code></pre>
+
+
+
+<h2 id="2、动态规划"><a href="#2、动态规划" class="headerlink" title="2、动态规划"></a>2、动态规划</h2><h3 id="算法介绍-1"><a href="#算法介绍-1" class="headerlink" title="算法介绍"></a>算法介绍</h3><ul>
+<li>动态规划(Dynamic Programming)算法的核心思想是：将<strong>大问题划分为小问题</strong>进行解决，从而一步步获取最优解的处理算法</li>
+<li>动态规划算法与分治算法类似，其基本思想也是将待求解问题分解成若干个子问题，先求解子问题，然后从这些子问题的解得到原问题的解</li>
+<li>与分治法不同的是，适合于用动态规划求解的问题，经分解得到<strong>子问题往往不是互相独立的</strong>。( 即下一个子阶段的求解是建立在上一个子阶段的解的基础上，进行进一步的求解 )</li>
+<li>动态规划可以通过<strong>填表</strong>的方式来逐步推进，得到最优解</li>
+</ul>
+<h3 id="算法应用——01背包问题"><a href="#算法应用——01背包问题" class="headerlink" title="算法应用——01背包问题"></a>算法应用——01背包问题</h3><table>
+<thead>
+<tr>
+<th align="center">物品</th>
+<th align="center">重量</th>
+<th align="center">价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">吉他</td>
+<td align="center">1</td>
+<td align="center">1500</td>
+</tr>
+<tr>
+<td align="center">音响</td>
+<td align="center">4</td>
+<td align="center">3000</td>
+</tr>
+<tr>
+<td align="center">电脑</td>
+<td align="center">3</td>
+<td align="center">2000</td>
+</tr>
+</tbody></table>
+<p>一个背包最多装4kg的东西，求</p>
+<ul>
+<li>装入物品使得背包的总价值最大，且不超出背包的容量</li>
+<li>要求装入的物品<strong>不能重复</strong>（01背包）</li>
+</ul>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>算法的主要思想，利用动态规划来解决。每次遍历到的第 i个物品，根据 w[i]和 v[i]来确定是否需要将该物品放入背包中。即对于给定的 n个物品，<strong>设 v[i]、w[i]分别为第 i个物品的价值和重量</strong>，C为背包的容量。再令二维数组</p>
+<pre><code class="hljs markdown">v[<span class="hljs-string">i</span>][<span class="hljs-symbol">j</span>]</code></pre>
+
+<p>表示在前 i个物品中能够装入容量为 j的背包中的<strong>最大价值</strong>。则我们有下面的结果</p>
+<pre><code class="hljs java"><span class="hljs-comment">//表示填入表的第一行和第一列是 0，主要是为了方便表示物品和容量</span>
+(<span class="hljs-number">1</span>) v[i][<span class="hljs-number">0</span>]=v[<span class="hljs-number">0</span>][j]=<span class="hljs-number">0</span>; 
+
+<span class="hljs-comment">// 当准备加入新增的商品的重量大于当前背包的容量时，就直接使用上一个单元格的装入策略（装入物品的价值）</span>
+(<span class="hljs-number">2</span>) 当 w[i]&gt;j 时：v[i][j]=v[i-<span class="hljs-number">1</span>][j] 
+
+<span class="hljs-comment">// 当准备加入的新增的商品的容量小于等于当前背包的容量,</span>
+<span class="hljs-comment">// 装入的方式:</span>
+(<span class="hljs-number">3</span>) 当 j&gt;=w[i]时：v[i][j]=max&#123;v[i-<span class="hljs-number">1</span>][j], v[i]+v[i-<span class="hljs-number">1</span>][j-w[i]]&#125;
+
+v[i-<span class="hljs-number">1</span>][j]：上一个装法的总价值
+
+v[i] : 表示当前商品的价值
+
+v[i-<span class="hljs-number">1</span>][j-w[i]] ： 装入i-<span class="hljs-number">1</span>商品，到剩余空间j-w[i]的总价值</code></pre>
+
+<p>简单来说：</p>
+<ul>
+<li><p>装入物品的容量大于背包容量时，直接使用之前装入背包物品的最大价值</p>
+</li>
+<li><p>装入物品容量小于等于背包容量时，比较</p>
+<ul>
+<li>装入该物品之前，背包物品的最大价值</li>
+<li>装入该后，该物品的价值+剩余容量能放入物品的最大价值</li>
+</ul>
+<p>选取较大者</p>
+</li>
+</ul>
+<h4 id="实现代码-11"><a href="#实现代码-11" class="headerlink" title="实现代码"></a>实现代码</h4><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
+      <span class="hljs-comment">//各个物品的重量</span>
+      <span class="hljs-keyword">int</span>[] weight = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>&#125;;
+      <span class="hljs-comment">//各个物品的价值</span>
+      <span class="hljs-keyword">int</span>[] value = &#123;<span class="hljs-number">1500</span>, <span class="hljs-number">3000</span>, <span class="hljs-number">2000</span>&#125;;
+      <span class="hljs-comment">//背包的最大容量</span>
+      <span class="hljs-keyword">int</span> maxSize = <span class="hljs-number">4</span>;
+      <span class="hljs-comment">//各种方法的价值的最大值，第0行和第0列值为0，方便后续操作</span>
+      <span class="hljs-keyword">int</span>[][] maxValue = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[value.length+<span class="hljs-number">1</span>][maxSize+<span class="hljs-number">1</span>];
+      <span class="hljs-comment">//用于表示物品放入背包的方式</span>
+      <span class="hljs-keyword">int</span>[][] method = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[value.length+<span class="hljs-number">1</span>][maxSize+<span class="hljs-number">1</span>];
+
+      <span class="hljs-comment">//依次将物品放入背包</span>
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i&lt;maxValue.length; i++) &#123;
+         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j&lt;maxValue[<span class="hljs-number">0</span>].length; j++) &#123;
+            <span class="hljs-comment">//如果物品的重量大于背包剩余的容量，就不放入</span>
+            <span class="hljs-comment">//i-1是因为下标是从1开始的，减一后才为0</span>
+            <span class="hljs-keyword">if</span>(weight[i-<span class="hljs-number">1</span>] &gt; j) &#123;
+               maxValue[i][j] = maxValue[i-<span class="hljs-number">1</span>][j];
+            &#125; <span class="hljs-keyword">else</span> &#123;
+               <span class="hljs-comment">//背包剩余的容量</span>
+               <span class="hljs-keyword">int</span> remaining = j - weight[i-<span class="hljs-number">1</span>];
+               <span class="hljs-comment">//如果放入该物品前的最大价值大于放入该物品后的最大价值，就不放入该物品</span>
+               <span class="hljs-keyword">if</span>(maxValue[i-<span class="hljs-number">1</span>][j] &gt; value[i-<span class="hljs-number">1</span>]+maxValue[i-<span class="hljs-number">1</span>][remaining]) &#123;
+                  maxValue[i][j] = maxValue[i-<span class="hljs-number">1</span>][j];
+               &#125; <span class="hljs-keyword">else</span> &#123;
+                  maxValue[i][j] = value[i-<span class="hljs-number">1</span>]+maxValue[i-<span class="hljs-number">1</span>][remaining];
+                  <span class="hljs-comment">//存入放入方法</span>
+                  method[i][j] = <span class="hljs-number">1</span>;
+               &#125;
+            &#125;
+         &#125;
+      &#125;
+
+      <span class="hljs-comment">//打印放入背包的最大价值</span>
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span>[] arr : maxValue) &#123;
+         System.out.println(Arrays.toString(arr));
+      &#125;
+
+
+      <span class="hljs-comment">//打印价值最大的放法</span>
+      <span class="hljs-comment">//存放方法的二维数组的最大下标，从最后开始搜索存放方法</span>
+      <span class="hljs-keyword">int</span> i = method.length - <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">int</span> j = method[<span class="hljs-number">0</span>].length - <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">while</span>(i &gt; <span class="hljs-number">0</span> &amp;&amp; j &gt; <span class="hljs-number">0</span>) &#123;
+         <span class="hljs-keyword">if</span>(method[i][j] == <span class="hljs-number">1</span>) &#123;
+            System.out.println(<span class="hljs-string">"将第"</span> + i + <span class="hljs-string">"个物品放入背包"</span>);
+            <span class="hljs-comment">//背包剩余容量</span>
+            j -= weight[i-<span class="hljs-number">1</span>];
+         &#125;
+         i--;
+      &#125;
+   &#125;
+&#125;</code></pre>
+
+
+
+<p><strong>运行结果</strong></p>
+<pre><code class="hljs java">[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]
+[<span class="hljs-number">0</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">1500</span>]
+[<span class="hljs-number">0</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">3000</span>]
+[<span class="hljs-number">0</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">1500</span>, <span class="hljs-number">2000</span>, <span class="hljs-number">3500</span>]
+
+将第<span class="hljs-number">3</span>个物品放入背包
+将第<span class="hljs-number">1</span>个物品放入背包</code></pre>
+
+
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
-                    
-                  </div>
                 
                 
               </div>

@@ -210,13 +210,6 @@
           </div>
         
         
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
-            
-          </div>
-        
         
       </div>
     </div>
@@ -240,7 +233,6 @@
           
         
         <div>JVM学习本博客是根据解密JVM【黑马程序员出品】教学视频学习时，所做的笔记
-https://www.bilibili.com/video/BV1yE411Z7AP
 一、什么是JVM定义Java Virtual Machine，JAVA程序的运行环境（JAVA二进制字节码的运行环境）
 好处
 一次编写，到处运行
@@ -249,7 +241,10 @@ https://www.bilibili.com/video/BV1yE411Z7AP
 
 比较JVM JRE JDK的区别
 
-二、</div>
+二、内存结构整体架构
+1、程序计数器作用用于保存JVM中下一条所要执行的指令的地址
+特点
+线</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -289,9 +284,10 @@ https://www.bilibili.com/video/BV1yE411Z7AP
           
         
         <div>并发编程笔记本博客根据黑马java并发编程教程学习而做的笔记，链接如下
-https://www.bilibili.com/video/av81461839?from=search&amp;seid=8445102345230304010
 一、基本概念1、进程与线程进程
-程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至 CPU，数据加载至内存。在指令运行过程中还需要用到磁盘、网</div>
+程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至 CPU，数据加载至内存。在指令运行过程中还需要用到磁盘、网络等设备。进程就是用来加载指令、管理内存、管理 IO 的。
+当一个程序被运行，从磁盘加载这个程序的代码至内存，这时就开启了一个进程。 
+进程就可以视为程序的一个实例。</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -331,13 +327,18 @@ https://www.bilibili.com/video/av81461839?from=search&amp;seid=84451023452303040
           
         
         <div>Redis学习本博客根据黑马Redis教程学习而做的笔记，链接如下
-https://www.bilibili.com/video/BV1CJ411m7Gc?p=2
 一、Redis常用指令//启动容器
 docker run -d -p 6379:6379 -it   --name="myredis"  redis
 输入密码：
 auth 密码
 //进入redis容器
-docker exec -it m</div>
+docker exec -it myredis  redis-cli
+//退出
+quit
+exit
+//清屏
+clear
+//获取</div>
       </a>
 
       <div class="index-btm post-metas">
