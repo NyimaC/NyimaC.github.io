@@ -520,7 +520,7 @@ PRIMARY <span class="hljs-keyword">KEY</span>(<span class="hljs-keyword">id</spa
 </ul>
 </li>
 </ul>
-<h2 id="4、MySQL的索引"><a href="#4、MySQL的索引" class="headerlink" title="4、MySQL的索引"></a>4、MySQL的索引</h2><h3 id="B树与B-树"><a href="#B树与B-树" class="headerlink" title="B树与B+树"></a>B树与B+树</h3><p>树的内容参照<a href="[http://www.wenwenlulu.cn/2020/06/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/#B%E6%A0%91%E3%80%81B-%E5%92%8CB-%E6%A0%91](http://www.wenwenlulu.cn/2020/06/17/数据结构与算法/#B树、B-和B-树)">JAVA数据结构 B树、B+树和B*树</a></p>
+<h2 id="4、MySQL的索引"><a href="#4、MySQL的索引" class="headerlink" title="4、MySQL的索引"></a>4、MySQL的索引</h2><h3 id="B树与B-树"><a href="#B树与B-树" class="headerlink" title="B树与B+树"></a>B树与B+树</h3><p>树的内容参照<a href="http://www.wenwenlulu.cn/2020/06/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/#B%E6%A0%91%E3%80%81B-%E5%92%8CB-%E6%A0%91" target="_blank" rel="noopener">JAVA数据结构 B树、B+树和B*树</a></p>
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200815153029.png" srcset="/img/loading.gif" alt=""></p>
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200815153043.png" srcset="/img/loading.gif" alt=""></p>
 <h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ul>
@@ -843,7 +843,7 @@ PRIMARY <span class="hljs-keyword">KEY</span>(<span class="hljs-keyword">id</spa
 <ul>
 <li><p><strong>Using index</strong></p>
 <ul>
-<li>Using index 代表表示相应的 select 操作中使用了<strong>覆盖索引</strong>(Covering Index)，详见<a href="">key：实际用到的索引——覆盖索引</a>，避免访问了表的数据行，<strong>效率不错</strong>！ </li>
+<li>Using index 代表表示相应的 select 操作中使用了<strong>覆盖索引</strong>(Covering Index)，详见<a href="http://www.wenwenlulu.cn/2020/08/16/MySQL%E9%AB%98%E7%BA%A7/#key%EF%BC%9A%E5%AE%9E%E9%99%85%E4%BD%BF%E7%94%A8%E7%9A%84%E7%B4%A2%E5%BC%95" target="_blank" rel="noopener">key：实际用到的索引——覆盖索引</a>，避免访问了表的数据行，<strong>效率不错</strong>！ </li>
 <li>如果同时出现 using where，表明<strong>索引被用来执行索引键值的查找</strong></li>
 <li>如果没有同时出现 using where，表明<strong>索引只是用来读取数据</strong>而非利用索引执行查找。</li>
 </ul>
