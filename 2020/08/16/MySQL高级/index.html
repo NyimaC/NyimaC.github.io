@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.8k 字
+      7.4k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      70
+      89
        分钟
     </span>
   
@@ -216,7 +216,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>该博客是根据<a href="https://www.bilibili.com/video/BV1KW411u7vy?p=9" target="_blank" rel="noopener">尚硅谷MySQL数据库高级，mysql优化，数据库优化</a>学习时，所做的笔记</p>
+              <p>该博客是根据<a href="https://www.bilibili.com/video/BV1KW411u7vy?p=9" target="_blank" rel="noopener"><strong>尚硅谷MySQL数据库高级，mysql优化，数据库优化</strong></a>学习时，所做的笔记</p>
 <h1 id="MySQL高级"><a href="#MySQL高级" class="headerlink" title="MySQL高级"></a>MySQL高级</h1><h1 id="一、Mysql逻辑架构"><a href="#一、Mysql逻辑架构" class="headerlink" title="一、Mysql逻辑架构"></a>一、Mysql逻辑架构</h1><h2 id="1、整体架构"><a href="#1、整体架构" class="headerlink" title="1、整体架构"></a>1、整体架构</h2><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200813170808.png" srcset="/img/loading.gif" alt=""></p>
 <h3 id="连接层"><a href="#连接层" class="headerlink" title="连接层"></a>连接层</h3><p>最上层是一些客服端和连接服务，包括sock通信和大多数基于客服端/服务端工具实现的类似于tcp/ip的通信，主要完成一些类似于连接处理、授权认证及相关安全的方案，在该层上引入了线程池的概念，为通过认证安全接入的客服端提供线程，同样在该层上可以实现基于SSL的安全的连接，服务器也会为安全接入的每个客户端验证它所具有的操作权限</p>
 <h3 id="服务层"><a href="#服务层" class="headerlink" title="服务层"></a>服务层</h3><p>第二层架构主要完成大多数的核心服务功能，如SQL接口，并完成缓存的查询，SQL的分析以及优化部分内置函数的执行，所有跨存储引擎的功能也在这一层实现，如过程、函数等，服务器会解析查询并创建相应的内部解析树，并对其完成相应的优化如确定查询的顺序是否利用索引，最后生成相应的执行操作</p>
@@ -553,7 +553,7 @@ PRIMARY <span class="hljs-keyword">KEY</span>(<span class="hljs-keyword">id</spa
 <li><strong>过滤性不好</strong>的不适合建索引（重复性较高，比如国籍、性别之类的字段）</li>
 </ul>
 <h1 id="四、Explain-性能分析"><a href="#四、Explain-性能分析" class="headerlink" title="四、Explain 性能分析"></a>四、Explain 性能分析</h1><h2 id="1、概念"><a href="#1、概念" class="headerlink" title="1、概念"></a>1、概念</h2><p>使用 <strong>EXPLAIN</strong> 关键字可以模拟优化器执行 SQL 查询语句，从而知道 MySQL 是如何处理你的 SQL 语句的。<strong>分析</strong>你的查询语句或是表结构的<strong>性能瓶颈</strong></p>
-<h3 id="用法："><a href="#用法：" class="headerlink" title="用法："></a>用法：</h3><pre><code class="hljs sql"><span class="hljs-comment">--EXPLAIN + SQL语句，如：</span>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><pre><code class="hljs sql"><span class="hljs-comment">--EXPLAIN + SQL语句，如：</span>
 <span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> person;</code></pre>
 
 
@@ -885,7 +885,178 @@ PRIMARY <span class="hljs-keyword">KEY</span>(<span class="hljs-keyword">id</spa
 </ul>
 </li>
 </ul>
+<h2 id="2、索引法则"><a href="#2、索引法则" class="headerlink" title="2、索引法则"></a>2、索引法则</h2><h3 id="全值匹配很快捷"><a href="#全值匹配很快捷" class="headerlink" title="全值匹配很快捷"></a>全值匹配很快捷</h3><p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--建立符合索引（age, deptId, name）</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> idx_emp_ade <span class="hljs-keyword">ON</span> t_emp(age, deptId, <span class="hljs-keyword">NAME</span>);
 
+<span class="hljs-comment">--查找</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">90</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">90</span> <span class="hljs-keyword">AND</span> deptId = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">90</span> <span class="hljs-keyword">AND</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'风清扬'</span>;
+
+<span class="hljs-comment">--和上一条SQL语句中WHERE后字段的顺序不同，但是不影响查询结果</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'风清扬'</span> <span class="hljs-keyword">AND</span> age = <span class="hljs-number">90</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817164200.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817164226.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817164241.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817164506.png" srcset="/img/loading.gif" alt=""></p>
+<p>可以看到，<strong>复合索引都被用到了，并且SQL中查询字段的顺序，跟使用索引中字段的顺序，没有关系</strong>。优化器会在不影响 SQL 执行结果的前提下，自动地优化</p>
+<p><strong>结论：全职匹配我最爱指的是，查询的字段按照顺序在索引中都可以匹配到</strong></p>
+<h3 id="最佳左前缀法则"><a href="#最佳左前缀法则" class="headerlink" title="最佳左前缀法则"></a>最佳左前缀法则</h3><p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--先删除之前创建的单值索引</span>
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">INDEX</span> idx_dept_id <span class="hljs-keyword">ON</span> t_emp; 
+
+<span class="hljs-comment">--查询，未按照最佳左前缀法则</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> deptId = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'风清扬'</span>;
+
+<span class="hljs-comment">--查询，部分按照最佳左前缀法则（age字段和复合索引匹配，但name没有）</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span>  age = <span class="hljs-number">90</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'风清扬'</span>;
+
+<span class="hljs-comment">--查询，完全按照最佳左前缀法则</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">90</span> <span class="hljs-keyword">AND</span> deptId = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">90</span> <span class="hljs-keyword">AND</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'风清扬'</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817164932.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817164948.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817165100.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817164226.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817164506.png" srcset="/img/loading.gif" alt=""></p>
+<p>可以看到，查询<strong>字段与索引字段顺序的不同会导致，索引无法充分使用，甚至索引失效</strong></p>
+<p><strong>原因</strong>：使用复合索引，需要<strong>遵循最佳左前缀法则</strong>，即如果索引了多列，要遵守最左前缀法则。指的是查询从索引的<strong>最左前列开始并且不跳过索引中的列</strong></p>
+<p><strong>结论：过滤条件要使用索引必须按照索引建立时的顺序，依次满足，一旦跳过某个字段，索引后面的字段都无法被使用</strong></p>
+<h3 id="索引列上不计算"><a href="#索引列上不计算" class="headerlink" title="索引列上不计算"></a>索引列上不计算</h3><p>不在索引列上做任何操作（计算、函数、(自动 or 手动)类型转换），<strong>可能会导致索引失效而转向全表扫描</strong></p>
+<p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--直接查询</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">90</span> <span class="hljs-keyword">AND</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'风清扬'</span>;
+
+<span class="hljs-comment">--使用MySQL函数查询</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">LEFT</span>(age,<span class="hljs-number">2</span>) = <span class="hljs-number">90</span> <span class="hljs-keyword">AND</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'风清扬'</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817170139.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817170522.png" srcset="/img/loading.gif" alt=""></p>
+<p>可以看出，当age字段使用了left函数以后，<strong>导致索引完全失效</strong></p>
+<p><strong>结论：等号左边无计算</strong></p>
+<h3 id="范围之后全失效"><a href="#范围之后全失效" class="headerlink" title="范围之后全失效"></a>范围之后全失效</h3><p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--范围查询</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age &gt; <span class="hljs-number">50</span> <span class="hljs-keyword">AND</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'风清扬'</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">50</span> <span class="hljs-keyword">AND</span> deptId &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'风清扬'</span>;
+
+<span class="hljs-comment">--未使用范围查询</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> empno <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">50</span> <span class="hljs-keyword">AND</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'风清扬'</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817171833.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817172159.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817171903.png" srcset="/img/loading.gif" alt=""></p>
+<p>可以看出，当对age字段使用范围查询后，使得范围后面的索引失效了</p>
+<p><strong>建议：</strong>将可能做范围查询的字段的索引顺序<strong>放在最后</strong></p>
+<p><strong>结论：使用范围查询后，会导致索引失效</strong></p>
+<h3 id="覆盖索引多使用"><a href="#覆盖索引多使用" class="headerlink" title="覆盖索引多使用"></a>覆盖索引多使用</h3><p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--查询所有字段</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_dept <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>;
+
+<span class="hljs-comment">--查询索引字段</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span> <span class="hljs-keyword">FROM</span> t_dept <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817173338.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817173314.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>结论：使用覆盖索引（Using index）会提高检索效率</strong></p>
+<h3 id="使用不等会失效"><a href="#使用不等会失效" class="headerlink" title="使用不等会失效"></a>使用不等会失效</h3><p>在使用<strong>不等于(!= 或者&lt;&gt;)时</strong>，有时会无法使用索引会导致全表扫描</p>
+<p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--SQL语句中有不等于</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age != <span class="hljs-number">90</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age &lt;&gt; <span class="hljs-number">90</span>;
+
+<span class="hljs-comment">--SQL语句中没有不等于</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">90</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817180448.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817180505.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817180521.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>结论：尽量不要使用不等于</strong></p>
+<h3 id="使用NULL值要小心"><a href="#使用NULL值要小心" class="headerlink" title="使用NULL值要小心"></a>使用NULL值要小心</h3><p>在使用</p>
+<pre><code class="hljs sql">IS NULL
+或者
+IS NOT NULL</code></pre>
+
+<p>时，可能会导致索引失效</p>
+<p>但是如果<strong>允许字段为空</strong>，则</p>
+<ul>
+<li>IS NULL 不会导致索引失效</li>
+<li>IS NOT NULL 会导致索引失效</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817181044.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age <span class="hljs-keyword">IS</span> <span class="hljs-literal">NULL</span>;
+
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age <span class="hljs-keyword">IS</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817181116.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817181137.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="模糊查询加右边"><a href="#模糊查询加右边" class="headerlink" title="模糊查询加右边"></a>模糊查询加右边</h3><p>要使用模糊查询时，<strong>百分号最好加在右边，而且进行模糊查询的字段必须是单值索引</strong></p>
+<p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--创建单值索引</span>
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> idx_emp_name <span class="hljs-keyword">ON</span> t_emp(<span class="hljs-keyword">NAME</span>);
+
+<span class="hljs-comment">--进行模糊查询</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'%风'</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'风%'</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'%风%'</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817183416.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817183401.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817183416.png" srcset="/img/loading.gif" alt=""></p>
+<p>可以看出，对索引使用模糊查询时，<strong>只有当百分号在右边，索引为单值索引且模糊查询语句在最右边时，索引才会生效</strong></p>
+<p>其他情况均失效了</p>
+<p><strong>但是</strong>有时必须使用其他类型的模糊查询，这时就需要用<strong>覆盖索引</strong>来解决索引失效的问题</p>
+<p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'%风'</span>;
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'风%'</span>;
+
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">NAME</span> <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">name</span> <span class="hljs-keyword">LIKE</span> <span class="hljs-string">'%风%'</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817183741.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817183801.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817183741.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>结论：对索引进行模糊查询时，最好在右边加百分号。必须在左边或左右加百分号时，需要用到覆盖索引来提升查询效率</strong></p>
+<h3 id="字符串加单引号"><a href="#字符串加单引号" class="headerlink" title="字符串加单引号"></a>字符串加单引号</h3><p>当字段为字符串时，查询时必须带上单引号。否则<strong>会发生自动的类型转换</strong>，从而发生全表扫描</p>
+<p><strong>用于查询的表</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817203952.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>其中card_id字段为varchar类型，且设置了单值索引</strong></p>
+<p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--使用了单引号</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> card_id <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> card_id = <span class="hljs-string">'1'</span>;
+
+<span class="hljs-comment">--未使用单引号，发生自动类型转换</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> card_id <span class="hljs-keyword">FROM</span> person <span class="hljs-keyword">WHERE</span> card_id = <span class="hljs-number">1</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817204047.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817204027.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="尽量不用or查询"><a href="#尽量不用or查询" class="headerlink" title="尽量不用or查询"></a>尽量不用or查询</h3><p>如果使用or，可能导致索引失效。所以要减少or的使用，可以<strong>使用 union all 或者 union 来替代：</strong></p>
+<p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--使用or进行查询</span>
+<span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age = <span class="hljs-number">90</span> <span class="hljs-keyword">OR</span> <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'风清扬'</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200817204307.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="口诀"><a href="#口诀" class="headerlink" title="口诀"></a>口诀</h3><p>全职匹配我最爱，最左前缀要遵守</p>
+<p>带头大哥不能死，中间兄弟不能断</p>
+<p>索引列上少计算，范围之后全失效</p>
+<p>LIKE 百分写最右，覆盖索引不写*</p>
+<p>不等空值还有 OR，索引影响要注意</p>
+<p> VARCHAR 引号不可丢，SQL 优化有诀窍</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
             </article>
             <hr>
             <div>
