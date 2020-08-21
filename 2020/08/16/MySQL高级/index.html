@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.3k 字
+      12k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      130
+      150
        分钟
     </span>
   
@@ -1413,6 +1413,241 @@ CLOSE _cur;
 
 
 
+<h1 id="九、MySQL锁机制"><a href="#九、MySQL锁机制" class="headerlink" title="九、MySQL锁机制"></a>九、MySQL锁机制</h1><h2 id="1、表锁"><a href="#1、表锁" class="headerlink" title="1、表锁"></a>1、表锁</h2><p><strong>MylSAM引擎使用表锁，并且不支持事务</strong></p>
+<p><strong>SQL语句</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--展示表是否加锁</span>
+<span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">OPEN</span> <span class="hljs-keyword">TABLES</span>;
+
+<span class="hljs-comment">--加锁 read (读锁) write (写锁)</span>
+<span class="hljs-keyword">LOCK</span> <span class="hljs-keyword">TABLE</span> table1 <span class="hljs-keyword">read</span>(write), table2 <span class="hljs-keyword">read</span>(write)...
+
+<span class="hljs-comment">--全部解锁</span>
+<span class="hljs-keyword">UNLOCK</span> <span class="hljs-keyword">TABLES</span>;</code></pre>
+
+
+
+<h3 id="读锁"><a href="#读锁" class="headerlink" title="读锁"></a>读锁</h3><ul>
+<li><p>主机A给表加上<strong>表锁（读锁）</strong>以后</p>
+<ul>
+<li>主机A和其他主机都可以读取<strong>该表</strong>的信息</li>
+<li><strong>主机A不能读取库中其他表的信息</strong>，但其他主机可以读取库中所有表的信息</li>
+<li>如果要修改被锁表的信息<ul>
+<li>主机A如果对表进行修改，<strong>会修改失败</strong></li>
+<li>其他主机对表进行修改，<strong>会被阻塞，直到锁被释放</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>演示</strong></p>
+<ul>
+<li><p>给dept表加锁并查询状态</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">LOCK</span> <span class="hljs-keyword">TABLE</span> dept <span class="hljs-keyword">READ</span>;
+
+<span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">OPEN</span> <span class="hljs-keyword">TABLES</span>;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820151441.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+</ul>
+<p><strong>读取</strong></p>
+<ul>
+<li><p>两个客户端分别读取dept表的信息，都能读出来</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span> <span class="hljs-keyword">FROM</span> dept <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>;</code></pre>
+</li>
+<li><p>客户端A（加锁端）A<strong>读取其他表</strong>信息，<strong>读取失败</strong></p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820152614.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+<li><p>其他客户端读取度其他表信息，读取成功</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820152714.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+</ul>
+<p><strong>修改</strong></p>
+<ul>
+<li><p>客户端A对表中内容进行修改，<strong>修改失败</strong></p>
+<pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> dept <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820151654.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+<li><p>客户端B对表中内容进行修改，进入阻塞状态</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> dept <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>;</code></pre>
+
+
+
+</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820151737.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li><p>从客户端A解锁后，客户端B修改成功</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">UNLOCK</span> <span class="hljs-keyword">TABLES</span>;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820151818.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+</ul>
+<h3 id="写锁"><a href="#写锁" class="headerlink" title="写锁"></a>写锁</h3><p>主机A给表加上<strong>表锁（写锁）</strong>以后</p>
+<ul>
+<li>主机A可以读取该表信息，但<strong>其他主机读取时，会进入阻塞状态，知道读锁被释放</strong></li>
+<li><strong>主机A不能读取库中其他表的信息</strong>，但其他主机可以读取库中<strong>除该表以外所有表</strong>的信息</li>
+<li>如果要修改被锁表的信息<ul>
+<li>主机A如果对表进行修改，修改成功</li>
+<li>其他主机对表进行修改，<strong>会被阻塞，直到锁被释放</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>演示</strong></p>
+<ul>
+<li><p>给dept表加上写锁并查看</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">LOCK</span> <span class="hljs-keyword">TABLE</span> dept WRITE;
+
+<span class="hljs-keyword">SHOW</span> <span class="hljs-keyword">OPEN</span> <span class="hljs-keyword">TABLES</span>;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820153259.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+</ul>
+<p><strong>读取</strong></p>
+<ul>
+<li><p>客户端A查询该表内容，查询成功；读取其他表，读取失败</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> dept;
+
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820153403.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+</ul>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820153437.png" srcset="/img/loading.gif" alt=""></p>
+<ul>
+<li><p>其他表读取该表信息，进入阻塞状态</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> dept;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820153517.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+<li><p>释放后，读取成功</p>
+<pre><code class="hljs SQL"><span class="hljs-keyword">UNLOCK</span> <span class="hljs-keyword">TABLES</span>;</code></pre>
+
+
+
+</li>
+</ul>
+<p><strong>修改</strong></p>
+<ul>
+<li><p>客户端A修改<strong>该表</strong>内容，修改成功</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> dept <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820153637.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+<li><p>客户端A修改<strong>其他表</strong>内容，修改失败</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820153710.png" srcset="/img/loading.gif" alt=""></p>
+</li>
+<li><p>其他客户端修改<strong>该表</strong>内容，进入阻塞状态</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">DELETE</span> <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;</code></pre>
+
+
+
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>读锁不会阻塞读，只会阻塞写。但是写锁会阻塞读和写。</strong></p>
+<h2 id="2、行锁"><a href="#2、行锁" class="headerlink" title="2、行锁"></a>2、行锁</h2><p><strong>InnoDB使用行锁，并且支持事务</strong>，事务相关可参考 <a href="http://www.wenwenlulu.cn/2020/08/11/MySQL%E5%9F%BA%E7%A1%80/#%E5%85%AD%E3%80%81%E4%BA%8B%E5%8A%A1" target="_blank" rel="noopener"><strong>MySQL基础</strong></a></p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>如果两个客户端<strong>对同一条记录进行修改</strong></p>
+<ul>
+<li>客户端A修改后，未提交（未commit），此时客户端B修改，则会阻塞</li>
+<li>客户端A修改后，提交后，客户端B再修改，则不会阻塞</li>
+</ul>
+<p>如果两个客户端分别<strong>对不同的记录进行修改</strong>，则不会被阻塞</p>
+<p><strong>修改同一条记录</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--关闭自动提交</span>
+<span class="hljs-keyword">SET</span> autocommit = <span class="hljs-number">0</span>;
+
+<span class="hljs-comment">--客户端A、B查询id=2的记录</span>
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">--客户端A进行修改操作（将年龄改为了80），但未提交</span>
+<span class="hljs-keyword">UPDATE</span> t_emp <span class="hljs-keyword">SET</span> age = <span class="hljs-number">80</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">--客户端A进行查询</span>
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">--客户端B进行查询</span>
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">--客户端B进行修改（客户端A未提交）</span>
+<span class="hljs-keyword">UPDATE</span> t_emp <span class="hljs-keyword">SET</span> age = <span class="hljs-number">90</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">--客户端A提交</span>
+<span class="hljs-keyword">COMMIT</span>;
+
+<span class="hljs-comment">--客户端B提交</span>
+<span class="hljs-keyword">COMMIT</span>;</code></pre>
+
+<p><strong>对应结果</strong></p>
+<p>客户端A查询结果</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820163718.png" srcset="/img/loading.gif" alt=""></p>
+<p>客户端B查询结果</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820163718.png" srcset="/img/loading.gif" alt=""></p>
+<p>客户端A修改后A查询</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820163847.png" srcset="/img/loading.gif" alt=""></p>
+<p>客户端A修改后B查询</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820163718.png" srcset="/img/loading.gif" alt=""></p>
+<p>客户端A修改，未提交，此时B进行修改，<strong>被阻塞</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820163957.png" srcset="/img/loading.gif" alt=""></p>
+<p>客户端A提交后，B修改成功</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820164036.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>修改不同记录</strong></p>
+<pre><code class="hljs sql"><span class="hljs-comment">--客户端A对id=2的年龄进行修改</span>
+<span class="hljs-keyword">UPDATE</span> t_emp <span class="hljs-keyword">SET</span> age = <span class="hljs-number">90</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">--客户端B对id=3的年龄进行修改</span>
+<span class="hljs-keyword">UPDATE</span> t_emp <span class="hljs-keyword">SET</span> age = <span class="hljs-number">30</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">3</span>;
+
+<span class="hljs-comment">--客户端A，B分别提交</span>
+<span class="hljs-keyword">COMMIT</span>;
+<span class="hljs-keyword">COMMIT</span>;</code></pre>
+
+<p>因为InnoDB使用行锁，对于不同行的操作，不会出现阻塞现象</p>
+<h3 id="索引失效-1"><a href="#索引失效-1" class="headerlink" title="索引失效"></a>索引失效</h3><p>索引失效，<strong>行锁变表锁</strong></p>
+<p>当<strong>索引失效</strong>后，即使多个客户端操作的不是同一条记录，<strong>如果未提交，其他客户端也会进入阻塞状态</strong></p>
+<p>所以要<strong>避免索引失效</strong></p>
+<h3 id="间隙锁危害"><a href="#间隙锁危害" class="headerlink" title="间隙锁危害"></a>间隙锁危害</h3><h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><p>当我们用<strong>范围条件</strong>而不是相等条件检索数据，并请求共享或排他锁时，InnoDB会给符合条件的已有数据记录的索引项加锁</p>
+<p>对于键值<strong>在条件范围内但并不存在的记录</strong>，叫做<strong>“间隙(GAP)</strong>” ，<strong>InnoDB也会对这个“间隙”加锁</strong>，这种锁机制就是所谓的间隙锁(Next-Key锁)。</p>
+<h4 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h4><p>因为Query执行过程中通过过范围查找的话，他会锁定整个范围内所有的索引键值，即使这个键值并不存在。<br>间隙锁有一个比较致命的弱点，就是当锁定一个范围键值之后，即使某些不存在的键值也会被无辜的锁定，而造成在锁定的时候无<br>法插入锁定键值范围内的任何数据。在某些场景下这可能会对性能造成很大的危害</p>
+<h4 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h4><pre><code class="hljs sql"><span class="hljs-comment">--查询表记录，此处没有id=2的记录</span>
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp;
+
+<span class="hljs-comment">--客户端A进行范围查询，但是范围内没有id=2的记录</span>
+<span class="hljs-keyword">UPDATE</span> t_emp <span class="hljs-keyword">SET</span> deptId = <span class="hljs-number">1</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span>&gt;<span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> <span class="hljs-keyword">id</span> &lt; <span class="hljs-number">6</span>;
+
+<span class="hljs-comment">--客户端B进行插入数据，插入一条id=2的记录</span>
+<span class="hljs-keyword">INSERT</span> t_emp <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">2</span>, <span class="hljs-string">'岳不群'</span>, <span class="hljs-number">11</span>, <span class="hljs-number">2</span>, <span class="hljs-number">100002</span>); 
+
+<span class="hljs-comment">--客户端A提交</span>
+<span class="hljs-keyword">COMMIT</span>;
+
+<span class="hljs-comment">--客户端B提交</span>
+<span class="hljs-keyword">COMMIT</span>;</code></pre>
+
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820170126.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>客户端B进入阻塞状态</strong></p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820170617.png" srcset="/img/loading.gif" alt=""></p>
+<p>提交后，插入成功</p>
+<p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200820170654.png" srcset="/img/loading.gif" alt=""></p>
+<p><strong>结论</strong>：可以看到表中本来<strong>没有id=2的记录</strong>，但是在客户端A进行<strong>范围修改</strong>时，客户端B对<strong>在范围内但不存在的数据进行插入时，客户端B进入了阻塞状态</strong></p>
+<h3 id="锁住指定的一行"><a href="#锁住指定的一行" class="headerlink" title="锁住指定的一行"></a>锁住指定的一行</h3><pre><code class="hljs sql"><span class="hljs-keyword">BEGIN</span>;
+
+<span class="hljs-comment">--锁住指定的一行，如果进行更新操作就是 ... FOR UPDATE，删除操作就是 ... FOR DELETE 以此类推</span>
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span> <span class="hljs-keyword">FOR</span> <span class="hljs-keyword">UPDATE</span>;
+
+<span class="hljs-comment">--进行修改操作</span>
+<span class="hljs-keyword">UPDATE</span> t_emp <span class="hljs-keyword">SET</span> <span class="hljs-keyword">NAME</span> = <span class="hljs-string">'风车车'</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>;
+
+<span class="hljs-comment">--提交</span>
+<span class="hljs-keyword">COMMIT</span>;</code></pre>
+
+<p>如果当某一行被锁住后，其他客户端对改行进行操作，会被<strong>阻塞</strong></p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>Innodb存储引擎由于实现了<strong>行级锁定</strong>，虽然在锁定机制的实现方面所带来的性能损耗可能比表级锁定会要更高一些， 但是在整体<strong>并</strong><br><strong>发处理能力方面要远远优于MyISAM的表级锁定的</strong>。当系统并发量较高的时候，Innodb的整体性能和MyISAM相比就会有比较明显的<br>优势了。<br>但是，Innodb的行级锁定同样也有其脆弱的一面，当我们<strong>使用不当的时候</strong>，可能会让Innodb的整体性能表现不仅不能比MylSAM高<br>，甚至可能会更差。</p>
 
             </article>
             <hr>
