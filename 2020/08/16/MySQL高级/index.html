@@ -541,7 +541,7 @@ PRIMARY <span class="hljs-keyword">KEY</span>(<span class="hljs-keyword">id</spa
 </ul>
 <h3 id="MySQL中的B-树"><a href="#MySQL中的B-树" class="headerlink" title="MySQL中的B+树"></a>MySQL中的B+树</h3><h4 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200822173605.png" srcset="/img/loading.gif" alt=""></p>
 <p>MySQL在创建表时，会根据主键来创建主键索引（如果没有主键，会用一个隐藏值来作为主键）。主键索引所构建的B+树，表中所有的记录都存放在了树的最后一层。<strong>且与一般的B+树不同的是：叶子节点间的指针是双向的</strong></p>
-<h4 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h4><p><img src="D:%5C%E5%90%8E%E7%AB%AF%E8%B5%84%E6%96%99NEW%5C%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%96%87%E6%A1%A3%5CMysql%5CMySQL%E9%AB%98%E7%BA%A7.assets%5Cimage-20200822180126767.png" srcset="/img/loading.gif" alt="image-20200822180126767"></p>
+<h4 id="复合索引"><a href="#复合索引" class="headerlink" title="复合索引"></a>复合索引</h4><p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200822181656.png" srcset="/img/loading.gif" alt=""></p>
 <p>创建复合索引时，会将作为<strong>复合索引字段的值</strong>进行排序并放在B+树的最后一层中，同时还会将其<strong>对应的主键值</strong>放在其后。如：</p>
 <table>
 <thead>
