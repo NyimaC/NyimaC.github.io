@@ -175,7 +175,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.8k 字
+      12.9k 字
     </span>
   
 
@@ -185,7 +185,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      159
+      160
        分钟
     </span>
   
@@ -564,12 +564,12 @@ PRIMARY <span class="hljs-keyword">KEY</span>(<span class="hljs-keyword">id</spa
 <p>其中字段a为主键，字段bcd共同作为复合索引，此时存放在最后一层的数据就是：111（复合索引） 2（主键索引）</p>
 <p>根据这个特点，可以看出复合索引具有以下使用方法</p>
 <ul>
-<li><p>最佳左前缀</p>
+<li><p>最佳左前缀：使用复合索引的顺序必须和创建的<strong>顺序一致</strong></p>
 </li>
 <li><p>覆盖索引的同时，可以带上主键字段，如</p>
 <pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> a, b, c, d <span class="hljs-keyword">FROM</span> t_emp;</code></pre>
 
-<p>因为<strong>主键字段和复合索引一起存放在了复合索引说产生的B+数的最后一层</strong>。如果需要a字段，无需进行全表扫描</p>
+<p>因为<strong>主键字段和复合索引一起存放在了复合索引说产生的B+树的最后一层</strong>。如果需要a字段，无需进行全表扫描</p>
 </li>
 <li><p>如果进行范围查找，可能会进行全表扫描，这取决于处在范围内记录的多少</p>
 <ul>
@@ -578,7 +578,7 @@ PRIMARY <span class="hljs-keyword">KEY</span>(<span class="hljs-keyword">id</spa
 
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200822175336.png" srcset="/img/loading.gif" alt=""></p>
 </li>
-<li><p><strong>记录少</strong>，先<strong>扫描复合索引</strong>，然后映射到全表中的对应记录上</p>
+<li><p><strong>记录少</strong>，先<strong>使用复合索引</strong>，然后映射到全表中的对应记录上</p>
 <pre><code class="hljs sql"><span class="hljs-keyword">EXPLAIN</span> <span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> t_emp <span class="hljs-keyword">WHERE</span> age &gt; <span class="hljs-number">80</span>;</code></pre>
 
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200822175403.png" srcset="/img/loading.gif" alt=""></p>
