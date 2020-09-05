@@ -2748,7 +2748,8 @@ i++;</code></pre>
       <span class="hljs-keyword">int</span> left = <span class="hljs-number">0</span>;
       <span class="hljs-keyword">int</span> right = arr.length-<span class="hljs-number">1</span>;
       <span class="hljs-keyword">while</span>(left &lt;= right) &#123;
-         <span class="hljs-keyword">int</span> mid = (left + right)/<span class="hljs-number">2</span>;
+         <span class="hljs-comment">//防止溢出</span>
+         <span class="hljs-keyword">int</span> mid = (right - left)/<span class="hljs-number">2</span> + left;
          <span class="hljs-comment">//如果要查找的值大于中间位置的值，说明要查找的值在右边部分</span>
          <span class="hljs-keyword">if</span>(arr[mid] &lt; num) &#123;
             left = mid + <span class="hljs-number">1</span>;
