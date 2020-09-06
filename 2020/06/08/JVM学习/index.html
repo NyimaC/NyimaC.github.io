@@ -1162,7 +1162,7 @@ Constant pool:
 <p>执行完毕，弹出栈帧 </p>
 <p>清除 main 操作数栈内容</p>
 <p><img src="https://nyimapicture.oss-cn-beijing.aliyuncs.com/img/20200608151640.png" srcset="/img/loading.gif" alt=""></p>
-<p>*<em>return *</em><br>完成 main 方法调用，弹出 main 栈帧，程序结束</p>
+<p><strong>return</strong><br>完成 main 方法调用，弹出 main 栈帧，程序结束</p>
 <h4 id="通过字节码指令来分析问题"><a href="#通过字节码指令来分析问题" class="headerlink" title="通过字节码指令来分析问题"></a>通过字节码指令来分析问题</h4><p>代码</p>
 <pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Demo2</span> </span>&#123;
 	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;
@@ -1188,7 +1188,7 @@ Constant pool:
         <span class="hljs-number">7</span>: if_icmpge     <span class="hljs-number">21</span>	<span class="hljs-comment">//比较操作数栈中的两个数，如果下面的数大于上面的数，就跳转到21。这里的比较是将两个数做减法。因为涉及运算操作，所以会将两个数弹出操作数栈来进行运算。运算结束后操作数栈为空</span>
        <span class="hljs-number">10</span>: iload_2		<span class="hljs-comment">//将局部变量2号槽位的数放入操作数栈中，放入的值是0</span>
        <span class="hljs-number">11</span>: iinc          <span class="hljs-number">2</span>, <span class="hljs-number">1</span>	<span class="hljs-comment">//将局部变量2号槽位的数加1，自增后，槽位中的值为1</span>
-       <span class="hljs-number">14</span>: istore_2	<span class="hljs-comment">//将操作数栈中的数放入到局部变量表的2号槽位，2号槽位的值又变为了1</span>
+       <span class="hljs-number">14</span>: istore_2	<span class="hljs-comment">//将操作数栈中的数放入到局部变量表的2号槽位，2号槽位的值又变为了0</span>
        <span class="hljs-number">15</span>: iinc          <span class="hljs-number">1</span>, <span class="hljs-number">1</span> <span class="hljs-comment">//1号槽位的值自增1</span>
        <span class="hljs-number">18</span>: goto          <span class="hljs-number">4</span> <span class="hljs-comment">//跳转到第4条指令</span>
        21: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
@@ -1218,7 +1218,7 @@ Constant pool:
 
 
 
-<p>编译器会按<strong>从上至下</strong>的顺序，收集所有 static 静态代码块和静态成员赋值的代码，<strong>合并</strong>为一个特殊的方 法 <cinit>()V ：</p>
+<p>编译器会按<strong>从上至下</strong>的顺序，收集所有 static 静态代码块和静态成员赋值的代码，<strong>合并</strong>为一个特殊的方法 cinit()V ：</p>
 <pre><code class="hljs angelscript">stack=<span class="hljs-number">1</span>, locals=<span class="hljs-number">0</span>, args_size=<span class="hljs-number">0</span>
          <span class="hljs-number">0</span>: bipush        <span class="hljs-number">10</span>
          <span class="hljs-number">2</span>: putstatic     #<span class="hljs-number">3</span>                  <span class="hljs-comment">// Field i:I</span>
@@ -1335,8 +1335,8 @@ Constant pool:
         <span class="hljs-number">23</span>: <span class="hljs-keyword">return</span></code></pre>
 
 <ul>
-<li>new 是创建【对象】，给对象分配堆内存，执行成功会将【对象引用】压入操作数栈 </li>
-<li>dup 是赋值操作数栈栈顶的内容，本例即为【对象引用】，为什么需要两份引用呢，一个是要配 合 invokespecial 调用该对象的构造方法 “<init>“:()V （会消耗掉栈顶一个引用），另一个要 配合 astore_1 赋值给局部变量 </li>
+<li>new 是创建【对象】，给对象分配堆内存，执行成功会将【<strong>对象引用</strong>】压入操作数栈 </li>
+<li>dup 是赋值操作数栈栈顶的内容，本例即为【<strong>对象引用</strong>】，为什么需要两份引用呢，一个是要配合 invokespecial 调用该对象的构造方法 “init”:()V （会消耗掉栈顶一个引用），另一个要 配合 astore_1 赋值给局部变量 </li>
 <li>终方法（ﬁnal），私有方法（private），构造方法都是由 invokespecial 指令来调用，属于静态绑定 </li>
 <li>普通成员方法是由 invokevirtual 调用，属于<strong>动态绑定</strong>，即支持多态 成员方法与静态方法调用的另一个区别是，执行方法前是否需要【对象引用】 </li>
 </ul>
